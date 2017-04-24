@@ -1,6 +1,6 @@
-package com.example.service;
+package com.mum.pm.user_module.service;
 
-import com.example.model.User;
+import com.mum.pm.user_module.model.User;
 
 public interface UserService {
 	public User findUserByEmail(String email);

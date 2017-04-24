@@ -1,4 +1,4 @@
-package com.example.model;
+package com.mum.pm.user_module.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

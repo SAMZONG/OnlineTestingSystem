@@ -1,16 +1,15 @@
-package com.example.service;
+package com.mum.pm.user_module.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
+import com.mum.pm.user_module.model.Role;
+import com.mum.pm.user_module.model.User;
+import com.mum.pm.user_module.repository.RoleRepository;
+import com.mum.pm.user_module.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import com.example.model.Role;
-import com.example.model.User;
-import com.example.repository.RoleRepository;
-import com.example.repository.UserRepository;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{

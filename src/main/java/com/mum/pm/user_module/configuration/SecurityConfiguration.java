@@ -1,4 +1,4 @@
-package com.example.configuration;
+package com.mum.pm.user_module.configuration;
 
 import javax.sql.DataSource;
 
