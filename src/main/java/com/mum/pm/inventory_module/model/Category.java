@@ -1,9 +1,10 @@
 package com.mum.pm.inventory_module.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by manzil on 4/25/2017.
@@ -14,6 +15,14 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int categoryId;
     private String categoryName;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "category", orphanRemoval = true)
+    private Set<SubCategory> subCategories;
+
+    public Category() {
+        subCategories=new HashSet<>();
+    }
 
     public int getCategoryId() {
         return categoryId;
