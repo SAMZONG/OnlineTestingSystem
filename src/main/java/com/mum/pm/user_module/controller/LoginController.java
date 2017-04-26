@@ -1,7 +1,6 @@
 package com.mum.pm.user_module.controller;
 
-import javax.validation.Valid;
-
+import com.mum.pm.user_module.model.User;
 import com.mum.pm.user_module.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -11,7 +10,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.mum.pm.user_module.model.User;
+
+import javax.validation.Valid;
 
 
 @Controller
@@ -64,9 +64,30 @@ public class LoginController {
 		ModelAndView modelAndView = new ModelAndView();
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("userName", "Welcome " + user.getName() + " " + user.getLastName() + " (" + user.getEmail() + ")");
+		modelAndView.addObject("userName",   user.getName() + " " + user.getLastName());
+		modelAndView.addObject("userRole",   "Admin");
 		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
 		modelAndView.setViewName("admin/home");
+		modelAndView.setViewName("plain-page");
+		return modelAndView;
+	}
+
+	@RequestMapping(value="/admin/plain-page",  method = RequestMethod.GET)
+	public ModelAndView plainPage() {
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		modelAndView.addObject("userName",   user.getName() + " " + user.getLastName());
+		modelAndView.addObject("userRole",   "Admin");
+		modelAndView.setViewName("plain-page");
+		return modelAndView;
+	}
+
+	@RequestMapping("/admin/pricing-tables")
+	public ModelAndView pricingTables() {
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		modelAndView.setViewName("pricing-tables");
 		return modelAndView;
 	}
 	

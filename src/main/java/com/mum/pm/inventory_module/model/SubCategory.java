@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by manzil on 4/25/2017.
  */
 @Entity
-@Table(name="subcategory")
+@Table
 public class SubCategory {
 
     @Id
@@ -14,6 +14,7 @@ public class SubCategory {
     private int subCategoryId;
     private String subCategoryName;
     @ManyToOne
+    @JoinColumn(name ="category_id")
     private Category category;
 
     public int getSubCategoryId() {

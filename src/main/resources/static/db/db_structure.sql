@@ -1,9 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
---
--- Database: onlinetest
--- ------------------------------------------------------
--- Server version	5.1.63-community
-use onlinetest;
+use onlinetestsystem
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,13 +33,13 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `active` int(11) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -56,11 +51,11 @@ DROP TABLE IF EXISTS `user_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_role` (
-  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`,`role_id`),
+  PRIMARY KEY (`user_id`,`role_id`),
   KEY `FKa68196081fvovjhkek5m97n3y` (`role_id`),
-  CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FK859n2jvi8ivhui0rl0esws6o` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
   CONSTRAINT `FKa68196081fvovjhkek5m97n3y` FOREIGN KEY (`role_id`) REFERENCES `role` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -68,9 +63,9 @@ DROP TABLE IF EXISTS `category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `categoryname` varchar(255) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`id`)
+  `category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_name` varchar(255) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -82,15 +77,30 @@ DROP TABLE IF EXISTS `constant`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `constant` (
-  `id` int(11) NOT NULL,
+  `constant_id` int(11) NOT NULL,
   `name` varchar(255) CHARACTER SET latin1 NOT NULL,
   `value` int(11) NOT NULL,
-  `Description` text CHARACTER SET latin1,
-  PRIMARY KEY (`id`)
+  `description` text CHARACTER SET latin1,
+  PRIMARY KEY (`constant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Table structure for table `subcategory`
+--
 
+DROP TABLE IF EXISTS `sub_category`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sub_category` (
+  `sub_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `sub_category_name` varchar(255) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`sub_category_id`),
+  KEY `category_id` (`category_id`),
+  CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
 --
 -- Table structure for table `question_answer`
 --
@@ -99,7 +109,7 @@ DROP TABLE IF EXISTS `question_answer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `question_answer` (
-  `id` int(11) NOT NULL,
+  `question_answer_id` int(11) NOT NULL,
   `question_description` text CHARACTER SET latin1 NOT NULL,
   `answer_1` text CHARACTER SET latin1 NOT NULL,
   `answer_2` text CHARACTER SET latin1 NOT NULL,
@@ -107,31 +117,10 @@ CREATE TABLE `question_answer` (
   `answer_4` text CHARACTER SET latin1 NOT NULL,
   `answer_5` text CHARACTER SET latin1 NOT NULL,
   `correct_answer` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `subcategoryid` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `subcategoryid` (`subcategoryid`),
-  CONSTRAINT `question_answer_ibfk_1` FOREIGN KEY (`subcategoryid`) REFERENCES `subcategory` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `report`
---
-
-DROP TABLE IF EXISTS `report`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `report` (
-  `id` int(11) NOT NULL,
-  `studentid` int(11) NOT NULL,
-  `userid` int(11) NOT NULL,
-  `result` float NOT NULL,
-  `categoryname` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'category may change',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `userid` (`userid`),
-  KEY `studentid` (`studentid`),
-  CONSTRAINT `report_ibfk_2` FOREIGN KEY (`userid`) REFERENCES `user` (`id`),
-  CONSTRAINT `report_ibfk_3` FOREIGN KEY (`studentid`) REFERENCES `student` (`studentid`)
+  `sub_category_id` int(11) NOT NULL,
+  PRIMARY KEY (`question_answer_id`),
+  KEY `sub_category_id` (`sub_category_id`),
+  CONSTRAINT `question_answer_ibfk_1` FOREIGN KEY (`sub_category_id`) REFERENCES `sub_category` (`sub_category_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -143,55 +132,60 @@ DROP TABLE IF EXISTS `student`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `student` (
-  `id` int(11) NOT NULL,
-  `studentid` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
   `email` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `firstname` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `lastname` varchar(255) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `studentid` (`studentid`)
+  `first_name` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `last_name` varchar(255) CHARACTER SET latin1 NOT NULL,
+  PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `subcategory`
+-- Table structure for table `report`
 --
 
-DROP TABLE IF EXISTS `subcategory`;
+DROP TABLE IF EXISTS `report`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `subcategory` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `categoryid` int(11) NOT NULL,
-  `subCatagoryname` varchar(255) CHARACTER SET latin1 NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `categoryid` (`categoryid`),
-  CONSTRAINT `subcategory_ibfk_1` FOREIGN KEY (`categoryid`) REFERENCES `category` (`id`)
+CREATE TABLE `report` (
+  `report_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `result` float NOT NULL,
+  `category_name` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'category may change',
+  PRIMARY KEY (`report_id`),
+  UNIQUE KEY `userid` (`user_id`),
+  KEY `student_id` (`student_id`),
+  CONSTRAINT `report_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `report_ibfk_3` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+
+
 
 --
 -- Table structure for table `testkey`
 --
 
-DROP TABLE IF EXISTS `testkey`;
+DROP TABLE IF EXISTS `test_key`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `testkey` (
-  `id` int(11) NOT NULL,
-  `testkey` varchar(255) COLLATE utf8_bin NOT NULL,
-  `userid` int(11) NOT NULL,
-  `studentid` int(11) NOT NULL,
+CREATE TABLE `test_key` (
+  `testkey_id` int(11) NOT NULL,
+  `testkey_value` varchar(255) COLLATE utf8_bin NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `student_id` int(11) NOT NULL,
   `createdatetime` datetime NOT NULL,
   `expiredatetime` datetime NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `categoryname` varchar(255) COLLATE utf8_bin NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `testkey` (`testkey`),
-  KEY `userid` (`userid`),
-  KEY `studentid` (`studentid`),
-  CONSTRAINT `testkey_ibfk_1` FOREIGN KEY (`userid`) REFERENCES `user` (`id`),
-  CONSTRAINT `testkey_ibfk_2` FOREIGN KEY (`studentid`) REFERENCES `student` (`id`)
+  `category_name` varchar(255) COLLATE utf8_bin NOT NULL,
+  PRIMARY KEY (`testkey_id`),
+  UNIQUE KEY `testkey_value` (`testkey_value`),
+  KEY `userid` (`user_id`),
+  KEY `studentid` (`student_id`),
+  CONSTRAINT `testkey_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`),
+  CONSTRAINT `testkey_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `student` (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -209,4 +203,3 @@ CREATE TABLE `testkey` (
 
 
 INSERT INTO `role` VALUES (1,'ADMIN');
-
