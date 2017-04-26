@@ -6,21 +6,22 @@ import javax.persistence.*;
  * Created by manzil on 4/25/2017.
  */
 @Entity
+@Table(name="subcategory")
 public class SubCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private int subCategoryId;
     private String subCategoryName;
     @ManyToOne
     private Category category;
 
-    public int getId() {
-        return id;
+    public int getSubCategoryId() {
+        return subCategoryId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setSubCategoryId(int subCategoryId) {
+        this.subCategoryId = subCategoryId;
     }
 
     public String getSubCategoryName() {

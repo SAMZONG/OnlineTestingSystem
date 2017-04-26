@@ -10,6 +10,7 @@ import java.util.Set;
  * Created by manzil on 4/25/2017.
  */
 @Entity
+@Table(name="Category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
