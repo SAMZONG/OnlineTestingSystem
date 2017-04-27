@@ -4,8 +4,10 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 import com.mum.pm.user_module.model.Role;
+import com.mum.pm.user_module.model.Student;
 import com.mum.pm.user_module.model.User;
 import com.mum.pm.user_module.repository.RoleRepository;
+import com.mum.pm.user_module.repository.StudentRepository;
 import com.mum.pm.user_module.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +20,8 @@ public class UserServiceImpl implements UserService{
 	private UserRepository userRepository;
 	@Autowired
     private RoleRepository roleRepository;
+	@Autowired
+	private StudentRepository studentRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
@@ -25,6 +29,8 @@ public class UserServiceImpl implements UserService{
 	public User findUserByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
+
+	public Student findStudentById(int studentId){ return studentRepository.findByStudentId(studentId);}
 
 	@Override
 	public void saveUser(User user) {
@@ -35,4 +41,8 @@ public class UserServiceImpl implements UserService{
 		userRepository.save(user);
 	}
 
+	@Override
+	public void saveStudent(Student student) {
+		studentRepository.save(student);
+	}
 }
