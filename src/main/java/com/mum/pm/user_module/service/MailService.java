@@ -32,9 +32,7 @@ public class MailService{
 		try {
 			mailSender.send(message);
 
-			System.out.println("Mail send completed");
 		}catch(Exception e){
-			System.out.println("Failed to send mail"+e.getStackTrace());
 			e.printStackTrace();
 		}
 	}
