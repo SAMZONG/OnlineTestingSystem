@@ -21,6 +21,14 @@ public class Category {
     @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "category", orphanRemoval = true)
     private Set<SubCategory> subCategories;
 
+    public Set<SubCategory> getSubCategories() {
+        return subCategories;
+    }
+
+    public void setSubCategories(Set<SubCategory> subCategories) {
+        this.subCategories = subCategories;
+    }
+
     public Category() {
         subCategories=new HashSet<>();
     }
@@ -40,4 +48,15 @@ public class Category {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
+    public void addSubCategory(SubCategory subCategory){
+        subCategories.add(subCategory);
+        subCategory.setCategory(this);
+    }
+
+    public void removeSubCategory(SubCategory subCategory){
+        subCategory.setCategory(null);
+        this.subCategories.remove(subCategory);
+    }
+
 }

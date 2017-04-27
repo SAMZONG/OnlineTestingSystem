@@ -25,6 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getCategoryById(int id) {
+
         return categoryDAO.findOne(id);
     }
 
@@ -41,5 +42,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<Category> getAllCategories() {
         return (List<Category>) categoryDAO.findAll();
+    }
+
+    @Override
+    public boolean isCategoryExist(Category category) {
+        return categoryDAO.exists(category.getCategoryId());
     }
 }
