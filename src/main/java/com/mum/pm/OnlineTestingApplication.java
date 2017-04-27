@@ -1,5 +1,6 @@
 package com.mum.pm;
 
+import com.mum.pm.user_module.service.MailService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,6 +22,7 @@ public class OnlineTestingApplication extends SpringBootServletInitializer{
 
 	@Override
 	protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
+
 		return application.sources(OnlineTestingApplication.class);
 	}
 }
