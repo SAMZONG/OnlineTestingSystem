@@ -1,6 +1,7 @@
 package com.mum.pm.user_module.controller;
 
 import com.mum.pm.user_module.model.User;
+import com.mum.pm.user_module.service.MailService;
 import com.mum.pm.user_module.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -22,6 +23,7 @@ public class LoginController {
 
 	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
+
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
 		return modelAndView;

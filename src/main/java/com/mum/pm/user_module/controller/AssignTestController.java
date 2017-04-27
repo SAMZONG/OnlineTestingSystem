@@ -3,6 +3,7 @@ package com.mum.pm.user_module.controller;
 import com.mum.pm.user_module.model.Student;
 import com.mum.pm.user_module.model.TestKey;
 import com.mum.pm.user_module.model.User;
+import com.mum.pm.user_module.service.MailService;
 import com.mum.pm.user_module.service.TestKeyService;
 import com.mum.pm.user_module.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,8 @@ public class AssignTestController {
     @Autowired
     private UserService userService;
 
-
+    @Autowired
+    MailService mailService;
     @RequestMapping(value="/admin/assign-test",  method = RequestMethod.GET)
     public ModelAndView assignNewTest() {
         ModelAndView modelAndView = new ModelAndView();
@@ -47,19 +49,26 @@ public class AssignTestController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
         Student student = userService.findStudentById(testKey.getStudentid());
-
-        modelAndView.addObject("userName",   user.getName() + " " + user.getLastName());
+         modelAndView.addObject("userName",   user.getName() + " " + user.getLastName());
         modelAndView.addObject("userRole",   "Admin");
 
         if(student == null){
 //            bindingResult
 //                    .rejectValue("studentid", "error.testkey",
 //                            "There is no such student with the id provided");
+
             modelAndView.addObject("successMessage", "There is no such student with the id provided");
             modelAndView.addObject("testkey",testKey);
         }else{
             testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid(),testKey.getCategoryName());
+
+            try {
+                mailService.sendMail("manzilgajurel80@gmail.com", "noemail@gmail.com", "Test", "Hello Manzil, This is Binesh Sah!");
+            }catch(Exception e){
+
+            }
             modelAndView.addObject("testkey", new TestKey());
+
             modelAndView.addObject("successMessage", "Test key has been generated successfully");
         }
         modelAndView.setViewName("assign-test");
