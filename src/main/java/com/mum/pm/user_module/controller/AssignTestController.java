@@ -26,7 +26,6 @@ public class AssignTestController {
     @Autowired
     private UserService userService;
 
-
     @RequestMapping(value="/admin/assign-test",  method = RequestMethod.GET)
     public ModelAndView assignNewTest() {
         ModelAndView modelAndView = new ModelAndView();
@@ -52,13 +51,11 @@ public class AssignTestController {
         modelAndView.addObject("userRole",   "Admin");
 
         if(student == null){
-//            bindingResult
-//                    .rejectValue("studentid", "error.testkey",
-//                            "There is no such student with the id provided");
             modelAndView.addObject("successMessage", "There is no such student with the id provided");
             modelAndView.addObject("testkey",testKey);
         }else{
             testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid(),testKey.getCategoryName());
+
             modelAndView.addObject("testkey", new TestKey());
             modelAndView.addObject("successMessage", "Test key has been generated successfully");
         }
