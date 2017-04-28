@@ -7,4 +7,6 @@
 
 - http://localhost:8080/registration
 - http://localhost:8080/login
+- http://localhost:8080/student
+- http://localhost:8080/student/test
 
