@@ -47,7 +47,7 @@ public class Question {
     private int correct_answer;
 
     @Column(name = "sub_category_id")
-    private int sub_category_id;
+    private int subCategoryId;
 
 
     public  Question(){}
@@ -61,7 +61,7 @@ public class Question {
         this.answer_4 = answer_4;
         this.answer_5 = answer_5;
         this.correct_answer = correct_answer;
-        this.sub_category_id = sub_category_id;
+        this.subCategoryId = sub_category_id;
 
     }
 
@@ -123,11 +123,11 @@ public class Question {
     }
 
     public int getSub_category_id() {
-        return sub_category_id;
+        return subCategoryId;
     }
 
     public void setSub_category_id(int sub_category_id) {
-        this.sub_category_id = sub_category_id;
+        this.subCategoryId = sub_category_id;
     }
 
 
