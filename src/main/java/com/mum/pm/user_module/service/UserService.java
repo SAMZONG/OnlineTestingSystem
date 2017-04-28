@@ -8,4 +8,5 @@ public interface UserService {
 	 void saveUser(User user);
 	 Student findStudentById(int studentId);
 	 void saveStudent(Student student);
+
 }

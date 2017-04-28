@@ -45,4 +45,6 @@ public class UserServiceImpl implements UserService{
 	public void saveStudent(Student student) {
 		studentRepository.save(student);
 	}
+
+
 }

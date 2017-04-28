@@ -48,7 +48,16 @@ public class AssignTestController {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
-        Student student = userService.findStudentById(testKey.getStudentid());
+
+        int sid = testKey.getStudentid();
+
+        Student student = userService.findStudentById(sid);
+
+        //TODO: pull the access key for the test using from testkey table using studentid
+
+
+        String emailMessage = "Hello " + student.getFirstName() + ", the link for your test is: "+ "http://localhost:8080/student/test \n" +
+                " And the Test Key is: " +  testKey.getTestkeyValue();
 
         modelAndView.addObject("userName",   user.getName() + " " + user.getLastName());
         modelAndView.addObject("userRole",   "Admin");
@@ -58,8 +67,9 @@ public class AssignTestController {
             modelAndView.addObject("testkey",testKey);
         }else{
             testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid(),testKey.getCategoryName());
+
             try {
-                mailService.sendMail("noemail@gmail.com", "noemail@gmail.com", "Test", "Hello Manzil, This is Binesh Sah!");
+                mailService.sendMail("mumpmproject@gmail.com", "awadodeh@gmail.com", "Test", emailMessage);
             }catch(Exception e){
 
             }

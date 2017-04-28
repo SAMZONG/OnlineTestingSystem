@@ -1,68 +1,68 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Login page</title>
-</head>
-<body>
-<h1>Student Access Key</h1>
-<!--<p th:if="${AddAccessKey-error}" class="error">Email or Access Key is not correct</p>-->
-<form th:action="@{/student/test}" method="post">
-    <label>Email</label>:
-    <input type="text" id="access-email" name="email" autofocus="autofocus" /> <br />
-    <label>Access Key</label>:
-    <input type="password" id="access-key-pass" name="access-key" /> <br />
-    <input type="submit" value="Submit" />
-</form>
-</body>
-</html>
-
-
-
 <!--<!DOCTYPE html>-->
-<!--<html lang="en" xmlns="http://www.w3.org/1999/xhtml"-->
-      <!--xmlns:th="http://www.thymeleaf.org">-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
 <!--<head>-->
-    <!--<title>Registration Form</title>-->
-    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />-->
-    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+    <!--<title>Login page</title>-->
 <!--</head>-->
 <!--<body>-->
-<!--<div class="container">-->
-    <!--<div class="row">-->
-        <!--<div class="col-md-6 col-md-offset-3">-->
-            <!--<form autocomplete="off" action="#" th:action="@{/student/test}"-->
-                  <!--th:object="${student}" method="post" class="form-horizontal"-->
-                  <!--role="form">-->
-                <!--<h2>Submit Access Key Form</h2>-->
-
-                <!--<div class="form-group">-->
-                    <!--<div class="col-sm-9">-->
-                        <!--<input type="text" th:field="*{email}" placeholder="Email"-->
-                               <!--class="form-control" /> <label-->
-                            <!--th:if="${#fields.hasErrors('email')}" th:errors="*{email}"-->
-                            <!--class="validation-message"></label>-->
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--<div class="form-group">-->
-                    <!--<div class="col-sm-9">-->
-                        <!--<input type="text" th:field="*{testKey}"-->
-                               <!--placeholder="TestKey" class="form-control" /> <label-->
-                            <!--th:if="${#fields.hasErrors('testKey')}" th:errors="*{testKey}"-->
-                            <!--class="validation-message"></label>-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                    <!--<div class="col-sm-9">-->
-                        <!--<button type="submit" class="btn btn-primary btn-block">Submit Key</button>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
-    <!--</div>-->
-<!--</div>-->
-
+<!--<h1>Student Access Key</h1>-->
+<!--&lt;!&ndash;<p th:if="${AddAccessKey-error}" class="error">Email or Access Key is not correct</p>&ndash;&gt;-->
+<!--<form th:action="@{/student/test}" method="post">-->
+    <!--<label>Email</label>:-->
+    <!--<input type="text" id="access-email" name="email" autofocus="autofocus" /> <br />-->
+    <!--<label>Access Key</label>:-->
+    <!--<input type="password" id="access-key-pass" name="access-key" /> <br />-->
+    <!--<input type="submit" value="Submit" />-->
+<!--</form>-->
 <!--</body>-->
 <!--</html>-->
+
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Access Key Entry</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form autocomplete="off" action="#" th:action="@{/student/test}"
+                  th:object="${studentAccessKeyForm}" method="post" class="form-horizontal"
+                  role="form">
+                <h2>Submit Access Key Form</h2>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{email}" placeholder="Enter Email"
+                               class="form-control" /> <label
+                            th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="text" th:field="*{accessKey}"
+                               placeholder="Access Key" class="form-control" /> <label
+                            th:if="${#fields.hasErrors('accessKey')}" th:errors="*{accessKey}"
+                            class="validation-message"></label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-block">Submit Key</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
