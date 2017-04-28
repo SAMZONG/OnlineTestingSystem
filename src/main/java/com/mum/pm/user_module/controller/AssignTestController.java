@@ -53,11 +53,8 @@ public class AssignTestController {
 
         Student student = userService.findStudentById(sid);
 
-        //TODO: pull the access key for the test using from testkey table using studentid
 
-
-        String emailMessage = "Hello " + student.getFirstName() + ", the link for your test is: "+ "http://localhost:8080/student/test \n" +
-                " And the Test Key is: " +  testKey.getTestkeyValue();
+        String testKeyValue;
 
         modelAndView.addObject("userName",   user.getName() + " " + user.getLastName());
         modelAndView.addObject("userRole",   "Admin");
@@ -66,9 +63,12 @@ public class AssignTestController {
            modelAndView.addObject("successMessage", "There is no such student with the id provided");
             modelAndView.addObject("testkey",testKey);
         }else{
-            testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid(),testKey.getCategoryName());
+
+            testKeyValue = testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid(),testKey.getCategoryName());
 
             try {
+                String emailMessage = "Hello " + student.getFirstName() + ", the link for your test is: "+ "http://localhost:8080/student/test \n" +
+                        " And the Test Key is: " + testKeyValue;
                 mailService.sendMail("mumpmproject@gmail.com", "awadodeh@gmail.com", "Test", emailMessage);
             }catch(Exception e){
 
@@ -76,6 +76,8 @@ public class AssignTestController {
             modelAndView.addObject("testkey", new TestKey());
             modelAndView.addObject("successMessage", "Test key has been generated successfully");
         }
+
+
         modelAndView.setViewName("assign-test");
         return modelAndView;
     }
