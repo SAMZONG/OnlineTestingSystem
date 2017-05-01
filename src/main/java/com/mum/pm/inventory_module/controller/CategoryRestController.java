@@ -99,6 +99,16 @@ public class CategoryRestController {
         return new ResponseEntity<Category> (HttpStatus.NO_CONTENT);
     }
 
+    @RequestMapping(value="/getSubCategories/{id}", method= RequestMethod.GET)
+    public ResponseEntity<Set<SubCategory>> getSubCategory(@PathVariable("id") int id){
+        Set<SubCategory> subCategories= categoryService.getAllSubCategoriesOfACategory(id);
+        if(subCategories==null || subCategories.isEmpty()){
+            return new ResponseEntity<Set<SubCategory>> (HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<Set<SubCategory>> (subCategories,HttpStatus.OK);
+    }
+
 
 
 
