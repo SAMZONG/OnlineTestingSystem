@@ -1,96 +1,97 @@
+
 <html lang="en" data-layout-decorate="~{fragments/layout}" xmlns="http://www.w3.org/1999/xhtml"
-                                      xmlns:th="http://www.thymeleaf.org">
-                                <head>
-                                    <title>Add New Category</title>
-                                </head>
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Category</title>
+</head>
 
-                                <body>
-                                <div class="right_col" role="main" data-layout-fragment="content">
-                                    <div class="">
-                                        <div class="page-title">
-                                            <div class="title_left">
-                                                <h3>Add New Category</h3>
-                                            </div>
-                                        </div>
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Add New Category</h3>
+            </div>
+        </div>
 
-                                        <div class="clearfix"></div>
+        <div class="clearfix"></div>
 
-                                        <div class="row">
-                                            <div class="col-md-12 col-sm-12 col-xs-12">
-                                                <div class="x_panel">
-                                                    <div class="x_title">
-                                                        <h2>Please enter category info below</h2>
-                                                        <div class="clearfix"></div>
-                                                    </div>
-                                                    <div class="x_content">
-                                                        <div class="container">
-                                                            <div class="row">
-                                                                <div class="col-md-6 col-md-offset-3">
-                                                                    <form autocomplete="off" action="#" th:action="@{/admin/add-category}"
-                                                                          th:object="${category}" method="post" class="form-horizontal"
-                                                                          role="form">
-                                                                        <div class="form-group">
-                                                                            <div class="col-sm-9">
-                                                                                <label th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}"
-                                                                                       class="validation-message"></label>
-                                                                                <input type="text" th:field="*{categoryName}" placeholder="Name"
-                                                                                       class="form-control" />
-                                                                            </div>
-                                                                        </div>
-
-                                                                       <!-- <div class="form-group">
-                                                                            <div class="col-sm-9">
-                                                                                <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                                                                          class="validation-message"></label>
-                                                                                <input type="text" th:field="*{lastName}"
-                                                                                       placeholder="Last Name" class="form-control" />
-                                                                            </div>
-                                                                        </div>-->
-                                                                       <!-- <div class="form-group">
-                                                                            <div class="col-sm-9">
-                                                                                <input type="text" th:field="*{email}" placeholder="Email"
-                                                                                       class="form-control" /> <label
-                                                                                    th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                                                                                    class="validation-message"></label>
-                                                                            </div>
-                                                                        </div>-->
-                                                                       <!-- <div class="form-group">
-                                                                            <div class="col-sm-9">
-                                                                                <input type="text" th:field="*{studentId}"
-                                                                                       placeholder="studentId" class="form-control" />
-                                                                            </div>
-                                                                        </div>-->
-                                                                        <div class="form-group">
-                                                                            <div class="col-sm-9">
-                                                                                <button type="submit" class="btn btn-primary btn-block">Add</button>
-                                                                            </div>
-                                                                        </div>
-                                                                        <span th:utext="${successMessage}"></span>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </body>
-                                </html>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Please enter category info below</h2>
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        Add_Category
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <form autocomplete="off" action="#" th:action="@{/admin/add-category}"
+                                          th:object="${category}" method="post" class="form-horizontal"
+                                          role="form">
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <label th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}"
+                                                       class="validation-message"></label>
+                                                <input type="text" th:field="*{categoryName}" placeholder="Name"
+                                                       class="form-control" />
+                                            </div>
+                                        </div>
+
+                                        <!-- <div class="form-group">
+                                             <div class="col-sm-9">
+                                                 <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
+                                                           class="validation-message"></label>
+                                                 <input type="text" th:field="*{lastName}"
+                                                        placeholder="Last Name" class="form-control" />
+                                             </div>
+                                         </div>-->
+                                        <!-- <div class="form-group">
+                                             <div class="col-sm-9">
+                                                 <input type="text" th:field="*{email}" placeholder="Email"
+                                                        class="form-control" /> <label
+                                                     th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                                     class="validation-message"></label>
+                                             </div>
+                                         </div>-->
+                                        <!-- <div class="form-group">
+                                             <div class="col-sm-9">
+                                                 <input type="text" th:field="*{studentId}"
+                                                        placeholder="studentId" class="form-control" />
+                                             </div>
+                                         </div>-->
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <button type="submit" class="btn btn-primary btn-block">Add</button>
+                                            </div>
+                                        </div>
+                                        <span th:utext="${successMessage}"></span>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</body>
+</html>
+</li>
+<li><a class="close-link"><i class="fa fa-close"></i></a>
+</li>
+</ul>
+<div class="clearfix"></div>
+</div>
+<div class="x_content">
+    Add_Category
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </body>
 </html>
