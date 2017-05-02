@@ -2,6 +2,7 @@ package com.mum.pm.user_module.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import com.mum.pm.user_module.model.Role;
 import com.mum.pm.user_module.model.Student;
@@ -46,5 +47,8 @@ public class UserServiceImpl implements UserService{
 		studentRepository.save(student);
 	}
 
-
+	@Override
+	public List<Student> findAllStudent() {
+		return studentRepository.findAll();
+	}
 }
