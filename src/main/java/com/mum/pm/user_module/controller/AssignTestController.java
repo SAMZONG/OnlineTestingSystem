@@ -13,14 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by Chuang on 2017/4/26.
  */
-@Controller
+@RestController
+//@RequestMapping("/admin")
 public class AssignTestController {
     @Autowired
     private TestKeyService testKeyService;
@@ -28,6 +31,25 @@ public class AssignTestController {
     private UserService userService;
     @Autowired
     MailService mailService;
+
+
+    @RequestMapping(path="/student/getAllStudent", method=RequestMethod.GET)
+    public List<Student> getAllEmployees(){
+        return userService.findAllStudent();
+    }
+
+    @RequestMapping(path="/admin/all-student", method=RequestMethod.GET)
+    public ModelAndView goHome(){
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+
+        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+        modelAndView.addObject("userRole", "Admin");
+
+        modelAndView.setViewName("all-student");
+        return modelAndView;
+    }
 
     @RequestMapping(value="/admin/assign-test",  method = RequestMethod.GET)
     public ModelAndView assignNewTest() {
