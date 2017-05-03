@@ -18,6 +18,7 @@ public class Student {
     private String email;
     private String firstName;
     private String lastName;
+    private boolean active;
 
     @Id
     @Column(name = "student_id")
@@ -60,6 +61,15 @@ public class Student {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Column(name = "active")
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
     @Override

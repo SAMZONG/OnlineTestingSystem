@@ -30,6 +30,22 @@ public class QuestionServiceImpl implements QuestionService {
     private static Sheet ws = null;
 
     @Override
+    public void save(Question question) {
+        questionRepository.save(question);
+    }
+
+    @Override
+    public Question findById(int id) {
+        return questionRepository.findById(id);
+    }
+
+    @Override
+    public List<Question> getAllQuestions() {
+        return questionRepository.findAll();
+    }
+
+
+    @Override
     public void uploadQuestions(Path path) {
 
         String description = null;
