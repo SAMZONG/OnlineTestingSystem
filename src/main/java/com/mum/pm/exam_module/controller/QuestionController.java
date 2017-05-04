@@ -26,7 +26,7 @@ public class QuestionController {
     QuestionService questionService;
 
    @Autowired
- SubCatagoryService subCatagoryService;
+   SubCatagoryService subCatagoryService;
 
     @ResponseBody
     @RequestMapping(value="/getSubCategories", method= RequestMethod.GET)
