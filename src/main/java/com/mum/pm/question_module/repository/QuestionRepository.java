@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository("questionRepository")
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
-    public List<Question> getAllBySub_category_id(int subCategoryId);
+    public List<Question> getAllBySubCategoryId(int subCategoryId);
 }
