@@ -23,7 +23,7 @@ $(document).ready( function () {
 
     $('#employeesTable tbody').on( 'click', 'button', function () {
         var data = table.row( $(this).parents('tr') ).data();
-        var student = [{
+        var student = {
             // "active":"active",
             // "studentId": "599",
             // "email":"chuang.huang12@gmail.com",
@@ -36,14 +36,14 @@ $(document).ready( function () {
             "firstName":data["firstName"],
             "lastName":data["lastName"],
             "active":data["active"]
-        }];
+        };
 
         $.ajax({
             url: '/admin/assigntest',
             type: 'POST',
             contentType: 'application/json',
             dataType: 'json',
-            data: student,
+            data: JSON.stringify(student),
             success: function (data) {
                 table.row( $(this).parents('tr') ).remove().draw();
                 alert(data.msg);
