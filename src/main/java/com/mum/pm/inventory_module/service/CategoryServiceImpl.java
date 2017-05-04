@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Set<SubCategory> getAllSubCategoriesOfACategory(int id) {
-        subCategoryDAO.getSubCategoriesByCategory_CategoryId(id);
-        return null;
+       return (Set<SubCategory>) subCategoryDAO.getSubCategoriesByCategory_CategoryId(id);
+
     }
 }

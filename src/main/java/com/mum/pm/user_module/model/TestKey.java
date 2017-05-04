@@ -23,7 +23,7 @@ public class TestKey {
     private Date createdatetime;
     private Date expiredatetime;
     private int active;
-    private String categoryName;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -96,15 +96,6 @@ public class TestKey {
         this.active = active;
     }
 
-    @Basic
-    @Column(name = "category_name")
-    public String getCategoryName() {
-        return categoryName;
-    }
-
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -121,8 +112,7 @@ public class TestKey {
             return false;
         if (expiredatetime != null ? !expiredatetime.equals(testKey.expiredatetime) : testKey.expiredatetime != null)
             return false;
-        if (categoryName != null ? !categoryName.equals(testKey.categoryName) : testKey.categoryName != null)
-            return false;
+
 
         return true;
     }
@@ -134,7 +124,7 @@ public class TestKey {
         result = 31 * result + (createdatetime != null ? createdatetime.hashCode() : 0);
         result = 31 * result + (expiredatetime != null ? expiredatetime.hashCode() : 0);
         result = 31 * result + (int) active;
-        result = 31 * result + (categoryName != null ? categoryName.hashCode() : 0);
+
         return result;
     }
 }

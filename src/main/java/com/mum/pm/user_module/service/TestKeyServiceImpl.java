@@ -47,7 +47,6 @@ public class TestKeyServiceImpl implements TestKeyService {
 
         TestKey testKey = new TestKey();
         testKey.setTestkeyValue(testKeyValue);
-        testKey.setCategoryName(categoryName);
         testKey.setStudentid(studentId);
         testKey.setUserid(userid);
         testKey.setCreatedatetime(calendarUtil.getDate(1));

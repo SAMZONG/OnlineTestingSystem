@@ -86,7 +86,7 @@ public class AssignTestController {
             modelAndView.addObject("testkey",testKey);
         }else{
 
-            testKeyValue = testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid(),testKey.getCategoryName());
+            testKeyValue = null;//testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid(),testKey.getCategoryName());
 
             try {
                 String emailMessage = "Hello " + student.getFirstName() + ", the link for your test is: "+ "http://localhost:8080/student/test \n" +

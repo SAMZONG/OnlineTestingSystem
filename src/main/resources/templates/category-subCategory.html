@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Category-SubCategory Selection</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+        $(function(){
+            num=1;
+            $.ajax({
+                type: 'get',
+                dataType: 'json',
+                url: '/student/categories',
+                success: function (data) {
+                    $.each(data, function(i, category) {
+                        $('#categories')
+                            .append($("<option></option>")
+                                .attr("value",category.categoryId)
+                                .text(category.categoryName));
+
+
+                        /*var conceptName = $('#categories').find(":selected").val();*/
+                    });
+
+                },
+                error: function (){
+                    alert("Failed");
+                }
+            });
+
+            $.ajax({
+                type: 'get',
+                dataType: 'json',
+                url: '/student/subCategories/',
+                data: 'id='+num,
+                success: function (data) {
+                    $.each(data, function(i, subCategory) {
+                        $('#subCategories')
+                            .append($("<option></option>")
+                                .attr("value",subCategory.subCategoryId)
+                                .text(subCategory.subCategoryName));
+
+
+                        /*var conceptName = $('#categories').find(":selected").val();*/
+                        /*$('#categories').find(":selected").val()*/
+                    });
+
+                },
+                error: function (){
+                    alert("Failed");
+                }
+            });
+
+
+            /*var conceptName = $('#categories').find(":selected").text();
+            alert(conceptName);*/
+
+
+        });
+
+    </script>
+
+</head>
+<body>
+
+Select One of the Category:  <select id="categories"></select><br/><br/>
+
+Select 3 to 4 subCategories: <select id="subCategories"></select>
+
+
+
+</body>
+</html>

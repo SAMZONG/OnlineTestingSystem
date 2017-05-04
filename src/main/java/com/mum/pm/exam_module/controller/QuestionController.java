@@ -11,12 +11,10 @@ import com.mum.pm.inventory_module.model.Category;
 import com.mum.pm.inventory_module.model.SubCategory;
 import com.mum.pm.question_module.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/questions")
@@ -55,6 +53,14 @@ public class QuestionController {
     {
         return null;
     }*/
+
+    @RequestMapping(value= "/questionsById/{id}", method = RequestMethod.GET)
+    public List<Question> getQuestionsById(@PathVariable int id){
+        return (List<Question>) questionService.getQuestionsBySubCategoryID(id);
+    }
+
+
+
 
 
 
