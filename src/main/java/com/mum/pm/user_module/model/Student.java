@@ -1,5 +1,7 @@
 package com.mum.pm.user_module.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -12,12 +14,18 @@ import javax.validation.Valid;
 /**
  * Created by Chuang on 2017/4/26.
  */
+
 @Entity
 public class Student {
+    @JsonProperty(value = "studentId")
     private int studentId;
+    @JsonProperty(value = "email")
     private String email;
+    @JsonProperty(value = "firstName")
     private String firstName;
+    @JsonProperty(value = "lastName")
     private String lastName;
+    @JsonProperty(value = "active")
     private boolean active;
 
     @Id
