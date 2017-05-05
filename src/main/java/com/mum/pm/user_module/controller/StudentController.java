@@ -1,12 +1,14 @@
 package com.mum.pm.user_module.controller;
 
 import com.mum.pm.user_module.model.StudentAccessKeyForm;
+import com.mum.pm.user_module.model.TestKey;
 import com.mum.pm.user_module.model.User;
 import com.mum.pm.user_module.service.StudentService;
 import com.mum.pm.user_module.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +23,7 @@ import javax.validation.Valid;
 public class StudentController {
 
     @Autowired
-    private UserService userService;
+    private StudentService studentService;
 
     @RequestMapping(value={"/student","/student/test"},  method = RequestMethod.GET)
     public ModelAndView addAccessKey() {
@@ -34,16 +36,20 @@ public class StudentController {
     @RequestMapping(value={"/student/test"},  method = RequestMethod.POST)
     public ModelAndView postAccessKey(@Valid StudentAccessKeyForm studentAccessKeyForm, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
+        String accessKey = studentAccessKeyForm.getAccessKey();
 
-        System.out.println("StudentController.postAccessKey");
+        if(accessKey.isEmpty()){
 
-//        User userExists = userService.findUserByEmail(studentAccessKeyForm.getEmail());
-//        if (userExists != null) {
-//            bindingResult
-//                    .rejectValue("email", "error.user",
-//                            "There is already a user registered with the email provided");
-//        }
-        modelAndView.setViewName("add-access-success");
+            modelAndView.setViewName("add-access-key");
+            return modelAndView;
+        }else if (studentService.isAccessKey(accessKey)){
+            studentService.deactivateAccessKey(accessKey);
+            modelAndView.setViewName("category-subCategory");
+        }else{
+            modelAndView.setViewName("add-access-key");
+            return modelAndView;
+        }
+
         return modelAndView;
     }
 }
