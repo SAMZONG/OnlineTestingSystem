@@ -15,8 +15,8 @@ $(function(){
             });
 
         },
-        error: function (){
-            alert("Failed");
+        error: function (xhr, ajaxOptions, thrownError){
+            alert("No SubCategories Available"+ " Error:" +xhr.status);
         }
     });
 
@@ -30,7 +30,6 @@ $(function(){
                     .append(
                         $(document.createElement('input')).attr({
                             id:    'myCheckbox'
-                            ,name:  'myCheckbox'
                             ,value: subCategory.subCategoryId
                             ,type:  'checkbox'
                             ,text: subCategory.subCategoryName
@@ -40,8 +39,8 @@ $(function(){
             });
 
         },
-        error: function (){
-            alert("Failed");
+        error: function (xhr, ajaxOptions, thrownError){
+            alert("No SubCategories Available"+ " Error:" +xhr.status);
         }
     });
     $("#categories").change(function () {
@@ -56,8 +55,7 @@ $(function(){
                         .append($(document.createElement('input')).attr
                             ({
                                 id:    'myCheckbox'
-                                ,name:  'myCheckbox'
-                                ,value: 'myValue'
+                                ,value: subCategory.subCategoryId
                                 ,type:  'checkbox'
                                 ,text: subCategory.subCategoryName
                             })
@@ -66,30 +64,22 @@ $(function(){
                 });
 
             },
-            error: function (){
-                alert("Failed");
+            error: function (xhr, ajaxOptions, thrownError){
+                alert("No SubCategories Available"+ " Error:" +xhr.status);
             }
         });
 
     });
 
+    $("#examButton").click(function(){
+        var count= $(":checkbox:checked").length;
+        if(count<3 || count>4){
+            alert("Choose either 3 or 4 SubCategories")
+        }
+        else{
 
-    /*var conceptName = $('#categories').find(":selected").text();
-     alert(conceptName);*/
-
-   /* $('#containerId')
-        .append(
-            $(document.createElement('input')).attr({
-                id:    'myCheckbox'
-                ,name:  'myCheckbox'
-                ,value: 'myValue'
-                ,type:  'checkbox'
-            })
-        );*/
-
-    /*var conceptName = $('#categories').find(":selected").val();*/
-    /*$('#categories').find(":selected").val()*/
-
+        }
+    })
 
 });
 

@@ -15,17 +15,18 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-            <form autocomplete="off" action="#" class="form-horizontal" role="form">
-                <h2>Select Category and Subcategories</h2>
-
-
-
+            <form autocomplete="off"  class="form-horizontal" role="form">
+                <h2>Category and SubCategory Selection</h2>
+                <br/>
+                <h3>Select one Category</h3>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <select class="form-control" id="categories"></select>
                     </div>
                 </div>
 
+
+                <h3>Select 3 to 4 SubCategories</h3>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <div id="subCategories"></div>
@@ -34,7 +35,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <button type="submit" class="btn btn-primary btn-block">Go to Exam</button>
+                        <button type="submit" class="btn btn-primary btn-block" id="examButton">Go to Exam</button>
                     </div>
                 </div>
             </form>
