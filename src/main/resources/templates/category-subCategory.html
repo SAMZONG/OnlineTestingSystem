@@ -4,69 +4,45 @@
     <meta charset="UTF-8">
     <title>Category-SubCategory Selection</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <script>
-        $(function(){
-            num=1;
-            $.ajax({
-                type: 'get',
-                dataType: 'json',
-                url: '/student/categories',
-                success: function (data) {
-                    $.each(data, function(i, category) {
-                        $('#categories')
-                            .append($("<option></option>")
-                                .attr("value",category.categoryId)
-                                .text(category.categoryName));
-
-
-                        /*var conceptName = $('#categories').find(":selected").val();*/
-                    });
-
-                },
-                error: function (){
-                    alert("Failed");
-                }
-            });
-
-            $.ajax({
-                type: 'get',
-                dataType: 'json',
-                url: '/student/subCategories/',
-                data: 'id='+num,
-                success: function (data) {
-                    $.each(data, function(i, subCategory) {
-                        $('#subCategories')
-                            .append($("<option></option>")
-                                .attr("value",subCategory.subCategoryId)
-                                .text(subCategory.subCategoryName));
-
-
-                        /*var conceptName = $('#categories').find(":selected").val();*/
-                        /*$('#categories').find(":selected").val()*/
-                    });
-
-                },
-                error: function (){
-                    alert("Failed");
-                }
-            });
-
-
-            /*var conceptName = $('#categories').find(":selected").text();
-            alert(conceptName);*/
-
-
-        });
-
-    </script>
+    <script src="/js/category-subCategory.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 </head>
 <body>
 
-Select One of the Category:  <select id="categories"></select><br/><br/>
 
-Select 3 to 4 subCategories: <select id="subCategories"></select>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+
+            <form autocomplete="off" action="#" class="form-horizontal" role="form">
+                <h2>Select Category and Subcategories</h2>
+
+
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <select class="form-control" id="categories"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <div id="subCategories"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <button type="submit" class="btn btn-primary btn-block">Go to Exam</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
 
 
 
