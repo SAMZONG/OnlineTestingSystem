@@ -5,6 +5,7 @@
     questions.question="";
     questions.choices=new Array();
     questions.correctAnswer="";
+    questions.selectedAnswer="";
     var test={};
 
     var timer=60;
@@ -132,7 +133,7 @@
 
     // Click handler for the 'Start Over' button
     $('#start').on('click', function (e) {
-        startTimer();
+       /* startTimer();*/
         e.preventDefault();
         
         if(quiz.is(':animated')) {
@@ -179,8 +180,9 @@
         var input = '';
         for (var i = 0; i < questions[index].choices.length; i++) {
             item = $('<li>');
-            input = '<input type="radio" name="answer" value=' + i + ' />';
-            input += questions[index].choices[i];
+            input = '<div class="radio"><label><input type="radio" name="answer" value=' + i + ' >';
+            input += questions[index].choices[i].toString();
+            input+='</label></div>';
             item.append(input);
             radioList.append(item);
         }
@@ -254,10 +256,11 @@
     function store_result() {
 
         console.log("Questions:" +questions);
-        for(var i=0;i<selections.length;i++){
+        test.selectedAnswer=selections;
+       /* for(var i=0;i<selections.length;i++){
 
             test.result[i].correctAnswer=selections[i];
-        }
+        }*/
         $.ajax({
             type: "POST",
             contentType: "application/json",
