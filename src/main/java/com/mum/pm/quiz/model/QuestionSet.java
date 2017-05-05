@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Questions {
+public class QuestionSet {
 
 
     @JsonProperty( "question" )
@@ -21,18 +21,18 @@ public class Questions {
     @XmlElement( required = true )
     int correctAnswer;
 
-    public Questions(String question, List<String> choices, int correctAnswer) {
+    public QuestionSet(String question, List<String> choices, int correctAnswer) {
         this.question = question;
         this.choices = choices;
         this.correctAnswer = correctAnswer;
     }
 
-    public Questions() {
+    public QuestionSet() {
     }
 
     @Override
     public String toString() {
-        return "Questions{" +
+        return "QuestionSet{" +
                 "question='" + question + '\'' +
                 ", choices=" + choices +
                 ", correctAnswer='" + correctAnswer + '\'' +
