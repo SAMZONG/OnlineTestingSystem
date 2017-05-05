@@ -51,4 +51,9 @@ public class UserServiceImpl implements UserService{
 	public List<Student> findAllStudent() {
 		return studentRepository.findAll();
 	}
+
+	@Override
+	public List<Role> findAllRole() {
+		return roleRepository.findAll();
+	}
 }

@@ -10,10 +10,7 @@ import com.mum.pm.user_module.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -66,7 +63,7 @@ public class AssignTestController {
     }
 
     @RequestMapping(value = "/admin/assigntest", method = RequestMethod.POST)
-    public void createAccessCode(@RequestBody  Student student) {
+    public void  createAccessCode(@RequestBody  Student student) {
         try {
            // Student student = objectMapper.readValue(str, Student.class);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -78,14 +75,13 @@ public class AssignTestController {
             if (studentDB.isActive()) {
                 String accessCode = testKeyService.generateAndSaveTestKey(user.getId(), studentDB.getStudentId());
                 mailService.sendMail(student, accessCode);
-
             } else {
                 //do nothing if this student is not active, inactive should not show on the front page
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
 
+        }
 
     }
 

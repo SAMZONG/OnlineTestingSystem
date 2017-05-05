@@ -1,5 +1,6 @@
 package com.mum.pm.user_module.service;
 
+import com.mum.pm.user_module.model.Role;
 import com.mum.pm.user_module.model.Student;
 import com.mum.pm.user_module.model.User;
 
@@ -11,4 +12,5 @@ public interface UserService {
 	 Student findStudentById(int studentId);
 	 void saveStudent(Student student);
 	 List<Student> findAllStudent();
+	 List<Role> findAllRole();
 }

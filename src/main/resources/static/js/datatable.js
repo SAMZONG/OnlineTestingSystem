@@ -44,11 +44,18 @@ $(document).ready( function () {
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(student),
-            success: function (data) {
-                table.row( $(this).parents('tr') ).remove().draw();
-                alert(data.msg);
+
+            success: function(){
+                table.row($(this).parents('tr') ).
+                remove().
+                draw();
             },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+            }
         });
+
+        table.row($(this).parents('tr')).remove().draw();
     });
 
 
