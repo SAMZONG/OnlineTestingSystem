@@ -1,5 +1,9 @@
 package com.mum.pm.user_module.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by larrywilson on 4/27/17.
  */
@@ -7,6 +11,8 @@ package com.mum.pm.user_module.model;
 public class StudentAccessKeyForm {
 
     private String email;
+    @NotEmpty(message = "*Please provide an Access Key")
+    @NotNull(message = "*Please provide an Access Key")
     private String accessKey;
 
     public StudentAccessKeyForm() {

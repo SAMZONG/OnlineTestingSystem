@@ -6,4 +6,8 @@ package com.mum.pm.user_module.service;
 
 public interface StudentService {
 
+
+    boolean isAccessKey(String accessKey);
+
+    void deactivateAccessKey(String accessKey);
 }
