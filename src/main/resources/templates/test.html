@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Quiz</title>
+
+		<link rel="stylesheet" type="text/css" th:href="@{/css/quiz.css}" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+
+
+
+
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+
+			</div>
+		</div>
+	</nav>
+
+	<div class="container" >
+
+		<div class="starter-template">
+
+			<!--<div id="feedback"></div>-->
+
+			<form class="form-horizontal" id="search-form">
+				<div class="form-group form-group-lg">
+					<label class="col-sm-2 control-label">SubCategory</label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" id="subcategory"/>
+					</div>
+
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button type="submit" id="bth-search"
+								class="btn btn-primary btn-lg">Get Questions
+						</button>
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+
+	</div>
+
+
+		<div id='container'>
+			<div id='title'>
+				<h3><p id="category-id" style="font-weight:bold;"> you are taking quiz for </p></h3>
+				<p id="time" align="right"></p>
+			</div>
+   			<br/>
+  			<div id='quiz'></div>
+    		<div  class='button' >
+
+				<button class="btn btn-primary btn-lg" id='next'>Next
+				</button>
+
+			</div>
+    		<div class='button' >
+				<button id='prev' class="btn btn-primary btn-lg">Prev
+				</button>
+			</div>
+
+			<div class='button' >
+				<button class="btn btn-primary btn-lg" id='start'> Click to Start Quize
+				</button>
+			</div>
+
+			<div class='button' >
+				<button class="btn btn-primary btn-lg" id='saveResult'> Submit
+				</button>
+			</div>
+
+    	</div>
+		<script type="text/javascript" src="js/quiz.js"></script>
+
+	</body>
+</html>
