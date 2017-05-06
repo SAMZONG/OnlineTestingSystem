@@ -42,7 +42,9 @@
             cache: false,
             timeout: 600000,
             success: function (data) {
-            test=data;
+
+
+                test=data;
                 console.log("data is ", data.result[0].question);
                 var json = "<h4> Response</h4><pre>"
                     + JSON.stringify(data, null, 4) + "</pre>";
@@ -75,7 +77,7 @@
 
 
     $("#search-form").submit(function (event) {
-
+        $('#techSelection').hide();
         //stop submit the form, we will post it manually.
         event.preventDefault();
 
@@ -144,6 +146,8 @@
         displayNext();
         $('#start').hide();
         $('#saveResult').hide();
+
+
     });
 
     // Animates buttons on hover
