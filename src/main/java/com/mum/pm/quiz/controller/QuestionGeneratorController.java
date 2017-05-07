@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -23,9 +24,10 @@ public class QuestionGeneratorController {
     QuestionsGeneratorService questionsGeneratorService;
 
     @RequestMapping(value="/exam", method= RequestMethod.POST)
+    @ResponseBody
     public CategorySubCategory generateExamPage(@RequestBody CategorySubCategory categorySubCategory) {
-        //System.out.println("Category Name: " + categorySubCategory.getCategory().get(1));
-        //System.out.println("SubCategory Name: "+categorySubCategory.getSubCategories().get(0).getSubCategoryName());
+        System.out.println("Category Name:@@@@@@@@@@@@ " + categorySubCategory);
+
         return categorySubCategory;
 
     }

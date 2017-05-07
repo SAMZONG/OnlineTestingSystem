@@ -104,12 +104,12 @@ $(function(){
         else{
             id=1;
             name="Java";
-            id=$( "#categories" ).val();
+            id=parseInt($( "#categories" ).val());
             name=$( "#categories option:selected" ).text();
             category=new Category(id,name);
 
             $(":checkbox:checked").each(function (){
-                sid=$(this).attr("value");
+                sid=parseInt($(this).attr("value"));
                 sname=$(this).attr("text");
                subCategory=new SubCategory(sid,sname);
                subCategories.push(subCategory);
@@ -127,14 +127,31 @@ $(function(){
             type: 'post',
             dataType: 'json',
             contentType: "application/json",
-            url: '/student/exam/',
+            url: '/student/exam',
             data: json,
-            success: function () {
+            success: function (data) {
                 alert("Data is posted");
+                console.log(data);
 
             },
-            error: function (xhr, ajaxOptions, thrownError){
-                alert("Failed:" +xhr.status);
+            error: function (data, xhr, ajaxOptions, thrownError){
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    url: '/student/exam',
+                    data: json,
+                    success: function (data) {
+                        alert("Data is posted");
+                        console.log(data);
+
+                    },
+                    error: function (data, xhr, ajaxOptions, thrownError) {
+                        alert("Failed:" + xhr.status + "ThrownError " + thrownError);
+
+                    }
+                })
+
             }
         });
 

@@ -26,6 +26,14 @@ public class CategorySubCategory {
         this.category = category;
     }
 
+    @Override
+    public String toString() {
+        return "CategorySubCategory{" +
+                "category=" + category +
+                ", subCategories=" + subCategories +
+                '}';
+    }
+
     public List<SubCategory> getSubCategories() {
         return subCategories;
     }
