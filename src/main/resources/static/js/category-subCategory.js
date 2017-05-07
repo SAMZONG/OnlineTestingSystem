@@ -21,11 +21,6 @@ $(function(){
     }
 
 
-
-
-
-
-
     $.ajax({
         type: 'get',
         dataType: 'json',
@@ -53,10 +48,10 @@ $(function(){
                 $('#subCategories')
                     .append(
                         $(document.createElement('input')).attr({
-                            id:    'myCheckbox'
-                            ,value: subCategory.subCategoryId
+                            value: subCategory.subCategoryId
                             ,type:  'checkbox'
                             ,text: subCategory.subCategoryName
+                            ,class: 'myCheckBox'
                         })
                     ).append(subCategory.subCategoryName).append('<br>');
 
@@ -78,10 +73,10 @@ $(function(){
                     $('#subCategories')
                         .append($(document.createElement('input')).attr
                             ({
-                                id:    'myCheckbox'
-                                ,value: subCategory.subCategoryId
+                                value: subCategory.subCategoryId
                                 ,type:  'checkbox'
                                 ,text: subCategory.subCategoryName
+                                ,class: 'myCheckBox'
                             })
                         ).append(subCategory.subCategoryName).append('<br>');
 
@@ -97,8 +92,9 @@ $(function(){
 
     $("#examButton").click(function(){
         var subCategories=[];
+        var total= $(":checkbox").length;
         var count= $(":checkbox:checked").length;
-        if(count<3 || count>4){
+        if((count<3 || count>4) && total>=3){
             alert("Choose either 3 or 4 SubCategories");
         }
         else{
@@ -135,22 +131,7 @@ $(function(){
 
             },
             error: function (data, xhr, ajaxOptions, thrownError){
-                $.ajax({
-                    type: 'post',
-                    dataType: 'json',
-                    contentType: "application/json",
-                    url: '/student/exam',
-                    data: json,
-                    success: function (data) {
-                        alert("Data is posted");
-                        console.log(data);
-
-                    },
-                    error: function (data, xhr, ajaxOptions, thrownError) {
-                        alert("Failed:" + xhr.status + "ThrownError " + thrownError);
-
-                    }
-                })
+                alert("Failed");
 
             }
         });
