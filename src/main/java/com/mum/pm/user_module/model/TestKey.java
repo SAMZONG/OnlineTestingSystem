@@ -24,7 +24,6 @@ public class TestKey {
     private Date expiredatetime;
     private int active;
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "testkey_id")
@@ -56,7 +55,6 @@ public class TestKey {
         this.userid = userid;
     }
 
-    @Basic
     @Column(name = "student_id")
     public int getStudentid() {
         return studentid;
@@ -86,7 +84,6 @@ public class TestKey {
         this.expiredatetime = expiredatetime;
     }
 
-    @Basic
     @Column(name = "active")
     public int getActive() {
         return active;
@@ -95,7 +92,6 @@ public class TestKey {
     public void setActive(int active) {
         this.active = active;
     }
-
 
     @Override
     public boolean equals(Object o) {
@@ -112,8 +108,6 @@ public class TestKey {
             return false;
         if (expiredatetime != null ? !expiredatetime.equals(testKey.expiredatetime) : testKey.expiredatetime != null)
             return false;
-
-
         return true;
     }
 
@@ -123,8 +117,7 @@ public class TestKey {
         result = 31 * result + (testkeyValue != null ? testkeyValue.hashCode() : 0);
         result = 31 * result + (createdatetime != null ? createdatetime.hashCode() : 0);
         result = 31 * result + (expiredatetime != null ? expiredatetime.hashCode() : 0);
-        result = 31 * result + (int) active;
-
+        result = 31 * result +  active ;
         return result;
     }
 }

@@ -2,6 +2,25 @@
  * Created by manzil on 5/5/2017.
  */
 $(function(){
+
+
+
+    function Category(categoryId,categoryName){
+        this.categoryId=categoryId;
+        this.categoryName=categoryName;
+    }
+
+    function SubCategory(subCategoryId,subCategoryName){
+        this.subCategoryId=subCategoryId;
+        this.subCategoryName=subCategoryName;
+    }
+
+    function CategorySubCategory(category,subCategories){
+        this.category=category;
+        this.subCategories=subCategories;
+    }
+
+
     $.ajax({
         type: 'get',
         dataType: 'json',
@@ -29,10 +48,10 @@ $(function(){
                 $('#subCategories')
                     .append(
                         $(document.createElement('input')).attr({
-                            id:    'myCheckbox'
-                            ,value: subCategory.subCategoryId
+                            value: subCategory.subCategoryId
                             ,type:  'checkbox'
                             ,text: subCategory.subCategoryName
+                            ,class: 'myCheckBox'
                         })
                     ).append(subCategory.subCategoryName).append('<br>');
 
@@ -54,10 +73,10 @@ $(function(){
                     $('#subCategories')
                         .append($(document.createElement('input')).attr
                             ({
-                                id:    'myCheckbox'
-                                ,value: subCategory.subCategoryId
+                                value: subCategory.subCategoryId
                                 ,type:  'checkbox'
                                 ,text: subCategory.subCategoryName
+                                ,class: 'myCheckBox'
                             })
                         ).append(subCategory.subCategoryName).append('<br>');
 
@@ -72,14 +91,52 @@ $(function(){
     });
 
     $("#examButton").click(function(){
+        var subCategories=[];
+        var total= $(":checkbox").length;
         var count= $(":checkbox:checked").length;
-        if(count<3 || count>4){
-            alert("Choose either 3 or 4 SubCategories")
+        if((count<3 || count>4) && total>=3){
+            alert("Choose either 3 or 4 SubCategories");
         }
         else{
+            id=1;
+            name="Java";
+            id=parseInt($( "#categories" ).val());
+            name=$( "#categories option:selected" ).text();
+            category=new Category(id,name);
 
+            $(":checkbox:checked").each(function (){
+                sid=parseInt($(this).attr("value"));
+                sname=$(this).attr("text");
+               subCategory=new SubCategory(sid,sname);
+               subCategories.push(subCategory);
+            })
+            categorySubCategory=new CategorySubCategory(category,subCategories);
+            var json=JSON.stringify(categorySubCategory);
+            console.log(json);
+            passSelectedValues(json);
         }
-    })
+    });
+
+    function passSelectedValues(json){
+
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            url: '/student/exam',
+            data: json,
+            success: function (data) {
+                alert("Data is posted");
+                console.log(data);
+
+            },
+            error: function (data, xhr, ajaxOptions, thrownError){
+                alert("Failed");
+
+            }
+        });
+
+    }
 
 });
 

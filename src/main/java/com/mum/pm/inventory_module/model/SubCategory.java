@@ -41,5 +41,12 @@ public class SubCategory {
         this.category = category;
     }
 
-
+    @Override
+    public String toString() {
+        return "SubCategory{" +
+                "subCategoryId=" + subCategoryId +
+                ", subCategoryName='" + subCategoryName + '\'' +
+                ", category=" + category +
+                '}';
+    }
 }

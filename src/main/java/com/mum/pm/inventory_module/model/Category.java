@@ -59,4 +59,12 @@ public class Category {
         this.subCategories.remove(subCategory);
     }
 
+    @Override
+    public String toString() {
+        return "Category{" +
+                "categoryId=" + categoryId +
+                ", categoryName='" + categoryName + '\'' +
+                ", subCategories=" + subCategories +
+                '}';
+    }
 }

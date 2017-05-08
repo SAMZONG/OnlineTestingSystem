@@ -9,5 +9,9 @@ import java.util.List;
 
 @Repository("questionRepository")
 public interface QuestionRepository extends JpaRepository<Question, Integer> {
+    //TODO Dupilicate method here
     public List<Question> getAllBySubCategoryId(int subCategoryId);
+    Question findById(int id);
+    Iterable<Question> findBySubCategoryId(int subCategoryId);
+    List<Question> findAll();
 }
