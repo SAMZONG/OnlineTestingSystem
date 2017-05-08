@@ -1,5 +1,6 @@
 package com.mum.pm.user_module.controller;
 
+import com.mum.pm.user_module.model.Role;
 import com.mum.pm.user_module.model.Student;
 import com.mum.pm.user_module.model.TestKey;
 import com.mum.pm.user_module.model.User;
@@ -9,19 +10,24 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Chuang on 2017/4/27.
  */
-@Controller
+@RestController
 public class UserController {
     @Autowired
     private UserService userService;
+
+    private Role role;
 
     @RequestMapping(value="/admin/add-student",  method = RequestMethod.GET)
     public ModelAndView addNewStudent() {
@@ -60,6 +66,17 @@ public class UserController {
     }
 
 
+    @RequestMapping(value = "/admin/allRoleTypes", method = RequestMethod.GET)
+    public List<Role> populateTypes() {
+        return  userService.findAllRole();
+    }
+
+    @RequestMapping(value = "/admin/setUserType/{id}", method = RequestMethod.GET)
+    public int setUserType(@PathVariable("id") int roleId){
+         Role role = userService.findRoleById(roleId);
+         return roleId;
+    }
+
     @RequestMapping(value="/admin/add-user",  method = RequestMethod.GET)
     public ModelAndView addNewUser() {
         ModelAndView modelAndView = new ModelAndView();
@@ -70,7 +87,6 @@ public class UserController {
         modelAndView.addObject("userRole", "Admin");
 
         modelAndView.addObject("newuser", new User());
-        modelAndView.addObject("allroles", userService.findAllRole());
         modelAndView.setViewName("add-user");
         return modelAndView;
     }
@@ -91,13 +107,18 @@ public class UserController {
                             "There is already a user registered with the email provided");
         }
         if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("registration");
-        } else {
-            userService.saveUser(newUser);
+            modelAndView.setViewName("add-user");
+        } else if(this.role == null){
+            modelAndView.addObject("successMessage", "Please select a role.");
+            modelAndView.setViewName("add-user");
+        } else{
+            userService.saveUser(newUser, role);
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("newuser", new User());
             modelAndView.setViewName("add-user");
         }
         return modelAndView;
     }
+
+
 }

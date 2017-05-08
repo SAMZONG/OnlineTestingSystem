@@ -8,9 +8,10 @@ import java.util.List;
 
 public interface UserService {
 	 User findUserByEmail(String email);
-	 void saveUser(User user);
+	 void saveUser(User user, Role role);
 	 Student findStudentById(int studentId);
 	 void saveStudent(Student student);
 	 List<Student> findAllStudent();
 	 List<Role> findAllRole();
+	 Role findRoleById(int id);
 }

@@ -58,7 +58,4 @@ $(document).ready( function () {
         table.row($(this).parents('tr')).remove().draw();
     });
 
-
-
-
 });

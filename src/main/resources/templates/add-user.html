@@ -3,6 +3,8 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add User</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/userRoles.js"></script>
 </head>
 
 <body>
@@ -30,25 +32,10 @@
                                     <div class="container">
                                         <div class="row">
                                             <div class="col-md-6 col-md-offset-3">
-                                                <!--<form style="display:inline-block" th:action="@{/admin/add-user}" th:object="${allroles}" method="get">-->
-                                                    <!--<select class="form-control" id="optionsList" name="optionsListId" th:field="*{Role}">-->
-                                                        <!--<option value="">&#45;&#45;Select Option&#45;&#45; </option>-->
-                                                        <!--<option th:each="Role : ${categoryList}"-->
-                                                                                               <!--th:value="${Role.id}"-->
-                                                <!--th:text="${Role.nam}"></option>-->
-                                                <!--</select>-->
-                                                <!--</form>-->
 
                                                 <form autocomplete="off" action="#" th:action="@{/admin/add-user}"
                                                       th:object="${newuser}" method="post" class="form-horizontal"
                                                       role="form">
-
-                                                    <!--<div class="form-group blu-margin">-->
-                                                        <!--<select class="form-control" th:field="${role.opeId}"  id="dropOperator">-->
-                                                            <!--<option value="0" th:text="select operator" ></option>-->
-                                                            <!--<option th:each="role : ${allroles}" th:value="${role.id}" th:text="${role.name}"></option>-->
-                                                        <!--</select>-->
-                                                    <!--</div>-->
 
                                                     <div class="form-group">
                                                         <div class="col-sm-9">
@@ -85,13 +72,18 @@
                                                     </div>
                                                     <div class="form-group">
                                                         <div class="col-sm-9">
-                                                            <button type="submit" class="btn btn-primary btn-block">Add User</button>
+                                                            <select class="form-control" id="roleTypes">
+                                                                <option disabled selected value> -- please select a role -- </option>
+                                                            </select>
                                                         </div>
                                                     </div>
 
+                                                    <div class="form-group">
+                                                        <div class="col-sm-2">
+                                                            <button type="submit" class="btn btn-primary btn-block">Add User</button>
+                                                        </div>
+                                                    </div>
                                                     <span th:utext="${successMessage}"></span>
-
-
                                                 </form>
                                             </div>
                                         </div>
@@ -104,5 +96,15 @@
         </div>
     </div>
 </div>
+
+
+
+
+    <!--<div>-->
+        <!--<label for="role" th:text="#{newuser.role}">RoleType</label>-->
+        <!--<select th:field="*{role}">-->
+            <!--<option th:each="type : ${allRoleTypes}" th:value="${role}" th:text="#{${'newuser.role.' + role}}">RoleType</option>-->
+        <!--</select>-->
+    <!--</div>-->
 </body>
 </html>
