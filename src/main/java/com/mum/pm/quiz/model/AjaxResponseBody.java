@@ -7,15 +7,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AjaxResponseBody {
-
-
     @JsonProperty( "msg" )
     @XmlElement( required = true )
     String msg;
-    @JsonProperty( "result" )
-    @XmlElement( required = true )
     List<QuestionSet> result;
     List<Integer> selectedAnswer= new ArrayList<Integer>();
+
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    String category;
 
     public List<Integer> getSelectedAnswer() {
         return selectedAnswer;

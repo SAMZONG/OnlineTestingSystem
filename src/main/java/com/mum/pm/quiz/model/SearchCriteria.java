@@ -2,16 +2,17 @@ package com.mum.pm.quiz.model;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+/*
 public class SearchCriteria {
 
     @NotBlank(message = "Please select category and sub category!")
-    String subcategory;
+    String bkgsubcategory;
 
-    public String getSubcategory() {
-        return subcategory;
+    public String getBkgsubcategory() {
+        return bkgsubcategory;
     }
 
-    public void setSubcategory(String subcategory) {
-        this.subcategory = subcategory;
+    public void setBkgsubcategory(String bkgsubcategory) {
+        this.bkgsubcategory = bkgsubcategory;
     }
-}
+}*/
