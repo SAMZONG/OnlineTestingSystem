@@ -1,6 +1,7 @@
 package com.mum.pm.exam_module.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -11,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/student")
 public class CategorySubCategoryController {
 
-    @RequestMapping(value="/category-subCategory", method = RequestMethod.GET)
-    public String getCategorySubCategory(){
+    @RequestMapping(value="/category-subCategory/{accessKey}", method = RequestMethod.GET)
+    public String getCategorySubCategory(@PathVariable String accessKey){
+
         return "category-subCategory";
     }
 }

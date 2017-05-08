@@ -34,22 +34,18 @@ public class StudentController {
     }
 
     @RequestMapping(value={"/student/test"},  method = RequestMethod.POST)
-    public ModelAndView postAccessKey(@Valid StudentAccessKeyForm studentAccessKeyForm, BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String postAccessKey(@Valid StudentAccessKeyForm studentAccessKeyForm, BindingResult bindingResult) {
+
         String accessKey = studentAccessKeyForm.getAccessKey();
 
         if(accessKey.isEmpty()){
+            return "add-access-key";
+        }else if (!studentService.isAccessKey(accessKey)){
 
-            modelAndView.setViewName("add-access-key");
-            return modelAndView;
-        }else if (studentService.isAccessKey(accessKey)){
-            studentService.deactivateAccessKey(accessKey);
-            modelAndView.setViewName("category-subCategory");
-        }else{
-            modelAndView.setViewName("add-access-key");
-            return modelAndView;
+            return "add-access-key";
+        }else {
+//            studentService.deactivateAccessKey(accessKey);
+            return "redirect:/student/category-subCategory/" + accessKey;
         }
-
-        return modelAndView;
     }
 }
