@@ -1,12 +1,15 @@
 
 (function() {
 
+    $('#container').hide();
     var questions= new Object();
     questions.question="";
     questions.choices=new Array();
     questions.correctAnswer="";
     questions.selectedAnswer="";
     var test={};
+
+    var search = {};
 
     var timer=60;
     var min=0;
@@ -26,18 +29,19 @@
     }
 
 
-    function fire_ajax_submit() {
+    function fire_ajax_submit(jsonObject) {
 
-        var search = {}
-        search["subcategory"] = $("#subcategory").val();
 
-        $("#btn-search").prop("disabled", true);
+/*
+        search["bkgsubcategory"] = $("#bkgsubcategory").val();*/
+
+       /* $("#btn-search").prop("disabled", true);*/
 
         $.ajax({
             type: "POST",
             contentType: "application/json",
             url: "/getQuestions",
-            data: JSON.stringify(search),
+            data: JSON.stringify(jsonObject),
             dataType: 'json',
             cache: false,
             timeout: 600000,
@@ -50,13 +54,11 @@
                     + JSON.stringify(data, null, 4) + "</pre>";
                 $('#feedback').html(json);
 
-                 questions=data.result;
-                 console.log("Questionss: "+questions);
-                 console.log(" one "+search.subcategory+" Sub "+$('#subcategory').val());
-                $('#category-id').append($('#subcategory').val());
+                 questions=data.result;/*
+                $('#category-id').append($('#bkgsubcategory').val());*/
 
-                console.log("SUCCESS : ", data);
-                $("#btn-search").prop("disabled", false);
+                console.log("SUCCESS : ", data);/*
+                $("#btn-search").prop("disabled", false);*/
 
               /*  window.location.href="http://localhost:8080/test";*/
 
@@ -67,8 +69,8 @@
                     + e.responseText + "</pre>";
                 $('#feedback').html(json);
 
-                console.log("ERROR : ", e);
-                $("#btn-search").prop("disabled", false);
+                console.log("ERROR : ", e);/*
+                $("#btn-search").prop("disabled", false);*/
 
             }
         });
@@ -76,14 +78,14 @@
     }
 
 
-    $("#search-form").submit(function (event) {
+    /*$("#search-form").submit(function (event) {
         $('#techSelection').hide();
         //stop submit the form, we will post it manually.
         event.preventDefault();
 
         fire_ajax_submit();
 
-    });
+    });*/
 
 
 
@@ -279,6 +281,169 @@
             },
             error: function (e) {
 
+
+            }
+        });
+
+    }
+/*manzil*/
+
+
+    function Category(categoryId,categoryName){
+        this.categoryId=categoryId;
+        this.categoryName=categoryName;
+    }
+
+    function SubCategory(subCategoryId,subCategoryName){
+        this.subCategoryId=subCategoryId;
+        this.subCategoryName=subCategoryName;
+    }
+
+    function CategorySubCategory(category,subCategories){
+        this.category=category;
+        this.subCategories=subCategories;
+    }
+
+
+
+
+
+
+
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/student/categories',
+        success: function (data) {
+            $.each(data, function(i, category) {
+                $('#categories')
+                    .append($("<option></option>")
+                        .attr("value",category.categoryId)
+                        .text(category.categoryName));
+            });
+
+        },
+        error: function (xhr, ajaxOptions, thrownError){
+            alert("No SubCategories Available"+ " Error:" +xhr.status);
+        }
+    });
+
+    $.ajax({
+        type: 'get',
+        dataType: 'json',
+        url: '/student/subCategories/1',
+        success: function (data) {
+            $.each(data, function(i, subCategory) {
+                $('#subCategories')
+                    .append(
+                        $(document.createElement('input')).attr({
+                            id:    'myCheckbox'
+                            ,value: subCategory.subCategoryId
+                            ,type:  'checkbox'
+                            ,text: subCategory.subCategoryName
+                        })
+                    ).append(subCategory.subCategoryName).append('<br>');
+
+            });
+
+        },
+        error: function (xhr, ajaxOptions, thrownError){
+            alert("No SubCategories Available"+ " Error:" +xhr.status);
+        }
+    });
+    $("#categories").change(function () {
+
+        $("#subCategories").empty();
+        $.ajax({
+            type: 'get',
+            dataType: 'json',
+            url: '/student/subCategories/'+$( "#categories" ).val(),
+            success: function (data) {
+                $.each(data, function(i, subCategory) {
+                    $('#subCategories')
+                        .append($(document.createElement('input')).attr
+                            ({
+                                id:    'myCheckbox'
+                                ,value: subCategory.subCategoryId
+                                ,type:  'checkbox'
+                                ,text: subCategory.subCategoryName
+                            })
+                        ).append(subCategory.subCategoryName).append('<br>');
+
+                });
+
+            },
+            error: function (xhr, ajaxOptions, thrownError){
+                alert("No SubCategories Available"+ " Error:" +xhr.status);
+            }
+        });
+
+    });
+
+    $("#examButton").click(function(){
+
+        var subCategories=[];
+        var count= $(":checkbox:checked").length;
+        if(count<3 || count>4){
+            alert("Choose either 3 or 4 SubCategories");
+        }
+        else{
+
+            id=1;
+            name="Java";
+            id=parseInt($( "#categories" ).val());
+            name=$( "#categories option:selected" ).text();
+            category=new Category(id,name);
+            search=name;
+            $(":checkbox:checked").each(function (){
+                sid=parseInt($(this).attr("value"));
+                sname=$(this).attr("text");
+                subCategory=new SubCategory(sid,sname);
+                subCategories.push(subCategory);
+            })
+            categorySubCategory=new CategorySubCategory(category,subCategories);
+            /*var jsonObject=JSON.stringify(categorySubCategory);*/
+           /* console.log(json);*/
+            /*passSelectedValues(jsonObject);*/
+            $('#techSelection').hide();
+            $('#container').show();
+            fire_ajax_submit(categorySubCategory);
+        }
+
+    });
+
+    function passSelectedValues(json){
+
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            contentType: "application/json",
+            url: '/student/exam',
+            data: json,
+            success: function (data) {
+                windows
+                alert("Data is posted");
+                console.log(data);
+
+            },
+            error: function (data, xhr, ajaxOptions, thrownError){
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    url: '/student/exam',
+                    data: json,
+                    success: function (data) {
+
+                        alert("Data is posted");
+                        console.log(data);
+
+                    },
+                    error: function (data, xhr, ajaxOptions, thrownError) {
+                        alert("Failed:" + xhr.status + "ThrownError " + thrownError);
+
+                    }
+                })
 
             }
         });
