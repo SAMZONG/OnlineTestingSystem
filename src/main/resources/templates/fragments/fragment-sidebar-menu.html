@@ -4,10 +4,10 @@
         <ul class="nav side-menu">
             <li><a><i class="fa fa-home"></i> User <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="#index3.html">AddNewUser</a></li>
-                    <li><a data-th-href="@{assign-test}" methods="GET">AssignNewExam</a>
-                    <li><a data-th-href="@{add-student}" methods="GET">AddStudent</a>
-                    <li><a data-th-href="@{all-student}" methods="GET">AllStudent</a>
+                    <li><a data-th-href="@{/admin/add-user}"  methods="GET">AddNewUser</a></li>
+                    <li><a data-th-href="@{/admin/assign-test}" methods="GET">AssignNewExam</a></li>
+                    <li><a data-th-href="@{/admin/add-student}" methods="GET">AddStudent</a></li>
+                    <li><a data-th-href="@{/admin/all-student}" methods="GET">AllStudent</a></li>
                 </ul>
             </li>
             <li><a><i class="fa fa-edit"></i> Exam <span class="fa fa-chevron-down"></span></a>
@@ -29,7 +29,7 @@
             <li><a><i class="fa fa-bar-chart-o"></i> Question <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="/upload/fileUpload">Import questions</a></li>
-                    <li><a href="#other_charts.html">Other Charts</a></li>
+                    <li><a data-th-href="@{/question/add-question}" methods="GET">Question</a></li>
                 </ul>
             </li>
         </ul>

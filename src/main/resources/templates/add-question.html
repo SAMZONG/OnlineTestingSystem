@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{fragments/layout}" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add New Student</title>
+</head>
+
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Add New Student</h3>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Please enter student info below</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-3 col-md-offset-1">
+                                    <form autocomplete="off" action="#" th:action="@{/admin/add-question}"
+                                          th:object="${question}" method="post">
+
+
+                                        <table width="120%" border="0" cellspacing="9" cellpadding="9">
+                                            <tr>
+                                                <td>Question :</td>
+                                                <td>
+                                                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <textarea id="questionId" th:field="*{question_description}" cols="140"
+                                                          rows="5" placeholder="Write a question"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>SubCategory Id :</td>
+                                                <td>
+                                                    <select name="sub_category_Id">
+                                                        <option value="NONE">--- Select ---</option>
+                                                        <option value="1">Core Java</option>
+                                                        <option value="2">Spring</option>
+                                                        <option value="3">Hibernate</option>
+                                                        <option value="4">Web Service</option>
+                                                        <option value="6">J2EE"</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>A.</td>
+                                                <td>
+                                                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <textarea id="choice1id" th:field="*{answer_1}" cols="100" rows="1"
+                                                          placeholder="Write a choice A"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td> B.</td>
+                                                <td>
+                                                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <textarea id="choice2id" th:field="*{answer_2}" cols="150" rows="1"
+                                                          placeholder="Write a choice B"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>C.</td>
+                                                <td>
+                                                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <textarea id="choice3id" th:field="*{answer_3}" cols="90" rows="1"
+                                                          placeholder="Write a choice C"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>D.</td>
+                                                <td>
+                                                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <textarea id="choice4id" th:field="*{answer_4}" cols="90" rows="1"
+                                                          placeholder="Write choice D"></textarea>
+                                                    </div>
+                                                    </spring:bind>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>E.</td>
+                                                <td>
+                                                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                <textarea id="choice5id" th:field="*{answer_5}" cols="90" rows="1"
+                                                          placeholder="Write a choice E"></textarea>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Answer.</td>
+                                                <td>
+                                                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                                                        <input type="text" th:field="*{correct_answer}" id="answerid"
+                                                               placeholder=""></input>
+
+                                                    </div>
+
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <div class="form-group">
+                                            <div class="col-sm-9">
+                                                <button type="submit" class="btn btn-primary btn-block">Add</button>
+                                            </div>
+                                        </div>
+                                        <span th:utext="${successMessage}"></span>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

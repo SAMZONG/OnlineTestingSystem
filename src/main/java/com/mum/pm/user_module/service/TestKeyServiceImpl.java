@@ -24,11 +24,11 @@ public class TestKeyServiceImpl implements TestKeyService {
     private CalendarUtil calendarUtil;
 
     @Override
-    public String generateAndSaveTestKey(int userid, int studentId, String categoryName) {
+    public String generateAndSaveTestKey(int userid, int studentId) {
         String testKeyValue = UUID.randomUUID().toString().replaceAll("-", "");
         logger.debug("TestKey created as : " + testKeyValue);
         try{
-            testKeyRepository.save(createTestKey(testKeyValue, userid, studentId, categoryName));
+            testKeyRepository.save(createTestKey(testKeyValue, userid, studentId));
         }catch (Exception ex){
             logger.error(ex.getMessage());
             throw(ex);
@@ -43,7 +43,7 @@ public class TestKeyServiceImpl implements TestKeyService {
     }
 
 
-    private TestKey createTestKey(String testKeyValue, int userid, int studentId, String categoryName){
+    private TestKey createTestKey(String testKeyValue, int userid, int studentId){
 
         TestKey testKey = new TestKey();
         testKey.setTestkeyValue(testKeyValue);
