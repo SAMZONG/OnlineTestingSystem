@@ -73,7 +73,7 @@ public class UserController {
 
     @RequestMapping(value = "/admin/setUserType/{id}", method = RequestMethod.GET)
     public int setUserType(@PathVariable("id") int roleId){
-         Role role = userService.findRoleById(roleId);
+         role = userService.findRoleById(roleId);
          return roleId;
     }
 
@@ -110,9 +110,11 @@ public class UserController {
             modelAndView.setViewName("add-user");
         } else if(this.role == null){
             modelAndView.addObject("successMessage", "Please select a role.");
+            modelAndView.addObject("newuser", newUser);
             modelAndView.setViewName("add-user");
         } else{
             userService.saveUser(newUser, role);
+            role = null;
             modelAndView.addObject("successMessage", "User has been registered successfully");
             modelAndView.addObject("newuser", new User());
             modelAndView.setViewName("add-user");

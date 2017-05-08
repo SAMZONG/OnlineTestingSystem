@@ -10,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{
@@ -38,8 +35,8 @@ public class UserServiceImpl implements UserService{
 	public void saveUser(User user, Role role) {
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setActive(1);
-        Role userRole = roleRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+		Set<Role> roles = assignRole(role);
+		user.setRoles(roles);
 		userRepository.save(user);
 	}
 
@@ -63,19 +60,27 @@ public class UserServiceImpl implements UserService{
 		return roleRepository.findById(id);
 	}
 
-	private User assignRole(User user, Role role){
-		List<Role> roles = roleRepository.findAll();
+	private Set<Role> assignRole(Role role){
+		List<Role> listRoles = roleRepository.findAll();
+		HashMap<String, Role> allRoles = new HashMap();
+
+		for(Role temRole : listRoles){
+			allRoles.put(temRole.getRole(),temRole);
+		}
+		//TODO Should have an ENUM
 		Set<Role> userRoles = new HashSet<>();
 		if("DBM".equalsIgnoreCase(role.getRole())){
-			roleRepository.findByRole(role.getRole());
-			roles.add(role);
+			userRoles.add(allRoles.get("DBM"));
 		}
 		if("COACH".equalsIgnoreCase(role.getRole())){
-			roles.add(role);
+			userRoles.add(allRoles.get("DBM"));
+			userRoles.add(allRoles.get("COACH"));
 		}
 		if("ADMIN".equalsIgnoreCase(role.getRole())) {
-			roles.add(role);
+			userRoles.add(allRoles.get("DBM"));
+			userRoles.add(allRoles.get("COACH"));
+			userRoles.add(allRoles.get("ADMIN"));
 		}
-		return  user;
+		return  userRoles;
 	}
 }
