@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+	  data-layout-decorate="~{fragments/layout}"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8" />
@@ -11,30 +12,69 @@
 </head>
 
 <body>
-<h1>Student Table</h1>
-<table id="employeesTable" class="display" valign="middle">
+<div class="right_col" role="main" data-layout-fragment="content">
+	<div class="">
+		<div class="page-title">
+			<div class="title_left">
+				<h3>Add User</h3>
+			</div>
+		</div>
 
-	<!-- Header Table -->
-	<thead>
-	<tr>
-		<th valign="middle">Id</th>
-		<th valign="middle">Name</th>
-		<th valign="middle">Last Name</th>
-		<th valign="middle">Email</th>
-		<th valign="middle">Access Key</th>
-	</tr>
-	</thead>
-	<!--<tfoot>-->
-	<!--<tr>-->
-		<!--<th valign="middle">Id</th>-->
-		<!--<th valign="middle">Name</th>-->
-		<!--<th valign="middle">Last Name</th>-->
-		<!--<th valign="middle">Email</th>-->
-		<!--<th valign="middle">Acess Code</th>-->
-	<!--</tr>-->
-	<!--</tfoot>-->
+		<div class="clearfix"></div>
 
-</table>
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2>Please enter uer info below</h2>
+						<div class="clearfix"></div>
+					</div>
+					<div class="x_content">
+						<div class="container">
+							<div class="row">
+
+								<div class="container">
+									<div class="row">
+										<div class="col-md-12 col-md-offset-0">
+
+											<table id="employeesTable" class="display" valign="middle">
+
+												<!-- Header Table -->
+												<thead>
+												<tr>
+													<th valign="middle">Id</th>
+													<th valign="middle">Name</th>
+													<th valign="middle">Last Name</th>
+													<th valign="middle">Email</th>
+													<th valign="middle">Access Key</th>
+												</tr>
+												</thead>
+												<!--<tfoot>-->
+												<!--<tr>-->
+												<!--<th valign="middle">Id</th>-->
+												<!--<th valign="middle">Name</th>-->
+												<!--<th valign="middle">Last Name</th>-->
+												<!--<th valign="middle">Email</th>-->
+												<!--<th valign="middle">Acess Code</th>-->
+												<!--</tr>-->
+												<!--</tfoot>-->
+
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!--<h1>Student Table</h1>-->
+
 
 </body>
 </html>
