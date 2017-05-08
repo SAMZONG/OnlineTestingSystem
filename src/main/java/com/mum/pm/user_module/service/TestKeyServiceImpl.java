@@ -51,7 +51,7 @@ public class TestKeyServiceImpl implements TestKeyService {
         testKey.setUserid(userid);
         testKey.setCreatedatetime(calendarUtil.getDate(1));
         testKey.setExpiredatetime(calendarUtil.getDate(4));
-
+        testKey.setActive(1);
         return testKey;
     }
 

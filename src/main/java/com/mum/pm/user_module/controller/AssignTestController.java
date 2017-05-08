@@ -63,7 +63,7 @@ public class AssignTestController {
     }
 
     @RequestMapping(value = "/admin/assigntest", method = RequestMethod.POST)
-    public void  createAccessCode(@RequestBody  Student student) {
+    public Student  createAccessCode(@RequestBody  Student student) {
         try {
             // Student student = objectMapper.readValue(str, Student.class);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -80,9 +80,8 @@ public class AssignTestController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-
+        return student;
     }
 
     @RequestMapping(value = "/admin/assign-test", method = RequestMethod.POST)
