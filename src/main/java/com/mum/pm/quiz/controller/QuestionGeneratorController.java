@@ -26,7 +26,7 @@ public class QuestionGeneratorController {
     @RequestMapping(value="/exam", method= RequestMethod.POST)
     @ResponseBody
     public CategorySubCategory generateExamPage(@RequestBody CategorySubCategory categorySubCategory) {
-        System.out.println("Category Name:@@@@@@@@@@@@ " + categorySubCategory);
+        System.out.println("" + categorySubCategory);
 
         return categorySubCategory;
 
