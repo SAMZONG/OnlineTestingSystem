@@ -47,6 +47,7 @@ public class QuizController {
 
     @PostMapping("/student/getQuestions")
     public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody CategorySubCategory categorySubCategory, Errors errors) {
+        this.subcategory="";
         this.categorySubCategory = categorySubCategory;
         accessKey=categorySubCategory.getAccessKey();
         AjaxResponseBody result = new AjaxResponseBody();
@@ -58,7 +59,11 @@ public class QuizController {
         List<QuestionSet> questions = questionsServices.findBySubCategory(categorySubCategory);
 
         for (int i = 0; i < categorySubCategory.getSubCategories().size(); i++) {
-            subcategory+=categorySubCategory.getSubCategories().get(i).getSubCategoryName()+"   ";
+            if(i==categorySubCategory.getSubCategories().size()-1){
+                subcategory += categorySubCategory.getSubCategories().get(i).getSubCategoryName();
+            }else {
+                subcategory +=  categorySubCategory.getSubCategories().get(i).getSubCategoryName()+", " ;
+            }
         }
         result.setCategory(subcategory);
         if (questions.isEmpty()) {
@@ -74,53 +79,58 @@ public class QuizController {
 
     @PostMapping("/student/saveResult")
     public void saveResult(@Valid @RequestBody AjaxResponseBody ajaxResponse) {
-        TestKey testKey = testKeyRepository.findByTestkeyValue(accessKey);
+       try {
+           TestKey testKey = testKeyRepository.findByTestkeyValue(accessKey);
+            System.out.println(testKey.getStudentid());
+           double scoreByCategory = 0;
+           double scoreBySubCategory = 0;
+           for (int i = 0; i < ajaxResponse.getSelectedAnswer().size(); i++) {
+               if (ajaxResponse.getSelectedAnswer().get(i)+1 == ajaxResponse.getResult().get(i).getCorrectAnswer()) {
+                   scoreByCategory++;
+               }
+           }
 
-        double scoreByCategory = 0;
-        double scoreBySubCategory = 0;
-        for (int i = 0; i < ajaxResponse.getSelectedAnswer().size(); i++) {
-            if (ajaxResponse.getSelectedAnswer().get(i) == ajaxResponse.getResult().get(i).getCorrectAnswer()) {
-                scoreByCategory++;
-            }
-        }
+           examReport = new ExamReport(testKey.getStudentid(), testKey.getUserid(), scoreByCategory, this.categorySubCategory.getCategory().getCategoryName());
 
-        examReport = new ExamReport(testKey.getStudentid(),testKey.getUserid(), scoreByCategory, ajaxResponse.getCategory());
+           subReports = new HashSet<SubReport>();
+           SubReport subReport = new SubReport();
+           for (int i = 0; i < categorySubCategory.getSubCategories().size(); i++) {
+               scoreBySubCategory = 0;
+               for (int j = 0; j < ajaxResponse.getSelectedAnswer().size(); j++) {
+                   if (categorySubCategory.getSubCategories().get(i).getSubCategoryName().equals(ajaxResponse.getResult().get(j).getSubCategoryName())) {
+                       if (ajaxResponse.getSelectedAnswer().get(j)+1 == ajaxResponse.getResult().get(j).getCorrectAnswer()) {
+                           scoreBySubCategory++;
+                       }
+                   }
+               }
 
-        subReports = new HashSet<SubReport>();
-        SubReport subReport = new SubReport();
-        for (int i = 0; i < categorySubCategory.getSubCategories().size(); i++) {
-            for (int j = 0; j < ajaxResponse.getSelectedAnswer().size(); j++) {
-                if (categorySubCategory.getSubCategories().get(i).getSubCategoryName().equals(ajaxResponse.getResult().get(j).getSubCategoryName())) {
-                    if (ajaxResponse.getSelectedAnswer().get(j) == ajaxResponse.getResult().get(j).getCorrectAnswer()) {
-                        scoreBySubCategory++;
-                    }
-                }
-            }
+               subReport = new SubReport(categorySubCategory.getSubCategories().get(i).getSubCategoryName(), scoreBySubCategory);
 
-            subReport = new SubReport(categorySubCategory.getSubCategories().get(i).getSubCategoryName(), scoreBySubCategory);
+               subReport.setExamReport(examReport);
+               subReports.add(subReport);
 
-            subReport.setExamReport(examReport);
-            subReports.add(subReport);
+           }
 
-        }
+           examReport.setSubReports(subReports);
+           examDeatils = new HashSet<ExamQuestionDetails>();
+           ExamQuestionDetails examQuestionDetail = new ExamQuestionDetails();
 
-        examReport.setSubReports(subReports);
-        examDeatils = new HashSet<ExamQuestionDetails>();
-        ExamQuestionDetails examQuestionDetail = new ExamQuestionDetails();
+           for (int i = 0; i < ajaxResponse.getResult().size(); i++) {
 
-        for (int i = 0; i < ajaxResponse.getResult().size(); i++) {
+               examQuestionDetail = new ExamQuestionDetails(ajaxResponse.getResult().get(i).getQuestionID(), ajaxResponse.getSelectedAnswer().get(i)+1, ajaxResponse.getResult().get(i).getSubCategoryName(), ajaxResponse.getResult().get(i).getCorrectAnswer());
+               examQuestionDetail.setExamReportDetails(examReport);
+               examDeatils.add(examQuestionDetail);
+           }
+           examReport.setExamQuestionDetails(examDeatils);
 
-            examQuestionDetail = new ExamQuestionDetails(ajaxResponse.getResult().get(i).getQuestionID(), ajaxResponse.getSelectedAnswer().get(i), ajaxResponse.getResult().get(i).getSubCategoryName(), ajaxResponse.getResult().get(i).getCorrectAnswer());
-            examQuestionDetail.setExamReportDetails(examReport);
-            examDeatils.add(examQuestionDetail);
-        }
-        examReport.setExamQuestionDetails(examDeatils);
-
-        try {
-            examReportService.save(examReport);
-        } catch (Exception e) {
-            e.getStackTrace();
-        }
+           try {
+               examReportService.save(examReport);
+           } catch (Exception e) {
+               e.getStackTrace();
+           }
+       }catch (Exception e){
+           System.out.println("Error Occurred "+e.getStackTrace());
+       }
 
     }
 
