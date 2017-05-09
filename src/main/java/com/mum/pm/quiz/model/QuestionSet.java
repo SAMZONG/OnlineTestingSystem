@@ -13,7 +13,7 @@ public class QuestionSet {
     @XmlElement( required = true )
     String question;
     int questionID;
-    String subCategoryName;
+    String subCategoryName="";
     @JsonProperty( "choices" )
     @XmlElement( required = true )
     List<String> choices  =new ArrayList<String>();
