@@ -45,6 +45,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public List<User> getAllUsers(){
+		return userRepository.getAllUsers();
+	}
+
+	@Override
 	public void saveStudent(Student student) {
 		student.setActive(true);
 		studentRepository.save(student);
