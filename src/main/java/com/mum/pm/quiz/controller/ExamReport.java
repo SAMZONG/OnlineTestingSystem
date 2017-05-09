@@ -2,6 +2,8 @@ package com.mum.pm.quiz.controller;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,11 +31,16 @@ public class ExamReport {
     private String category_name;
 
     @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReport", orphanRemoval = true)
+    @JsonIgnore
     private Set<SubReport> subReports;
 
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReportDetails", orphanRemoval = true)
     private Set<ExamQuestionDetails> examQuestionDetails;
+
+    public ExamReport() {
+    }
 
     public Set<ExamQuestionDetails> getExamQuestionDetails() {
         return examQuestionDetails;
