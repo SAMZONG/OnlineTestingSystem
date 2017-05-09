@@ -39,9 +39,6 @@ public class ExamReport {
     @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReportDetails", orphanRemoval = true)
     private Set<ExamQuestionDetails> examQuestionDetails;
 
-    public ExamReport() {
-    }
-
     public Set<ExamQuestionDetails> getExamQuestionDetails() {
         return examQuestionDetails;
     }
