@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{fragments/layout}" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="//https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="//https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
+
+
+<script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
+
+<script type="text/javascript"   src="jspdf.min.js"> </script>
+
+<script type="text/javascript" >
+
+  function getPDF() {
+
+      var doc = new jsPDF();
+      doc.text(20, 20, 'Test Message ');
+      doc.addPage();
+      doc.text(20, 20, 'Hello world.');
+      doc.save('FirstJasperReport.pdf');
+      
+  }
+
+</script>
+
+<script>
+
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+
+</script>
+
+<head>
+    <title>Grade examReport</title>
+</head>
+
+<body>
+<div class="right_col" role="main" data-layout-fragment="content">
+
+    <a href="javascript:getPDF()" >Download</a>
+
+
+</div>
+</body>
+</html>

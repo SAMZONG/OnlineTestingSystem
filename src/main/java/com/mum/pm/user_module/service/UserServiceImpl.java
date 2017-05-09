@@ -2,9 +2,11 @@ package com.mum.pm.user_module.service;
 
 import com.mum.pm.user_module.model.Role;
 import com.mum.pm.user_module.model.Student;
+import com.mum.pm.user_module.model.TestKey;
 import com.mum.pm.user_module.model.User;
 import com.mum.pm.user_module.repository.RoleRepository;
 import com.mum.pm.user_module.repository.StudentRepository;
+import com.mum.pm.user_module.repository.TestKeyRepository;
 import com.mum.pm.user_module.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,10 +15,12 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service("userService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private TestKeyRepository testKeyRepository;
 	@Autowired
 	private RoleRepository roleRepository;
 	@Autowired
@@ -41,13 +45,39 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
+	public List<User> getAllUsers(){
+		return userRepository.getAllUsers();
+	}
+
+	@Override
 	public void saveStudent(Student student) {
+		student.setActive(true);
 		studentRepository.save(student);
 	}
 
 	@Override
-	public List<Student> findAllStudent() {
-		return studentRepository.findAll();
+	public List<Student> findAllStudent(){
+		return studentRepository.findAllActiveStudents();
+	}
+
+	@Override
+	public void inactiveStudent(Student student) {
+		student.setActive(false);
+		studentRepository.saveAndFlush(student);
+	}
+
+	@Override
+	public List<Student> findAvailableStudent() {
+		HashMap students = new HashMap();
+		List<Student> activeStudents = studentRepository.findAllActiveStudents();
+		List<TestKey> activeTestKeys = testKeyRepository.findAllActiveTestKey();
+		//Remove all students who already have test key
+		for (Student s : activeStudents) students.put(s.getStudentId(),s);
+		for(TestKey testKey : activeTestKeys){
+			if(students.containsKey(testKey.getStudentid()))
+				students.remove(testKey.getStudentid());
+		}
+		return new ArrayList<Student>(students.values());
 	}
 
 	@Override
@@ -58,6 +88,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Role findRoleById(int id) {
 		return roleRepository.findById(id);
+	}
+
+	@Override
+	public List<User> findAllUsers() {
+		return userRepository.findAll();
 	}
 
 	private Set<Role> assignRole(Role role){

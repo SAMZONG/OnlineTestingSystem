@@ -1,4 +1,4 @@
-package com.mum.pm.user_module.service;
+package com.mum.pm.util;
 
 import com.mum.pm.user_module.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,5 @@
 $(document).ready( function () {
-    var table = $('#employeesTable').DataTable({
+    var table = $('#studentTable').DataTable({
         "ajax": "/student/getAllStudent",
         "sAjaxDataProp":"",
         "order": [[ 0, "asc" ]],
@@ -11,7 +11,7 @@ $(document).ready( function () {
             {
                 "target": -1,
                 "data": null,
-                "defaultContent": "<button>Generate Access Code</button>"
+                "defaultContent": "<button>Delete</button>"
             }
         ],
     });
@@ -21,7 +21,7 @@ $(document).ready( function () {
     //     alert( data["studentId"] +"'s name is: "+ data["email"] );
     // });
 
-    $('#employeesTable tbody').on( 'click', 'button', function () {
+    $('#studentTable tbody').on( 'click', 'button', function () {
         var data = table.row( $(this).parents('tr') ).data();
         var student = {
             // "active":"active",
@@ -39,7 +39,7 @@ $(document).ready( function () {
         };
 
         $.ajax({
-            url: '/admin/assigntest',
+            url: '/student/deleteStudent',
             type: 'POST',
             contentType: 'application/json',
             dataType: 'json',
@@ -55,7 +55,7 @@ $(document).ready( function () {
             }
         });
 
-        table.row($(this).parents('tr')).remove().draw();
+         table.row($(this).parents('tr')).remove().draw();
     });
 
 });
