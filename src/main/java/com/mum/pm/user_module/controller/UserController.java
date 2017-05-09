@@ -129,7 +129,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/admin/users", method = RequestMethod.GET)
-    public ModelAndView getAllUsers() {
+    public ModelAndView getUsers() {
         LOGGER.debug("UserController.getAllUsers");
 
 
@@ -146,10 +146,33 @@ public class UserController {
 
     @RequestMapping(path = "/admin/getAllUsers", method = RequestMethod.GET)
     @ResponseBody
-    public List<User> getAllEmployees() {
+    public List<User> getAllUsers() {
 
         LOGGER.debug("UserController.getAllEmployees");
         return userService.findAllUsers();
+    }
+
+    @RequestMapping(path = "/admin/deleteUser", method = RequestMethod.POST)
+    @ResponseBody
+    public User deleteUser(@RequestBody User user) {
+
+       LOGGER.debug("UserController.deleteUser");
+
+        User user2 = userService.findUserById(user.getId());
+        if(user2 != null){
+            userService.inactiveUser(user);
+        }
+        return user;
+    }
+
+    @RequestMapping(path = "/admin/user/{userId}", method = RequestMethod.GET)
+    @ResponseBody
+    public User findUser(@PathVariable int userId) {
+
+       LOGGER.debug("UserController.deleteUser");
+
+        return userService.findUserById(userId);
+
     }
 
 

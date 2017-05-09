@@ -18,4 +18,8 @@ public interface UserService {
 	Role findRoleById(int id);
 
     List<User> findAllUsers();
+
+	User findUserById(int id);
+
+	void inactiveUser(User user);
 }
