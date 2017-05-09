@@ -21,6 +21,18 @@ public class Student {
     private int studentId;
     @JsonProperty(value = "email")
     private String email;
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentId=" + studentId +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", active=" + active +
+                '}';
+    }
+
     @JsonProperty(value = "firstName")
     private String firstName;
     @JsonProperty(value = "lastName")

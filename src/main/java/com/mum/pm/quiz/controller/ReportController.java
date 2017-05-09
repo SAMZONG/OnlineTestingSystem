@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Created by manzi on 5/9/2017.
+ * Created by manzil on 5/9/2017.
  */
 @Controller
 public class ReportController {
