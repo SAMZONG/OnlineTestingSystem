@@ -251,7 +251,7 @@
 
         var numCorrect = 0;
         for (var i = 0; i < selections.length; i++) {
-            if (selections[i] === questions[i].correctAnswer) {
+            if (selections[i]+1 === questions[i].correctAnswer) {
                 numCorrect++;
             }
         }
