@@ -157,7 +157,7 @@ public class QuizController {
                     Student student = studentService.findByStudentId(e.getStudent_id());
                     System.out.println(student);
                     String studentName = student.getFirstName() + " " + student.getLastName();
-                    User user = userService.findById(e.getUser_id());
+                    User user = userService.findUserById(e.getUser_id());
                     String coachName = user.getName() + " " + user.getLastName();
                     String category = e.getCategory_name();
                     double score = e.getResult();
