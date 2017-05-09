@@ -12,7 +12,8 @@ public class AjaxResponseBody {
     String msg;
     List<QuestionSet> result;
     List<Integer> selectedAnswer= new ArrayList<Integer>();
-
+    @JsonProperty( "subCategoryNames" )
+    String category="";
 
     public String getCategory() {
         return category;
@@ -22,7 +23,6 @@ public class AjaxResponseBody {
         this.category = category;
     }
 
-    String category;
 
     public List<Integer> getSelectedAnswer() {
         return selectedAnswer;

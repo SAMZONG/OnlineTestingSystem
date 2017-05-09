@@ -13,6 +13,7 @@ public class CategorySubCategory {
 
     private Category category;
     private List<SubCategory> subCategories;
+    private String accessKey;
 
     public CategorySubCategory(){
         subCategories=new ArrayList<SubCategory>();
@@ -20,6 +21,14 @@ public class CategorySubCategory {
 
     public Category getCategory() {
         return category;
+    }
+
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
     }
 
     public void setCategory(Category category) {

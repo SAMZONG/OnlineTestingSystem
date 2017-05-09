@@ -11,7 +11,7 @@
 
     var search = {};
 
-    var timer=60;
+    var timer=120;
     var min=0;
     var sec=0;
 
@@ -20,7 +20,8 @@
         sec=parseInt(timer%60);
 
         if(timer<1){
-              window.location.href="http://localhost:8080/test";
+              store_result();
+              window.location.href="http://localhost:8080/student/test";
         }
 
         document.getElementById("time").innerHTML = "<b>Time Left: </b>"+min.toString()+":"+sec.toString();
@@ -40,7 +41,7 @@
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/getQuestions",
+            url: "/student/getQuestions",
             data: JSON.stringify(jsonObject),
             dataType: 'json',
             cache: false,
@@ -53,6 +54,7 @@
                 var json = "<h4> Response</h4><pre>"
                     + JSON.stringify(data, null, 4) + "</pre>";
                 $('#feedback').html(json);
+                $('.subCategoryNames').append(data.subCategoryNames);
 
                  questions=data.result;/*
                 $('#category-id').append($('#bkgsubcategory').val());*/
@@ -137,7 +139,7 @@
 
     // Click handler for the 'Start Over' button
     $('#start').on('click', function (e) {
-       /* startTimer();*/
+        startTimer();
         e.preventDefault();
         
         if(quiz.is(':animated')) {
@@ -270,7 +272,7 @@
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: "/saveResult",
+            url: "/student/saveResult",
             data: JSON.stringify(test),
             dataType: 'json',
             cache: false,
@@ -284,7 +286,7 @@
 
             }
         });
-
+        window.location.href="http://localhost:8080/student/done";
     }
 /*manzil*/
 
@@ -299,9 +301,10 @@
         this.subCategoryName=subCategoryName;
     }
 
-    function CategorySubCategory(category,subCategories){
+    function CategorySubCategory(category,subCategories,accessKey){
         this.category=category;
         this.subCategories=subCategories;
+        this.accessKey=accessKey;
     }
 
 
@@ -401,7 +404,9 @@
                 subCategory=new SubCategory(sid,sname);
                 subCategories.push(subCategory);
             })
-            categorySubCategory=new CategorySubCategory(category,subCategories);
+            var accessKey= $("#accessKey").text();
+            categorySubCategory=new CategorySubCategory(category,subCategories,accessKey);
+           // categorySubCategory=new CategorySubCategory(category,subCategories);
             /*var jsonObject=JSON.stringify(categorySubCategory);*/
            /* console.log(json);*/
             /*passSelectedValues(jsonObject);*/

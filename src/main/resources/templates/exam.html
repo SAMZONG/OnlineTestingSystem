@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<title>Quiz</title>
+
+		<link rel="stylesheet" type="text/css" th:href="@{/css/quiz.css}" />
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+
+
+
+
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+
+			</div>
+		</div>
+	</nav>
+
+	<div id='container'>
+		<div id='title'>
+			<h3><p class="subCategoryNames" style="font-weight:bold;"> You are taking quiz for </p></h3>
+			<p id="time" align="right"></p>
+		</div>
+		<br/>
+		<div id='quiz'></div>
+		<div  class='button' >
+
+			<button class="btn btn-primary btn-lg" id='next'>Next
+			</button>
+
+		</div>
+		<div class='button' >
+			<button id='prev' class="btn btn-primary btn-lg">Prev
+			</button>
+		</div>
+
+		<div class='button' >
+			<button class="btn btn-primary btn-lg" id='start'> Click to Start Quiz
+			</button>
+		</div>
+
+		<div class='button' >
+			<button class="btn btn-primary btn-lg" id='saveResult'> Submit
+			</button>
+		</div>
+
+	</div>
+
+	<div class="container" id="techSelection">
+
+
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+
+				<form autocomplete="off"  class="form-horizontal" role="form">
+					<h2>Category and SubCategory Selection</h2>
+					<br/>
+					<h3>Select one Category</h3>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<select class="form-control" id="categories"></select>
+						</div>
+					</div>
+
+
+					<h3>Select 3 to 4 SubCategories</h3>
+					<div class="form-group">
+						<div class="col-sm-9">
+							<div id="subCategories"></div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="button" class="btn btn-primary btn-block" id="examButton" value="Go to Exam"></input>
+						</div>
+					</div>
+				</form>
+				<div th:text="${accessKey}" id="accessKey" style="display: none;"></div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+
+		<script type="text/javascript" src="/js/quiz.js"></script>
+
+	</body>
+</html>
