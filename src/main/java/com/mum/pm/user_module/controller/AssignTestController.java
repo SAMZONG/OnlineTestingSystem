@@ -1,16 +1,18 @@
 package com.mum.pm.user_module.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mum.pm.user_module.model.Student;
 import com.mum.pm.user_module.model.TestKey;
 import com.mum.pm.user_module.model.User;
-import com.mum.pm.user_module.service.MailService;
 import com.mum.pm.user_module.service.TestKeyService;
 import com.mum.pm.user_module.service.UserService;
+import com.mum.pm.util.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -27,16 +29,43 @@ public class AssignTestController {
     private UserService userService;
     @Autowired
     MailService mailService;
-    @Autowired
-    ObjectMapper objectMapper;
+
+
+    @RequestMapping(path = "/student/getAvailableStudent", method = RequestMethod.GET)
+    public List<Student> getAvailableStudent() {
+        return userService.findAvailableStudent();
+    }
 
     @RequestMapping(path = "/student/getAllStudent", method = RequestMethod.GET)
-    public List<Student> getAllEmployees() {
+    public List<Student> getAllStudent() {
         return userService.findAllStudent();
     }
 
-    @RequestMapping(path = "/admin/all-student", method = RequestMethod.GET)
+    @RequestMapping(path = "/student/deleteStudent", method = RequestMethod.POST)
+    public Student deleteStudent(@RequestBody  Student student) {
+        Student studentDB = userService.findStudentById(student.getStudentId());
+        if(studentDB != null){
+            userService.inactiveStudent(studentDB);
+        }
+        return student;
+    }
+
+
+    @RequestMapping(path = "/admin/assign-test", method = RequestMethod.GET)
     public ModelAndView goHome() {
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+
+        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+        modelAndView.addObject("userRole", "Admin");
+
+        modelAndView.setViewName("assign-test");
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/admin/all-student", method = RequestMethod.GET)
+    public ModelAndView allStudent() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findUserByEmail(auth.getName());
@@ -48,24 +77,23 @@ public class AssignTestController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/admin/assign-test", method = RequestMethod.GET)
-    public ModelAndView assignNewTest() {
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-
-        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
-        modelAndView.addObject("testkey", new TestKey());
-        modelAndView.addObject("userRole", "Admin");
-
-        modelAndView.setViewName("assign-test");
-        return modelAndView;
-    }
+//    @RequestMapping(value = "/admin/assign-test", method = RequestMethod.GET)
+//    public ModelAndView assignNewTest() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User user = userService.findUserByEmail(auth.getName());
+//
+//        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+//        modelAndView.addObject("testkey", new TestKey());
+//        modelAndView.addObject("userRole", "Admin");
+//
+//        modelAndView.setViewName("assign-test");
+//        return modelAndView;
+//    }
 
     @RequestMapping(value = "/admin/assigntest", method = RequestMethod.POST)
     public Student  createAccessCode(@RequestBody  Student student) {
         try {
-            // Student student = objectMapper.readValue(str, Student.class);
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = userService.findUserByEmail(auth.getName());
             Student studentDB = userService.findStudentById(student.getStudentId());
@@ -84,40 +112,40 @@ public class AssignTestController {
         return student;
     }
 
-    @RequestMapping(value = "/admin/assign-test", method = RequestMethod.POST)
-    public ModelAndView createNewTestKey(TestKey testKey) {
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-
-        int sid = testKey.getStudentid();
-
-        Student student = userService.findStudentById(sid);
-
-        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
-        modelAndView.addObject("userRole", "Admin");
-
-        if (student == null) {
-            modelAndView.addObject("successMessage", "There is no such student with the id provided");
-            modelAndView.addObject("testkey", testKey);
-        } else {
-
-            String testKeyValue = testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid());
-
-            try {
-                //String emailMessage = "Hello " + student.getFirstName() + ", the link for your test is: "+ "http://localhost:8080/student/test \n" +
-                //        " And the Test Key is: " + testKeyValue;
-                //mailService.sendMail("mumpmproject@gmail.com", "awadodeh@gmail.com", "Test", emailMessage);
-            } catch (Exception e) {
-
-            }
-            modelAndView.addObject("testkey", new TestKey());
-            modelAndView.addObject("successMessage", "Test key has been generated successfully");
-        }
-
-
-        modelAndView.setViewName("assign-test");
-        return modelAndView;
-    }
+//    @RequestMapping(value = "/admin/assign-test", method = RequestMethod.POST)
+//    public ModelAndView createNewTestKey(TestKey testKey) {
+//        ModelAndView modelAndView = new ModelAndView();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        User user = userService.findUserByEmail(auth.getName());
+//
+//        int sid = testKey.getStudentid();
+//
+//        Student student = userService.findStudentById(sid);
+//
+//        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+//        modelAndView.addObject("userRole", "Admin");
+//
+//        if (student == null) {
+//            modelAndView.addObject("successMessage", "There is no such student with the id provided");
+//            modelAndView.addObject("testkey", testKey);
+//        } else {
+//
+//            String testKeyValue = testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid());
+//
+//            try {
+//                //String emailMessage = "Hello " + student.getFirstName() + ", the link for your test is: "+ "http://localhost:8080/student/test \n" +
+//                //        " And the Test Key is: " + testKeyValue;
+//                //mailService.sendMail("mumpmproject@gmail.com", "awadodeh@gmail.com", "Test", emailMessage);
+//            } catch (Exception e) {
+//
+//            }
+//            modelAndView.addObject("testkey", new TestKey());
+//            modelAndView.addObject("successMessage", "Test key has been generated successfully");
+//        }
+//
+//
+//        modelAndView.setViewName("assign-test");
+//        return modelAndView;
+//    }
 
 }
