@@ -17,7 +17,7 @@ import java.util.List;
 public class QuestionsServices {
 
     private List<QuestionSet> questions;
-    List<String> options ;
+    List<String> options;
     @Autowired
     QuestionRepository questionRepository;
     List<Question> questionsList;
@@ -35,41 +35,48 @@ public class QuestionsServices {
 
 
     public List<QuestionSet> findBySubCategory(CategorySubCategory categorySubCategory) {
-
+        System.out.println("Size " + categorySubCategory.getSubCategories().size());
         questions = new ArrayList<QuestionSet>();
-        for(int j=0;j<categorySubCategory.getSubCategories().size();j++){
-            questionsList =new ArrayList<Question>();
-            if( categorySubCategory.getSubCategories()!=null && !categorySubCategory.getSubCategories().isEmpty() ){
-                questionsList= questionRepository.getAllBySubCategoryId(categorySubCategory.getSubCategories().get(j).getSubCategoryId());
+        for (int j = 0; j < categorySubCategory.getSubCategories().size(); j++) {
+            try {
 
-                System.out.println("Questions List"+questionsList);
-                Collections.shuffle(questionsList);
+                if (categorySubCategory.getSubCategories() != null && !categorySubCategory.getSubCategories().isEmpty()) {
+                    questionsList = new ArrayList<Question>();
+                    try {
+                        questionsList = questionRepository.getAllBySubCategoryId(categorySubCategory.getSubCategories().get(j).getSubCategoryId());
+
+                        Collections.shuffle(questionsList);
+                        if (questionsList != null && !questionsList.isEmpty()) {
+
+                            String subcategoryName = categorySubCategory.getSubCategories().get(j).getSubCategoryName();
+                            if (questionsList.size() < 20) {
+                                addQuestion(questionsList, questionsList.size(), subcategoryName);
+                            } else {
+                                addQuestion(questionsList, Integer.parseInt(this.maxquestion.trim().toString()), subcategoryName);
 
 
-                    if(questionsList!=null) {
-                        String subcategoryName= categorySubCategory.getSubCategories().get(j).getSubCategoryName();
-                         if(questionsList.size()<20) {
-                             addQuestion(questionsList,questionsList.size(),subcategoryName);
-                         }
-                         else {
-                             addQuestion(questionsList,Integer.parseInt(this.maxquestion),subcategoryName);
+                            }
+                        } else {
+                        }
+                    } catch (NumberFormatException e1) {
+                        System.out.println("Error occurred " + e1);
 
-
-                         }
                     }
 
-           }
+                }
+                System.out.println();
+            } catch (Exception e) {
+                System.out.println("Error occurred " + e);
+            }
         }
-
-        System.out.println("Questions1"+questions);
 
         return questions;
 
     }
 
-    private void addQuestion(List<Question> questionsList, int maxquestion,String subcategoryName) {
-        System.out.println(maxquestion+" Question Selected");
-        for (int i = 0; i < maxquestion; i++) {
+    private void addQuestion(List<Question> questionsList, int maxquestion, String subcategoryName) {
+
+        for (int i = 0; i < 3; i++) {
             options = new ArrayList<String>();
             options.add(questionsList.get(i).getAnswer_1());
             options.add(questionsList.get(i).getAnswer_2());
