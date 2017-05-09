@@ -5,6 +5,8 @@ import com.mum.pm.quiz.model.CategorySubCategory;
 import com.mum.pm.quiz.model.QuestionSet;
 import com.mum.pm.quiz.service.QuestionsServices;
 import com.mum.pm.quiz.model.AjaxResponseBody;
+import com.mum.pm.user_module.model.TestKey;
+import com.mum.pm.user_module.repository.TestKeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -23,22 +25,17 @@ public class QuizController {
     public QuestionsServices getQuestionsServices() {
         return questionsServices;
     }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    String category;
+    String subcategory="";
     ExamReport examReport;
     Set<SubReport> subReports;
     Set<ExamQuestionDetails> examDeatils;
     ExamQuestionDetails examQuestionDetails;
     List<Category> categories;
     CategorySubCategory categorySubCategory;
+    String accessKey;
+
+    @Autowired
+    private TestKeyRepository testKeyRepository;
 
     @Autowired
     ExamReportService examReportService;
@@ -48,19 +45,22 @@ public class QuizController {
         this.questionsServices = questionsServices;
     }
 
-    @PostMapping("/getQuestions")
+    @PostMapping("/student/getQuestions")
     public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody CategorySubCategory categorySubCategory, Errors errors) {
         this.categorySubCategory = categorySubCategory;
-        System.out.println("test: " + categorySubCategory);
+        accessKey=categorySubCategory.getAccessKey();
         AjaxResponseBody result = new AjaxResponseBody();
         if (errors.hasErrors()) {
 
             return ResponseEntity.badRequest().body(result);
 
         }
-        // category = search.getBkgsubcategory();
         List<QuestionSet> questions = questionsServices.findBySubCategory(categorySubCategory);
-        result.setCategory(categorySubCategory.getCategory().getCategoryName());
+
+        for (int i = 0; i < categorySubCategory.getSubCategories().size(); i++) {
+            subcategory+=categorySubCategory.getSubCategories().get(i).getSubCategoryName()+"   ";
+        }
+        result.setCategory(subcategory);
         if (questions.isEmpty()) {
             result.setMsg("category not found!");
         } else {
@@ -72,8 +72,10 @@ public class QuizController {
 
     }
 
-    @PostMapping("/saveResult")
+    @PostMapping("/student/saveResult")
     public void saveResult(@Valid @RequestBody AjaxResponseBody ajaxResponse) {
+        TestKey testKey = testKeyRepository.findByTestkeyValue(accessKey);
+
         double scoreByCategory = 0;
         double scoreBySubCategory = 0;
         for (int i = 0; i < ajaxResponse.getSelectedAnswer().size(); i++) {
@@ -81,11 +83,8 @@ public class QuizController {
                 scoreByCategory++;
             }
         }
-        System.out.println("Selected Answwer " + ajaxResponse.getSelectedAnswer().toString());
 
-        System.out.println(ajaxResponse.getMsg() + " Question :" + ajaxResponse.getResult().toString());
-
-        examReport = new ExamReport(5, 1, scoreByCategory, ajaxResponse.getCategory());
+        examReport = new ExamReport(testKey.getStudentid(),testKey.getUserid(), scoreByCategory, ajaxResponse.getCategory());
 
         subReports = new HashSet<SubReport>();
         SubReport subReport = new SubReport();
@@ -105,15 +104,7 @@ public class QuizController {
 
         }
 
-
-        System.out.println("Test " + subReport.toString());
         examReport.setSubReports(subReports);
-
-
-        System.out.println("Test1 " + scoreByCategory);
-        System.out.println("Test2 " + scoreBySubCategory);
-
-
         examDeatils = new HashSet<ExamQuestionDetails>();
         ExamQuestionDetails examQuestionDetail = new ExamQuestionDetails();
 
@@ -124,16 +115,13 @@ public class QuizController {
             examDeatils.add(examQuestionDetail);
         }
         examReport.setExamQuestionDetails(examDeatils);
-        // examReport.addSubReportDetails(examQuestionDetail);
-        System.out.println(examReport.toString());
 
         try {
             examReportService.save(examReport);
         } catch (Exception e) {
             e.getStackTrace();
         }
-        System.out.println("Report saved");
-    }
 
+    }
 
 }
