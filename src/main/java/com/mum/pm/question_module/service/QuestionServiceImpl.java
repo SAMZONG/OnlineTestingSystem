@@ -1,5 +1,6 @@
 package com.mum.pm.question_module.service;
 
+import com.mum.pm.inventory_module.dao.SubCategoryDAO;
 import com.mum.pm.question_module.model.Question;
 import com.mum.pm.question_module.repository.QuestionRepository;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -25,6 +26,9 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     QuestionRepository questionRepository;
+
+    @Autowired
+    SubCategoryDAO subCategoryDAO;
 
     private static HSSFWorkbook wb = null;
     private static Sheet ws = null;
@@ -53,6 +57,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void uploadQuestions(Path path) {
 
+        int check=0;
+        int count =0;
         String description = null;
         List<String> listString = null;
         List<Integer> listInteger = null;
@@ -64,6 +70,8 @@ public class QuestionServiceImpl implements QuestionService {
         String answer_4 = null;
         String answer_5 = null;
         int correct_answer = 0;
+        String categoryName;
+        String subCategoryName;
         int sub_category_id = 0;
 
         try {
@@ -74,6 +82,7 @@ public class QuestionServiceImpl implements QuestionService {
             Iterator<Row> iterator = ws.iterator();
 
             while (iterator.hasNext()) {
+                count++;
                 listInteger = new ArrayList<Integer>();
                 listString = new ArrayList<String>();
                 Row currentRow = iterator.next();
@@ -89,33 +98,52 @@ public class QuestionServiceImpl implements QuestionService {
                     }
                 }
 
+
                 for(int i = 0; i < listInteger.size(); i++){
                     //   id = listInteger.get(0);
                     correct_answer = listInteger.get(0);
-                    sub_category_id = listInteger.get(1);
+                    // sub_category_id = listInteger.get(1);
                 }
 
-                for (int i = 0; i < listString.size(); i++) {
-                    question_description = listString.get(0);
-                    answer_1 = listString.get(1);
-                    answer_2 = listString.get(2);
-                    answer_3 = listString.get(3);
-                    answer_4 = listString.get(4);
-                    answer_5 = listString.get(5);
+                for (int i = 0; i < listString.size(); i++)
+                {
+                    try {
+                        question_description = listString.get(0);
+                        answer_1 = listString.get(1);
+                        answer_2 = listString.get(2);
+                        answer_3 = listString.get(3);
+                        answer_4 = listString.get(4);
+                        answer_5 = listString.get(5);
+                        categoryName=listString.get(6);
+                        subCategoryName=listString.get(7);
+                        sub_category_id = subCategoryDAO.findBySubCategoryName(subCategoryName).getSubCategoryId();
+
+                    }catch(Exception e){
+                        check=1;
+                        System.out.println("Row numeber "+ count+ " has some columns field invalid.. Please check it....");
+
+                    }
                 }
-
-                Question question = new Question(question_description,answer_1,answer_2,answer_3
-                        ,answer_4,answer_5,correct_answer,sub_category_id);
-
-
-
-                System.out.println(question_description+" "+answer_1+" "+answer_2+" "+answer_3+" "
-                        +answer_4+" "+answer_5+" "+correct_answer+" "+sub_category_id);
-
-                questionRepository.save(question);
-
-
+                if(check==0) {
+                    Question question = new Question(question_description, answer_1, answer_2, answer_3
+                            , answer_4, answer_5, correct_answer, sub_category_id);
+                    System.out.println(question_description+" "+answer_1+" "+answer_2+" "+answer_3+" "
+                            +answer_4+" "+answer_5+" "+correct_answer+" "+sub_category_id);
+                    questionRepository.save(question);
+                }
+                check=0;
             }
+
+
+
+
+               /*// System.out.println(question_description+" "+answer_1+" "+answer_2+" "+answer_3+" "
+                        +answer_4+" "+answer_5+" "+correct_answer+" "+sub_category_id);
+*/
+
+
+
+
 
         } catch (Exception e1) {
             e1.printStackTrace();

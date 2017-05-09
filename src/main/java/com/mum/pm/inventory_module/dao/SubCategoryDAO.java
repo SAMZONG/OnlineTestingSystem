@@ -19,5 +19,6 @@ import java.util.Set;
 public interface SubCategoryDAO extends CrudRepository<SubCategory,Integer>{
     public Iterable<SubCategory> findByCategory(Category category);
     public Set<SubCategory> getSubCategoriesByCategory_CategoryId(int id);
+    public SubCategory findBySubCategoryName(String name);
 
 }
