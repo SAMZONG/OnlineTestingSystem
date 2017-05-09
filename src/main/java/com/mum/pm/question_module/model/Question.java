@@ -130,5 +130,18 @@ public class Question {
         this.subCategoryId = sub_category_id;
     }
 
-
+    @Override
+    public String toString() {
+        return "Question{" +
+                "id=" + id +
+                ", question_description='" + question_description + '\'' +
+                ", answer_1='" + answer_1 + '\'' +
+                ", answer_2='" + answer_2 + '\'' +
+                ", answer_3='" + answer_3 + '\'' +
+                ", answer_4='" + answer_4 + '\'' +
+                ", answer_5='" + answer_5 + '\'' +
+                ", correct_answer=" + correct_answer +
+                ", subCategoryId=" + subCategoryId +
+                '}';
+    }
 }
