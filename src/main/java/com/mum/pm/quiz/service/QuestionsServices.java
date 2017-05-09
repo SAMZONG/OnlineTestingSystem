@@ -5,6 +5,7 @@ import com.mum.pm.question_module.repository.QuestionRepository;
 import com.mum.pm.quiz.model.CategorySubCategory;
 import com.mum.pm.quiz.model.QuestionSet;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -21,29 +22,39 @@ public class QuestionsServices {
     QuestionRepository questionRepository;
     List<Question> questionsList;
 
+    @Value("${spring.test.maxquestion}")
+    private int maxquestion;
+
+    public int getMaxquestion() {
+        return maxquestion;
+    }
+
+    public void setMaxquestion(int maxquestion) {
+        this.maxquestion = maxquestion;
+    }
+
     public List<QuestionSet> findBySubCategory(CategorySubCategory categorySubCategory) {
 
-        System.out.println("Sub Category Size" +categorySubCategory.getSubCategories().size());
         questions = new ArrayList<QuestionSet>();
         for(int j=0;j<categorySubCategory.getSubCategories().size();j++){
             questionsList =new ArrayList<Question>();
             if( categorySubCategory.getSubCategories()!=null && !categorySubCategory.getSubCategories().isEmpty() ){
-                System.out.println("Sub Category; "+categorySubCategory.getSubCategories().get(j).getSubCategoryId());
-                questionsList= questionRepository.getAllBySubCategoryId(/*categorySubCategory.getSubCategories().get(j).getSubCategoryId()*/1);
+                questionsList= questionRepository.getAllBySubCategoryId(categorySubCategory.getSubCategories().get(j).getSubCategoryId());
 
                 System.out.println("Questions List"+questionsList);
                 Collections.shuffle(questionsList);
-                    if(questionsList!=null) {
-                        for (int i = 0; i </* questionsList.size()*/1; i++) {
-                            options = new ArrayList<String>();
-                            options.add(questionsList.get(i).getAnswer_1());
-                            options.add(questionsList.get(i).getAnswer_2());
-                            options.add(questionsList.get(i).getAnswer_3());
-                            options.add(questionsList.get(i).getAnswer_4());
-                            options.add(questionsList.get(i).getAnswer_5());
-                            questions.add(new QuestionSet(questionsList.get(i).getQuestion_description(), questionsList.get(i).getId(), categorySubCategory.getSubCategories().get(j).getSubCategoryName(), options, questionsList.get(i).getCorrect_answer()));
-                        }
 
+
+                    if(questionsList!=null) {
+                        String subcategoryName= categorySubCategory.getSubCategories().get(j).getSubCategoryName();
+                         if(questionsList.size()<20) {
+                             addQuestion(questionsList,questionsList.size(),subcategoryName);
+                         }
+                         else {
+                             addQuestion(questionsList,this.maxquestion,subcategoryName);
+
+
+                         }
                     }
 
            }
@@ -55,13 +66,17 @@ public class QuestionsServices {
 
     }
 
-    // Init some questions for testing
-    @PostConstruct
-    private void iniDataForTesting() {
-
-        questions = new ArrayList<QuestionSet>();
-
-
+    private void addQuestion(List<Question> questionsList, int maxquestion,String subcategoryName) {
+        System.out.println(maxquestion+" Question Selected");
+        for (int i = 0; i < maxquestion; i++) {
+            options = new ArrayList<String>();
+            options.add(questionsList.get(i).getAnswer_1());
+            options.add(questionsList.get(i).getAnswer_2());
+            options.add(questionsList.get(i).getAnswer_3());
+            options.add(questionsList.get(i).getAnswer_4());
+            options.add(questionsList.get(i).getAnswer_5());
+            questions.add(new QuestionSet(questionsList.get(i).getQuestion_description(), questionsList.get(i).getId(), subcategoryName, options, questionsList.get(i).getCorrect_answer()));
+        }
     }
 
 }
