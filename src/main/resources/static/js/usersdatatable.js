@@ -1,13 +1,13 @@
-$(document).ready( function () {
+$(document).ready(function () {
     var table = $('#usersTable').DataTable({
         "ajax": "/admin/getAllUsers",
-        "sAjaxDataProp":"",
-        "order": [[ 0, "asc" ]],
-        "aoColumns" : [
-            { "data": "id"},
-            { "data": "name"},
-            { "data": "lastName" },
-            { "data": "email" },
+        "sAjaxDataProp": "",
+        "order": [[0, "asc"]],
+        "aoColumns": [
+            {"data": "id"},
+            {"data": "name"},
+            {"data": "lastName"},
+            {"data": "email"},
             {
                 "target": -1,
                 "data": null,
@@ -16,15 +16,15 @@ $(document).ready( function () {
         ],
     });
 
-    $('#usersTable tbody').on( 'click', 'button', function () {
-        var data = table.row( $(this).parents('tr') ).data();
+    $('#usersTable tbody').on('click', 'button', function () {
+        var data = table.row($(this).parents('tr')).data();
         var user = {
 
             "id": data["id"],
-            "name":data["name"],
-            "lastName":data["lastName"],
-            "email":data["email"],
-            "active":data["active"]
+            "name": data["name"],
+            "lastName": data["lastName"],
+            "email": data["email"],
+            "active": data["active"]
         };
 
         $.ajax({
@@ -34,13 +34,12 @@ $(document).ready( function () {
             dataType: 'json',
             data: JSON.stringify(user),
 
-            success: function(){
-                table.row($(this).parents('tr') ).
-                remove().
-                draw();
+            success: function () {
+                table.row($(this).parents('tr')).remove().draw();
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Status: " + textStatus);
+                alert("Error: " + errorThrown);
             }
         });
 

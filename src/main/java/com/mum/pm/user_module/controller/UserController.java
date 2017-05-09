@@ -2,25 +2,19 @@ package com.mum.pm.user_module.controller;
 
 import com.mum.pm.user_module.model.Role;
 import com.mum.pm.user_module.model.Student;
-import com.mum.pm.user_module.model.TestKey;
 import com.mum.pm.user_module.model.User;
-import com.mum.pm.user_module.service.TestKeyServiceImpl;
 import com.mum.pm.user_module.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Chuang on 2017/4/27.

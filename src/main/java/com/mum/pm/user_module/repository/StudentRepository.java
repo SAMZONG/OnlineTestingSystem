@@ -9,9 +9,10 @@ import java.util.List;
 /**
  * Created by Chuang on 2017/4/27.
  */
-public interface StudentRepository extends JpaRepository<Student,Integer> {
+public interface StudentRepository extends JpaRepository<Student, Integer> {
     //@Query("select s from student s where u.active = 1")
     Student findByStudentId(int studentId);
+
     @Query("select s from Student s where s.active = 1")
     List<Student> findAllActiveStudents();
 //    @Query("update Student s set s.active = 0 where s.studentId = ?1")
