@@ -22,16 +22,17 @@ public class QuestionsServices {
     QuestionRepository questionRepository;
     List<Question> questionsList;
 
-    @Value("${spring.test.maxquestion}")
-    private int maxquestion;
-
-    public int getMaxquestion() {
+    public String getMaxquestion() {
         return maxquestion;
     }
 
-    public void setMaxquestion(int maxquestion) {
+    public void setMaxquestion(String maxquestion) {
         this.maxquestion = maxquestion;
     }
+
+    @Value("${spring.test.maxquestion}")
+    private String maxquestion;
+
 
     public List<QuestionSet> findBySubCategory(CategorySubCategory categorySubCategory) {
 
@@ -51,7 +52,7 @@ public class QuestionsServices {
                              addQuestion(questionsList,questionsList.size(),subcategoryName);
                          }
                          else {
-                             addQuestion(questionsList,this.maxquestion,subcategoryName);
+                             addQuestion(questionsList,Integer.parseInt(this.maxquestion),subcategoryName);
 
 
                          }
