@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service("userService")
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -83,6 +83,11 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public Role findRoleById(int id) {
 		return roleRepository.findById(id);
+	}
+
+	@Override
+	public List<User> findAllUsers() {
+		return userRepository.findAll();
 	}
 
 	private Set<Role> assignRole(Role role){

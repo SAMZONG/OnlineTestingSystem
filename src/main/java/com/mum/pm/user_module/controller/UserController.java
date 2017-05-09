@@ -4,7 +4,10 @@ import com.mum.pm.user_module.model.Role;
 import com.mum.pm.user_module.model.Student;
 import com.mum.pm.user_module.model.TestKey;
 import com.mum.pm.user_module.model.User;
+import com.mum.pm.user_module.service.TestKeyServiceImpl;
 import com.mum.pm.user_module.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +27,9 @@ import java.util.Set;
  */
 @RestController
 public class UserController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+
     @Autowired
     private UserService userService;
 
@@ -120,6 +126,30 @@ public class UserController {
             modelAndView.setViewName("add-user");
         }
         return modelAndView;
+    }
+
+    @RequestMapping(path = "/admin/users", method = RequestMethod.GET)
+    public ModelAndView getAllUsers() {
+        LOGGER.debug("UserController.getAllUsers");
+
+
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findUserByEmail(auth.getName());
+
+        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+        modelAndView.addObject("userRole", "Admin");
+
+        modelAndView.setViewName("all-users");
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/admin/getAllUsers", method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getAllEmployees() {
+
+        LOGGER.debug("UserController.getAllEmployees");
+        return userService.findAllUsers();
     }
 
 

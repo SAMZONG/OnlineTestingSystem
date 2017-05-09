@@ -16,4 +16,6 @@ public interface UserService {
 	List<Student> findAllStudent();
 	List<Role> findAllRole();
 	Role findRoleById(int id);
+
+    List<User> findAllUsers();
 }
