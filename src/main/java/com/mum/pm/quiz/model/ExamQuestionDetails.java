@@ -1,4 +1,4 @@
-package com.mum.pm.quiz.controller;
+package com.mum.pm.quiz.model;
 
 import javax.persistence.*;
 
@@ -21,7 +21,7 @@ public class ExamQuestionDetails {
 
     @ManyToOne
     @JoinColumn(name = "examReport_id")
-    private ExamReport examReportDetails;
+    private ExamReports examReportsDetails;
 
     public ExamQuestionDetails() {
     }
@@ -33,12 +33,12 @@ public class ExamQuestionDetails {
         this.correct_answer = correct_answer;
     }
 
-    public ExamReport getExamReportDetails() {
-        return examReportDetails;
+    public ExamReports getExamReportsDetails() {
+        return examReportsDetails;
     }
 
-    public void setExamReportDetails(ExamReport examReportDetails) {
-        this.examReportDetails = examReportDetails;
+    public void setExamReportsDetails(ExamReports examReportsDetails) {
+        this.examReportsDetails = examReportsDetails;
     }
 
     public int getExam_detail_id() {

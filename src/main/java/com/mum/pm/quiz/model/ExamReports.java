@@ -1,11 +1,10 @@
-package com.mum.pm.quiz.controller;
+package com.mum.pm.quiz.model;
 
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,7 +13,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Report")
-public class ExamReport {
+public class ExamReports {
 
 
     @Id
@@ -30,15 +29,15 @@ public class ExamReport {
     @Column(name = "category_name")
     private String category_name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReport", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReports", orphanRemoval = true)
     @JsonIgnore
     private Set<SubReport> subReports;
 
-    public ExamReport() {
+    public ExamReports() {
     }
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReportDetails", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReportsDetails", orphanRemoval = true)
     private Set<ExamQuestionDetails> examQuestionDetails;
 
     public Set<ExamQuestionDetails> getExamQuestionDetails() {
@@ -59,24 +58,24 @@ public class ExamReport {
 
     public void addSubReport(SubReport subReport){
         subReports.add(subReport);
-        subReport.setExamReport(this);
+        subReport.setExamReports(this);
     }
 
     public void removeSubReport(SubReport subReport){
-        subReport.setExamReport(null);
+        subReport.setExamReports(null);
         this.subReports.remove(subReport);
     }
     public void addSubReportDetails(ExamQuestionDetails examQuestionDetail){
         examQuestionDetails.add(examQuestionDetail);
-        examQuestionDetail.setExamReportDetails(this);
+        examQuestionDetail.setExamReportsDetails(this);
     }
 
     public void removeSubReportDetails(ExamQuestionDetails examQuestionDetails){
-        examQuestionDetails.setExamReportDetails(null);
+        examQuestionDetails.setExamReportsDetails(null);
         this.examQuestionDetails.remove(examQuestionDetails);
     }
 
-    public ExamReport(int student_id, int user_id, double result, String category_name) {
+    public ExamReports(int student_id, int user_id, double result, String category_name) {
         this.student_id = student_id;
         this.user_id = user_id;
         this.result = result;

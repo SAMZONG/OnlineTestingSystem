@@ -1,11 +1,9 @@
 package com.mum.pm.quiz.controller;
 
 import com.mum.pm.inventory_module.model.Category;
-import com.mum.pm.quiz.model.CategorySubCategory;
-import com.mum.pm.quiz.model.QuestionSet;
-import com.mum.pm.quiz.model.Report;
+import com.mum.pm.quiz.model.*;
+import com.mum.pm.quiz.service.ExamReportService;
 import com.mum.pm.quiz.service.QuestionsServices;
-import com.mum.pm.quiz.model.AjaxResponseBody;
 import com.mum.pm.user_module.model.Student;
 import com.mum.pm.user_module.model.TestKey;
 import com.mum.pm.user_module.model.User;
@@ -36,7 +34,7 @@ public class QuizController {
         return questionsServices;
     }
     String subcategory="";
-    ExamReport examReport;
+    ExamReports examReports;
     Set<SubReport> subReports;
     Set<ExamQuestionDetails> examDeatils;
     ExamQuestionDetails examQuestionDetails;
@@ -103,7 +101,7 @@ public class QuizController {
                }
            }
 
-           examReport = new ExamReport(testKey.getStudentid(), testKey.getUserid(), scoreByCategory, this.categorySubCategory.getCategory().getCategoryName());
+           examReports = new ExamReports(testKey.getStudentid(), testKey.getUserid(), scoreByCategory, this.categorySubCategory.getCategory().getCategoryName());
 
            subReports = new HashSet<SubReport>();
            SubReport subReport = new SubReport();
@@ -119,25 +117,25 @@ public class QuizController {
 
                subReport = new SubReport(categorySubCategory.getSubCategories().get(i).getSubCategoryName(), scoreBySubCategory);
 
-               subReport.setExamReport(examReport);
+               subReport.setExamReports(examReports);
                subReports.add(subReport);
 
            }
 
-           examReport.setSubReports(subReports);
+           examReports.setSubReports(subReports);
            examDeatils = new HashSet<ExamQuestionDetails>();
            ExamQuestionDetails examQuestionDetail = new ExamQuestionDetails();
 
            for (int i = 0; i < ajaxResponse.getResult().size(); i++) {
 
                examQuestionDetail = new ExamQuestionDetails(ajaxResponse.getResult().get(i).getQuestionID(), ajaxResponse.getSelectedAnswer().get(i)+1, ajaxResponse.getResult().get(i).getSubCategoryName(), ajaxResponse.getResult().get(i).getCorrectAnswer());
-               examQuestionDetail.setExamReportDetails(examReport);
+               examQuestionDetail.setExamReportsDetails(examReports);
                examDeatils.add(examQuestionDetail);
            }
-           examReport.setExamQuestionDetails(examDeatils);
+           examReports.setExamQuestionDetails(examDeatils);
 
            try {
-               examReportService.save(examReport);
+               examReportService.save(examReports);
            } catch (Exception e) {
                e.getStackTrace();
            }
@@ -149,9 +147,9 @@ public class QuizController {
 
     @RequestMapping(value="/student/reports", method=RequestMethod.GET)
     public List<Report> getAllReports(){
-        List<ExamReport> examReports=examReportService.getExamReports();
+        List<ExamReports> examReports=examReportService.getExamReports();
         List<Report> reports=new ArrayList<Report>();
-            for (ExamReport e : examReports) {
+            for (ExamReports e : examReports) {
                 try {
                     int reportId = e.getReport_id();
                     Student student = studentService.findByStudentId(e.getStudent_id());

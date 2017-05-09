@@ -1,4 +1,4 @@
-package com.mum.pm.quiz.controller;
+package com.mum.pm.quiz.model;
 
 
 import javax.persistence.*;
@@ -18,14 +18,14 @@ public class SubReport {
     private double sub_score;
     @ManyToOne
     @JoinColumn(name = "examReport_id")
-    private ExamReport examReport;
+    private ExamReports examReports;
 
-    public ExamReport getExamReport() {
-        return examReport;
+    public ExamReports getExamReports() {
+        return examReports;
     }
 
-    public void setExamReport(ExamReport examReport) {
-        this.examReport = examReport;
+    public void setExamReports(ExamReports examReports) {
+        this.examReports = examReports;
     }
 
     public SubReport() {
@@ -68,7 +68,7 @@ public class SubReport {
                 "sub_report_Id=" + sub_report_Id +
                 ", subcategory_name='" + subcategory_name + '\'' +
                 ", sub_score=" + sub_score +
-                ", examReport=" + examReport +
+                ", examReports=" + examReports +
                 '}';
     }
 }

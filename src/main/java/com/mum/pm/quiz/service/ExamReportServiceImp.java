@@ -1,5 +1,7 @@
-package com.mum.pm.quiz.controller;
+package com.mum.pm.quiz.service;
 
+import com.mum.pm.quiz.repository.ExamReportRepository;
+import com.mum.pm.quiz.model.ExamReports;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,12 +26,12 @@ public class ExamReportServiceImp implements ExamReportService {
     }
 
     @Override
-    public void save(ExamReport examReport) {
-        examReportRepository.save(examReport);
+    public void save(ExamReports examReports) {
+        examReportRepository.save(examReports);
     }
 
     @Override
-    public List<ExamReport> getExamReports() {
+    public List<ExamReports> getExamReports() {
         return examReportRepository.findAll();
     }
 
