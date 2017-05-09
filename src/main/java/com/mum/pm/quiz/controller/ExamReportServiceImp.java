@@ -28,5 +28,10 @@ public class ExamReportServiceImp implements ExamReportService {
         examReportRepository.save(examReport);
     }
 
+    @Override
+    public List<ExamReport> getExamReports() {
+        return examReportRepository.findAll();
+    }
+
 
 }

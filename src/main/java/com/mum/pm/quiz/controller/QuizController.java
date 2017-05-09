@@ -3,16 +3,22 @@ package com.mum.pm.quiz.controller;
 import com.mum.pm.inventory_module.model.Category;
 import com.mum.pm.quiz.model.CategorySubCategory;
 import com.mum.pm.quiz.model.QuestionSet;
+import com.mum.pm.quiz.model.Report;
 import com.mum.pm.quiz.service.QuestionsServices;
 import com.mum.pm.quiz.model.AjaxResponseBody;
+import com.mum.pm.user_module.model.Student;
 import com.mum.pm.user_module.model.TestKey;
+import com.mum.pm.user_module.model.User;
 import com.mum.pm.user_module.repository.TestKeyRepository;
+import com.mum.pm.user_module.service.StudentService;
+import com.mum.pm.user_module.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +26,11 @@ import java.util.Set;
 @RestController
 public class QuizController {
 
+    @Autowired
     QuestionsServices questionsServices;
+
+    @Autowired
+    StudentService studentService;
 
     public QuestionsServices getQuestionsServices() {
         return questionsServices;
@@ -39,6 +49,9 @@ public class QuizController {
 
     @Autowired
     ExamReportService examReportService;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     public void setQuestionsServices(QuestionsServices questionsServices) {
@@ -133,5 +146,30 @@ public class QuizController {
        }
 
     }
+
+    @RequestMapping(value="/student/reports", method=RequestMethod.GET)
+    public List<Report> getAllReports(){
+        List<ExamReport> examReports=examReportService.getExamReports();
+        List<Report> reports=new ArrayList<Report>();
+            for (ExamReport e : examReports) {
+                try {
+                    int reportId = e.getReport_id();
+                    Student student = studentService.findByStudentId(e.getStudent_id());
+                    System.out.println(student);
+                    String studentName = student.getFirstName() + " " + student.getLastName();
+                    User user = userService.findById(e.getUser_id());
+                    String coachName = user.getName() + " " + user.getLastName();
+                    String category = e.getCategory_name();
+                    double score = e.getResult();
+                    Report report = new Report(reportId, studentName, coachName, category, score);
+                    reports.add(report);
+                }catch(Exception ex){
+                    System.out.println(ex.getMessage());
+                }
+            }
+        return reports;
+        //return examReports;
+    }
+
 
 }
