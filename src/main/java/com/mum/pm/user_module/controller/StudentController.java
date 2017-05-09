@@ -44,7 +44,7 @@ public class StudentController {
 
             return "add-access-key";
         }else {
-//            studentService.deactivateAccessKey(accessKey);
+            studentService.deactivateAccessKey(accessKey);
             return "redirect:/student/category-subCategory/" + accessKey;
         }
     }
