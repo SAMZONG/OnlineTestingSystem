@@ -1,6 +1,6 @@
 package com.mum.pm;
 
-import com.mum.pm.user_module.service.MailService;
+//import com.mum.pm.user_module.service.MailService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

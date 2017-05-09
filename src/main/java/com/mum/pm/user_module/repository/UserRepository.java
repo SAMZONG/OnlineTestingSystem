@@ -13,4 +13,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
 	 @Query("select u from User u where u.active =1")
 	List<User> findAllActiveUsers();
+
+	@Query("SELECT b FROM User b")
+	List<User> getAllUsers();
 }

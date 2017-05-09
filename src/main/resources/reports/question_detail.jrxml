@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="question_detail" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c2a03985-76d6-49d4-9aea-7c01c20e3202">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="ZFieldStyle">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} == $F{select_answer}]]></conditionExpression>
+			<style forecolor="#008000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer}]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
+	</style>
+	<style name="Answer1FieldStyle">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} == $F{select_answer} && $F{select_answer}==1]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{select_answer}==1]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{correct_answer}==1]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+	</style>
+	<style name="Answer2FieldStyle">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} == $F{select_answer} && $F{select_answer}==2]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{select_answer}==2]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{correct_answer}==2]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+	</style>
+	<style name="Answer3FieldStyle">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} == $F{select_answer} && $F{select_answer}==3]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{select_answer}==3]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{correct_answer}==3]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+	</style>
+	<style name="Answer4FieldStyle">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} == $F{select_answer} && $F{select_answer}==4]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{select_answer}==4]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{correct_answer}==4]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+	</style>
+	<style name="Answer5FieldStyle">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} == $F{select_answer} && $F{select_answer}==5]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{select_answer}==5]]></conditionExpression>
+			<style forecolor="#FF0000"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{correct_answer} != $F{select_answer} && $F{correct_answer}==5]]></conditionExpression>
+			<style forecolor="#00FF00"/>
+		</conditionalStyle>
+	</style>
+	<field name="question_description" class="java.lang.String"/>
+	<field name="answer_1" class="java.lang.String"/>
+	<field name="answer_2" class="java.lang.String"/>
+	<field name="answer_3" class="java.lang.String"/>
+	<field name="answer_4" class="java.lang.String"/>
+	<field name="answer_5" class="java.lang.String"/>
+	<field name="correct_answer" class="java.lang.Integer"/>
+	<field name="sub_category_id" class="java.lang.Integer"/>
+	<field name="report_id" class="java.lang.Integer"/>
+	<field name="result" class="java.lang.Double"/>
+	<field name="student_id" class="java.lang.Integer"/>
+	<field name="student_name" class="java.lang.String"/>
+	<field name="question_answer_id" class="java.lang.Integer"/>
+	<field name="exam_detail_id" class="java.lang.Integer"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="select_answer" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="175" splitType="Stretch">
+			<image>
+				<reportElement x="65" y="-19" width="741" height="81" uuid="dc579cfe-d90b-485e-a567-770a1b9f1c1a"/>
+				<imageExpression><![CDATA["D:\\MUM Courses\\PM\\ireports\\mumbanner.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="95" width="100" height="20" uuid="149b3e81-ea21-45c4-9a46-d6ce42cf78a4"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Student Name:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="119" width="100" height="20" uuid="b9cfa452-6814-4f66-9bec-f5848d6e9f25"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Student ID:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="149" width="100" height="20" uuid="346f752c-a5de-4d3a-9106-ea70c7102ab7"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Email :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="109" y="95" width="146" height="20" uuid="104c5c9b-03e3-4eea-9c4b-1e7308a17c1d"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{student_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="119" width="146" height="20" uuid="16450c87-65bc-453d-8653-53a91e64ac24"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{student_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="109" y="149" width="146" height="20" uuid="712b1c5f-754a-4d34-bc35-70198ef36195"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="129" width="100" height="20" uuid="afd35f74-0237-4aa4-93c0-ef3a83b60ac6"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Result:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="129" width="100" height="20" uuid="e69b22af-a070-4cff-9ba4-2bdf0cfdd151"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="345" y="99" width="100" height="20" uuid="997638f8-4e7b-4bd0-a9c6-a634b022e29c"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Exam Id:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="455" y="99" width="100" height="20" uuid="3ecd94b5-2356-403f-9b3d-6580f7c4cda0"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{report_id}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="-18" y="169" width="591" height="1" uuid="e40a3c17-db97-4737-8c9f-cbbbd1a97ccc"/>
+			</line>
+			<staticText>
+				<reportElement x="165" y="62" width="259" height="37" uuid="78cf8012-c707-4070-8c14-f73f2b0137a2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Times New Roman" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Exam Detail Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="143" splitType="Stretch">
+			<staticText>
+				<reportElement x="40" y="39" width="25" height="20" uuid="7d0aa226-f478-4bdb-adca-73ada0257c5f"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[(A)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="99" width="25" height="20" uuid="9b33f155-f711-42d5-8a70-7624e4c3fabf"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[(D)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="119" width="25" height="20" uuid="2742fd62-5b67-469f-bcea-8440eff9364d"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[(E)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="27" y="9" width="514" height="25" uuid="eaea6bce-9af2-47ad-a3b9-ddf7a5439f26"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{question_description}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Answer1FieldStyle" x="65" y="39" width="100" height="20" uuid="239a8679-67b5-40b4-a789-6f4305a939d9"/>
+				<textFieldExpression><![CDATA[$F{answer_1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Answer4FieldStyle" x="65" y="99" width="100" height="20" uuid="09c4d12e-9c3c-4226-a3e7-596330f0e6a9"/>
+				<textFieldExpression><![CDATA[$F{answer_4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Answer2FieldStyle" x="65" y="59" width="100" height="20" uuid="42646c05-3dba-47d1-a721-4b2abe8cfb3e"/>
+				<textFieldExpression><![CDATA[$F{answer_2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="59" width="25" height="20" uuid="0b83fa96-1763-4569-a660-d752bd1e5d57"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[(B)]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="Answer3FieldStyle" x="65" y="79" width="100" height="20" uuid="8ca64b6c-f1c8-4562-86fe-59681e04619b"/>
+				<textFieldExpression><![CDATA[$F{answer_3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Answer5FieldStyle" x="65" y="119" width="100" height="20" uuid="8cacd5ae-e3b0-45d7-adb4-b024db7795db"/>
+				<textFieldExpression><![CDATA[$F{answer_5}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="40" y="79" width="25" height="20" uuid="e08b50eb-ac9c-4ab7-a1f6-09bd7dc1b006"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[(C)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="9" width="27" height="20" uuid="7ffbf230-4165-4f16-a1cc-081d05390a7a"/>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="7" width="30" height="27" uuid="7aed6551-bf80-4be0-8071-3f3d9684bde9"/>
+				<textElement textAlignment="Justified">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[.]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="55">
+			<textField>
+				<reportElement x="211" y="10" width="80" height="20" uuid="8bc86ba8-bfc7-47de-bfc4-9b368cb6ec52"/>
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="193" y="35" width="187" height="20" uuid="92e859ed-adfc-449e-ac51-10520f0f9fe8"/>
+				<textElement textAlignment="Justified">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[Copyright © 2017 - MUM.EDU]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="281" y="10" width="64" height="20" uuid="395f7ad9-6bf9-416f-a036-2272e94a71be"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

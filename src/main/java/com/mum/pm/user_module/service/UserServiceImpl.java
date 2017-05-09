@@ -28,64 +28,67 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Override
-    public User findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
+	@Override
+	public User findUserByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
 
-    public Student findStudentById(int studentId) {
-        return studentRepository.findByStudentId(studentId);
-    }
+	public Student findStudentById(int studentId){ return studentRepository.findByStudentId(studentId);}
 
-    @Override
-    public void saveUser(User user, Role role) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setActive(1);
-        Set<Role> roles = assignRole(role);
-        user.setRoles(roles);
-        userRepository.save(user);
-    }
+	@Override
+	public void saveUser(User user, Role role) {
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		user.setActive(1);
+		Set<Role> roles = assignRole(role);
+		user.setRoles(roles);
+		userRepository.save(user);
+	}
 
-    @Override
-    public void saveStudent(Student student) {
-        student.setActive(true);
-        studentRepository.save(student);
-    }
+	@Override
+	public List<User> getAllUsers(){
+		return userRepository.getAllUsers();
+	}
 
-    @Override
-    public List<Student> findAllStudent() {
-        return studentRepository.findAllActiveStudents();
-    }
+	@Override
+	public void saveStudent(Student student) {
+		student.setActive(true);
+		studentRepository.save(student);
+	}
 
-    @Override
-    public void inactiveStudent(Student student) {
-        student.setActive(false);
-        studentRepository.saveAndFlush(student);
-    }
+	@Override
+	public List<Student> findAllStudent(){
+		return studentRepository.findAllActiveStudents();
+	}
 
-    @Override
-    public List<Student> findAvailableStudent() {
-        HashMap students = new HashMap();
-        List<Student> activeStudents = studentRepository.findAllActiveStudents();
-        List<TestKey> activeTestKeys = testKeyRepository.findAllActiveTestKey();
-        //Remove all students who already have test key
-        for (Student s : activeStudents) students.put(s.getStudentId(), s);
-        for (TestKey testKey : activeTestKeys) {
-            if (students.containsKey(testKey.getStudentid()))
-                students.remove(testKey.getStudentid());
-        }
-        return new ArrayList<Student>(students.values());
-    }
+	@Override
+	public void inactiveStudent(Student student) {
+		student.setActive(false);
+		studentRepository.saveAndFlush(student);
+	}
 
-    @Override
-    public List<Role> findAllRole() {
-        return roleRepository.findAll();
-    }
+	@Override
+	public List<Student> findAvailableStudent() {
+		HashMap students = new HashMap();
+		List<Student> activeStudents = studentRepository.findAllActiveStudents();
+		List<TestKey> activeTestKeys = testKeyRepository.findAllActiveTestKey();
+		//Remove all students who already have test key
+		for (Student s : activeStudents) students.put(s.getStudentId(),s);
+		for(TestKey testKey : activeTestKeys){
+			if(students.containsKey(testKey.getStudentid()))
+				students.remove(testKey.getStudentid());
+		}
+		return new ArrayList<Student>(students.values());
+	}
 
-    @Override
-    public Role findRoleById(int id) {
-        return roleRepository.findById(id);
-    }
+	@Override
+	public List<Role> findAllRole() {
+		return roleRepository.findAll();
+	}
+
+	@Override
+	public Role findRoleById(int id) {
+		return roleRepository.findById(id);
+	}
 
     @Override
     public List<User> findAllUsers() {

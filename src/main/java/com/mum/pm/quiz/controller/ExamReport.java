@@ -70,7 +70,8 @@ public class ExamReport {
         this.examQuestionDetails.remove(examQuestionDetails);
     }
 
-
+    public ExamReport() {
+    }
 
     public ExamReport(int student_id, int user_id, double result, String category_name) {
         this.student_id = student_id;
