@@ -1,6 +1,8 @@
 package com.mum.pm.user_module.service;
 
+import com.mum.pm.user_module.model.Student;
 import com.mum.pm.user_module.model.TestKey;
+import com.mum.pm.user_module.repository.StudentRepository;
 import com.mum.pm.user_module.repository.TestKeyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,10 @@ public class StudentServiceImpl implements StudentService{
 
     @Autowired
     private TestKeyRepository testKeyRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
     @Override
     public boolean isAccessKey(String accessKey) {
         TestKey testKey = testKeyRepository.findByTestkeyValue(accessKey);
@@ -32,5 +38,11 @@ public class StudentServiceImpl implements StudentService{
         TestKey testKey = testKeyRepository.findByTestkeyValue(accessKey);
         testKey.setActive(0);
         testKeyRepository.saveAndFlush(testKey);
+    }
+
+    @Override
+    public Student findByStudentId(int id) {
+        return studentRepository.findByStudentId(id);
+
     }
 }
