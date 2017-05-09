@@ -34,6 +34,8 @@ public class ExamReport {
     @JsonIgnore
     private Set<SubReport> subReports;
 
+    public ExamReport() {
+    }
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReportDetails", orphanRemoval = true)
