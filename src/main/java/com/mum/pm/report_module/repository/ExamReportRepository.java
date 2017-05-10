@@ -13,13 +13,13 @@ import java.util.List;
  */
 
 @Repository("reportRepository")
-public interface ExamReportRepository extends JpaRepository<Question, Long> {
+public interface ExamReportRepository extends JpaRepository<ExamReport, Long> {
 
-    void save(ExamReport examReport);
-
-    ExamReport findById(int id);
+   // void save(ExamReport examReport);
 
     @Query("SELECT b FROM ExamReport b")
     List<ExamReport> getAllExamReports();
+    ExamReport findById(int id);
+
 
 }

@@ -14,7 +14,7 @@ public class ExamReport {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "report_id")
-    private int report_id;
+    private int id;
     @Column(name = "student_id")
     private int student_id;
     @Column(name = "user_id")
@@ -34,12 +34,12 @@ public class ExamReport {
         this.category_name = category_name;
     }
 
-    public int getReport_id() {
-        return report_id;
+    public int getId() {
+        return id;
     }
 
-    public void setReport_id(int report_id) {
-        this.report_id = report_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getStudent_id() {
