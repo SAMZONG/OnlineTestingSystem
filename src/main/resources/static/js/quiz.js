@@ -11,7 +11,7 @@
 
     var search = {};
 
-    var timer=120;
+    var timer=7200;
     var min=0;
     var sec=0;
 
