@@ -76,7 +76,7 @@ public class QuestionsServices {
 
     private void addQuestion(List<Question> questionsList, int maxquestion, String subcategoryName) {
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             options = new ArrayList<String>();
             options.add(questionsList.get(i).getAnswer_1());
             options.add(questionsList.get(i).getAnswer_2());
