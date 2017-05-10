@@ -100,7 +100,7 @@ public class QuizController {
                    scoreByCategory++;
                }
            }
-
+           scoreByCategory=(int)Math.round((scoreByCategory/ajaxResponse.getResult().size()*100)*100)/(double)100;
            examReports = new ExamReports(testKey.getStudentid(), testKey.getUserid(), scoreByCategory, this.categorySubCategory.getCategory().getCategoryName());
 
            subReports = new HashSet<SubReport>();
@@ -115,6 +115,7 @@ public class QuizController {
                    }
                }
 
+               scoreBySubCategory=(int)Math.round((scoreBySubCategory/categorySubCategory.getSubCategories().size()*100)*100)/(double)100;
                subReport = new SubReport(categorySubCategory.getSubCategories().get(i).getSubCategoryName(), scoreBySubCategory);
 
                subReport.setExamReports(examReports);
