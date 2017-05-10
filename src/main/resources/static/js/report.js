@@ -15,17 +15,23 @@ $(document).ready( function () {
             {
                 "target": -1,
                 "data": null,
-                "defaultContent": "<button><a href='#' style='color:darkblue'>Grade Report</a></button>",
+                "defaultContent": "<button>Show Report</button>",
             },
             {
                 "target": -1,
                 "data": null,
-                "defaultContent": "<button><a href='#' style='color:darkblue'>Detail Report</a></button>"
+                "defaultContent": "<button><a href='/download/pdf/' style='color:darkblue'>Detail Report</a></button>"
             }
         ],
     });
-});
+    $('#reportTable tbody').on('click','button',function () {
+        var data=table.row($(this).parents('tr')).data();
+        window.location.href="http://localhost:8080/download/pdf/"+data.reportId;
 
+
+    });
+
+});
     // $('#employeesTable tbody').on( 'click', 'button', function () {
     //     var data = table.row( $(this).parents('tr') ).data();
     //     alert( data["studentId"] +"'s name is: "+ data["email"] );

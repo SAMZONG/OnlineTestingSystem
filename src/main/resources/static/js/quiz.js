@@ -33,10 +33,6 @@
     function fire_ajax_submit(jsonObject) {
 
 
-/*
-        search["bkgsubcategory"] = $("#bkgsubcategory").val();*/
-
-       /* $("#btn-search").prop("disabled", true);*/
 
         $.ajax({
             type: "POST",
@@ -55,15 +51,8 @@
                     + JSON.stringify(data, null, 4) + "</pre>";
                 $('#feedback').html(json);
                 $('.subCategoryNames').append(data.subCategoryNames);
-
-                 questions=data.result;/*
-                $('#category-id').append($('#bkgsubcategory').val());*/
-
-                console.log("SUCCESS : ", data);/*
-                $("#btn-search").prop("disabled", false);*/
-
-              /*  window.location.href="http://localhost:8080/test";*/
-
+                $('#notes').html("Guidelines: <br> - Exam time is 120 Min <br> - Do not copy from other site <br> - Do not close the browser until exam is completed");
+                 questions=data.result;
             },
             error: function (e) {
 
@@ -78,17 +67,6 @@
         });
 
     }
-
-
-    /*$("#search-form").submit(function (event) {
-        $('#techSelection').hide();
-        //stop submit the form, we will post it manually.
-        event.preventDefault();
-
-        fire_ajax_submit();
-
-    });*/
-
 
 
   
@@ -150,6 +128,7 @@
         displayNext();
         $('#start').hide();
         $('#saveResult').hide();
+        $('#notes').hide();
 
 
     });
@@ -226,7 +205,7 @@
                 }
             }else {
                 var scoreElem = displayScore();
-                quiz.append(scoreElem).fadeIn();
+                quiz.append(scoreElem);
                 $('#next').hide();
                 $('#prev').hide();
                 $('#saveResult').hide();
@@ -237,8 +216,11 @@
                 if(questionCounter>0){
                     $('#saveResult').fadeIn();
                     $('#start').fadeOut();
+                    $('#notes').fadeOut();
+                    quiz.fadeIn();
                 }else {
                     $('#start').fadeIn();
+                    $('#notes').fadeIn();
                 }
 
             }
@@ -256,8 +238,8 @@
             }
         }
 
-        score.append('You got ' + numCorrect + ' questions out of ' +
-            questions.length + ' right!!!');
+        score.append('You got ' + numCorrect + ' correct answer out of ' +
+            questions.length + ' question !!! <br> Please click on submit exam button to submit your exam');
         return score;
     }
 /*Function to store the result*/
@@ -406,10 +388,7 @@
             })
             var accessKey= $("#accessKey").text();
             categorySubCategory=new CategorySubCategory(category,subCategories,accessKey);
-           // categorySubCategory=new CategorySubCategory(category,subCategories);
-            /*var jsonObject=JSON.stringify(categorySubCategory);*/
-           /* console.log(json);*/
-            /*passSelectedValues(jsonObject);*/
+
             $('#techSelection').hide();
             $('#container').show();
             fire_ajax_submit(categorySubCategory);
