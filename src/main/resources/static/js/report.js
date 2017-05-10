@@ -15,18 +15,26 @@ $(document).ready( function () {
             {
                 "target": -1,
                 "data": null,
-                "defaultContent": "<button>Show Report</button>",
+                "defaultContent": "<button class='grade' type='button'>Grade Report</button>",
             },
             {
                 "target": -1,
                 "data": null,
-                "defaultContent": "<button><a href='/download/pdf/' style='color:darkblue'>Detail Report</a></button>"
+                "defaultContent": "<button class='details' type='button'>Detail Report</button>"
             }
         ],
     });
-    $('#reportTable tbody').on('click','button',function () {
+    $('#reportTable tbody').on('click','.grade',function () {
         var data=table.row($(this).parents('tr')).data();
-        window.location.href="http://localhost:8080/download/pdf/"+data.reportId;
+
+        window.open("http://localhost:8080/download/pdf/grade?"+data.reportId);
+
+
+    });
+    $('#reportTable tbody').on('click','.details',function () {
+        var data=table.row($(this).parents('tr')).data();
+
+        window.open("http://localhost:8080/download/pdf/detail?"+data.reportId);
 
 
     });

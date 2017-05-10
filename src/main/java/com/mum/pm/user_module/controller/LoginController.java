@@ -66,7 +66,7 @@ public class LoginController {
 		modelAndView.addObject("userRole",   "Admin");
 		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
 		modelAndView.setViewName("admin/home");
-		modelAndView.setViewName("plain-page");
+		modelAndView.setViewName("assign-test");
 		return modelAndView;
 	}
 
