@@ -34,7 +34,7 @@ $(document).ready( function () {
     $('#reportTable tbody').on('click','.details',function () {
         var data=table.row($(this).parents('tr')).data();
 
-        window.open("http://localhost:8080/download/pdf/grade?"+data.reportId);
+        window.open("http://localhost:8080/download/pdf/detail?"+data.reportId);
 
 
     });
