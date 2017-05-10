@@ -133,15 +133,18 @@ public class GradeReportController {
                     + "?"  + "user="+"govinda" + "&password=" + "root");
             ResultSet rs  = connection.createStatement().executeQuery("SELECT * FROM question_view WHERE report_id="+id);
             JRResultSetDataSource resultSetDataSource=new JRResultSetDataSource(rs);
+
+
+            params.put("logo", this.getClass().getResourceAsStream("/static/images/mumbanner.jpg"));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,resultSetDataSource );
+
+            InputStream ouput = this.getClass().getResourceAsStream("/download/pdf/" );
+
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH mm ");
             Date date = new Date();
             System.out.println(dateFormat.format(date));
-            String filename= "D://MUM Courses/PM/ireports/jasperoutput/Question Detail report "+ dateFormat.format(date).toString()+".pdf";
+            String filename= "D://MUM Courses/PM/ireports/jasperoutput/Exam Paper "+ id+".pdf";
 
-         //  URL resource = getClass().getResource("/download/pdf/");
-          //  System.out.println("tare man " + resource.getPath().toString());
-           // String exportPath= resource.getPath().toString();
 
             JasperExportManager.exportReportToPdfFile(jasperPrint, filename) ;
 
@@ -174,15 +177,14 @@ public class GradeReportController {
             JRResultSetDataSource resultSetDataSource=new JRResultSetDataSource(rs);
             //  JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(reports);
 
+            params.put("logo", this.getClass().getResourceAsStream("/static/images/mumbanner.jpg"));
+
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, params,resultSetDataSource );
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH mm ");
             Date date = new Date();
-            System.out.println(dateFormat.format(date));
-            String filename= "D://MUM Courses/PM/ireports/jasperoutput/Grade Report List "+ dateFormat.format(date).toString()+".pdf";
-            // String basePath=(String) request.getSession().getServletContext().getInitParameter("/download/pdf/tare.pdf");
 
-            URL resource = getClass().getResource("/download/pdf");
-            System.out.println("tare man " + resource.getPath().toString());
+            String filename= "D://MUM Courses/PM/ireports/jasperoutput/Grade Report "+ id+".pdf";
+
             JasperExportManager.exportReportToPdfFile(jasperPrint, filename) ;
 
             return filename;

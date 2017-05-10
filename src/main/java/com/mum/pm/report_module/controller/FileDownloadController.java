@@ -25,21 +25,40 @@ import java.nio.file.Paths;
 @Controller
 @RequestMapping("/download")
 public class FileDownloadController {
-    @RequestMapping("/pdf/{fileName:.+}")
+   // @RequestMapping("/pdf/{fileName:.+}")
+    @RequestMapping("/pdf/{type}/{id}")
     public void downloadPDFResource( HttpServletRequest request,
                                      HttpServletResponse response,
-                                     @PathVariable("fileName") String fileName) throws Exception
+                                     @PathVariable("type") String type, @PathVariable("id") int id) throws Exception
     {
 
-        String ex="D:/MUM Courses/PM/ireports/jasperoutput/QuestionList.pdf";
+        String ep="D:/MUM Courses/PM/ireports/jasperoutput/Exam Paper "+id+".pdf";
+        String g="D:/MUM Courses/PM/ireports/jasperoutput/Grade Report "+id+".pdf";
         String in="/download/pdf/QuestionList.pdf";
 
-       // File file=null;
+       File file=null;
 
-  GradeReportController gr=new GradeReportController();
-    String detailReport=gr.questionDetailPdfGenerate(12);
-  //  String gradeReport=gr.gradeReportGenerate(1);
-        File file= new File(detailReport);
+
+        GradeReportController gr=new GradeReportController();
+        String report=null;
+
+           if(type.equals("grade")) {
+               file=new File(g);
+               if(file.exists())
+                   report=g;
+               else
+                 report = gr.gradeReportGenerate(id);
+
+           }
+           else {
+                   file=new File(ep);
+                   if(file.exists())
+                       report=ep;
+                   else
+                       report = gr.questionDetailPdfGenerate(id);
+           }
+  //
+        file= new File(report);
 
      //   URL resource = getClass().getResource(in);
      //  file= Paths.get(resource.toURI()).toFile();
