@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="en" data-layout-decorate="~{fragments/layout}" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="/js/CategorySelect.js"></script>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div class="right_col" role="main" data-layout-fragment="content">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+                <h3>Add Sub Category</h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+
+                                    <div class="col-sm-9">
+                                    <!--     <form style="display:inline-block" th:action="@{/admin/select}" th:object="${categoryList}" method="GET"> -->
+                                    <select class="form-control" id="optionList" name="optionsListId">
+                                        <option value="">Select Category</option>
+                                        <option th:each="cat : ${categoryList}"
+                                                th:value="${cat.categoryId}"
+                                                th:text="${cat.categoryName}"
+                                                th:selected="${selectedCategoryID==cat.categoryId}"></option>
+                                    </select>
+                                    </div>
+
+                                    <!--       </form> -->
+                                    <br/> <br/><br/>
+
+                                    <table style="width:70%; margin-left:9px" class="table-bordered">
+                                        <tr th:each="subCat: ${subCategoryList}">
+                                            <td style="width:82%" th:text="${subCat.subCategoryName}"></td>
+                                            <form th:action="@{'/admin/disable-subCategory/'+${subCat.subCategoryId}}" th:object="${subCategory}" th:method="PUT" enctype="multipart/form-data">
+                                                <td style="width:18%"><button type="submit" class="btn btn-info">Disable</button></td>
+                                            </form>
+                                        </tr>
+
+                                    </table>
+
+                                    <br/> <br/>
+
+                             <div th:if="${selectedCategoryID} !=0">
+                                        <form autocomplete="off" action="#" th:action="@{/admin/sub-category}"
+                                              th:object="${subCategory}" method="post" class="form-horizontal"
+                                              role="form">
+                                            <div class="form-group">
+                                                <div class="col-sm-9">
+                                                    <label th:if="${#fields.hasErrors('subCategoryName')}"
+                                                           th:errors="*{subCategoryName}"
+                                                           class="validation-message"></label>
+                                                    <input type="text" th:field="*{subCategoryName}" placeholder="Name"
+                                                           class="form-control"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-9">
+                                                    <button type="submit" class="btn btn-primary btn-block">Add</button>
+                                                </div>
+                                            </div>
+                                            <span th:utext="${successMessage}"></span>
+                                        </form>
+                                  </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+</li>
+<li><a class="close-link"><i class="fa fa-close"></i></a>
+</li>
+</ul>
+<div class="clearfix"></div>
+</div>
+<div class="x_content">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script type="text/javascript">
+
+
+</script>
+
+
+<div id="kieu">
+
+</div>
+
+</body>
+</html>

@@ -36,6 +36,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public SubCategory getSubCategoryById(int id) {
+
+        return subCategoryDAO.findOne(id);
+    }
+
+    @Override
     public Category getCategoryByName(String name) {
         return categoryDAO.findCategoryByCategoryName(name);
     }
@@ -58,6 +64,39 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Set<SubCategory> getAllSubCategoriesOfACategory(int id) {
        return (Set<SubCategory>) subCategoryDAO.getSubCategoriesByCategory_CategoryId(id);
+    }
+    @Override
+    public Category setCategoryDisable(Category category){
+        category.setActive(0);
+        return categoryDAO.save(category);
+    }
 
+    @Override
+    public SubCategory setSubCategoryDisable(SubCategory subCategory){
+        subCategory.setActive(0);
+        return subCategoryDAO.save(subCategory);
+    }
+
+
+    @Override
+    public void saveSubCategory(Category category, SubCategory subcategory) {
+        subcategory.setActive(1);
+        category.addSubCategory(subcategory);
+        subCategoryDAO.save(subcategory);
+    }
+
+    @Override
+    public SubCategory getSubCategoryByName(String name) {
+        return subCategoryDAO.findSubCategoryBySubCategoryName(name);
+    }
+
+    @Override
+    public List<Category> getAllActiveCategories() {
+        return categoryDAO.findByCategoryActive(1);
+    }
+
+    @Override
+    public List<SubCategory> getAllActiveSubCategories(int id) {
+        return subCategoryDAO.findBySubCategoryActive(1, id);
     }
 }

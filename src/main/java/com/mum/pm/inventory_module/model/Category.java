@@ -16,6 +16,16 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int categoryId;
     private String categoryName;
+    @Column(name= "active")
+    private int active;
+
+    public int isActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "category", orphanRemoval = true)

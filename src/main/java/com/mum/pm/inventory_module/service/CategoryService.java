@@ -18,4 +18,18 @@ public interface CategoryService {
     public boolean isCategoryExist(Category category);
     public Set<SubCategory> getAllSubCategoriesOfACategory(int id);
 
+    public Category setCategoryDisable(Category category);
+
+    public SubCategory getSubCategoryById(int id);
+
+    public SubCategory setSubCategoryDisable(SubCategory subCategory);
+
+    public void saveSubCategory(Category category, SubCategory subcategory);
+
+    public SubCategory getSubCategoryByName(String name);
+
+    public List<Category> getAllActiveCategories();
+
+    public List<SubCategory> getAllActiveSubCategories(int id);
+
 }

@@ -3,9 +3,15 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Add New Category</title>
+
 </head>
 
 <body>
+
+
+
+
+
 <div class="right_col" role="main" data-layout-fragment="content">
     <div class="">
         <div class="page-title">
@@ -27,6 +33,8 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-3">
+
+
                                     <form autocomplete="off" action="#" th:action="@{/admin/add-category}"
                                           th:object="${category}" method="post" class="form-horizontal"
                                           role="form">
@@ -38,37 +46,36 @@
                                                        class="form-control" />
                                             </div>
                                         </div>
-
-                                        <!-- <div class="form-group">
-                                             <div class="col-sm-9">
-                                                 <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                                           class="validation-message"></label>
-                                                 <input type="text" th:field="*{lastName}"
-                                                        placeholder="Last Name" class="form-control" />
-                                             </div>
-                                         </div>-->
-                                        <!-- <div class="form-group">
-                                             <div class="col-sm-9">
-                                                 <input type="text" th:field="*{email}" placeholder="Email"
-                                                        class="form-control" /> <label
-                                                     th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                                                     class="validation-message"></label>
-                                             </div>
-                                         </div>-->
-                                        <!-- <div class="form-group">
-                                             <div class="col-sm-9">
-                                                 <input type="text" th:field="*{studentId}"
-                                                        placeholder="studentId" class="form-control" />
-                                             </div>
-                                         </div>-->
                                         <div class="form-group">
                                             <div class="col-sm-9">
                                                 <button type="submit" class="btn btn-primary btn-block">Add</button>
                                             </div>
                                         </div>
-                                        <span th:utext="${successMessage}"></span>
+
+                                        <div style="color:red" th:utext="${successMessage}">KIEU</div>
+
                                     </form>
-                                </div>
+
+
+
+
+<table style="width:70%; margin-left:9px" class="table-bordered">
+    <tr>
+        <th style="width:82%">Category Name</th>
+        <th style="width:18%">Action</th>
+    </tr>
+
+    <tr th:each="category: ${categoryList}">
+        <td th:text="${category.categoryName}"></td>
+        <form th:action="@{'/admin/disable-category/'+${category.categoryId}}" th:object="${category}" th:method="PUT" enctype="multipart/form-data">
+            <td><button type="submit" class="btn btn-info">Disable</button></td>
+        </form>
+    </tr>
+
+</table>
+
+
+
                             </div>
                         </div>
                     </div>
@@ -77,21 +84,7 @@
         </div>
     </div>
 </div>
-</body>
-</html>
-</li>
-<li><a class="close-link"><i class="fa fa-close"></i></a>
-</li>
-</ul>
-<div class="clearfix"></div>
-</div>
-<div class="x_content">
-    Add_Category
-</div>
-</div>
-</div>
-</div>
-</div>
 </div>
 </body>
 </html>
+

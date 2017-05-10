@@ -13,9 +13,21 @@ public class SubCategory {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int subCategoryId;
     private String subCategoryName;
+
     @ManyToOne
     @JoinColumn(name ="category_id")
     private Category category;
+
+    @Column(name= "active")
+    private int active;
+
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
 
     public int getSubCategoryId() {
         return subCategoryId;

@@ -41,7 +41,7 @@ public class CategoryRestController {
 
     @RequestMapping(value="/getAllCategories", method= RequestMethod.GET)
     public ResponseEntity<List<Category>> getAllCategories(){
-        List<Category> categories=categoryService.getAllCategories();
+        List<Category> categories = categoryService.getAllCategories();
         if(categories.isEmpty()){
             return new ResponseEntity<List<Category>>(HttpStatus.NO_CONTENT);
         }
@@ -108,9 +108,6 @@ public class CategoryRestController {
 
         return new ResponseEntity<Set<SubCategory>> (subCategories,HttpStatus.OK);
     }
-
-
-
 
 
     @RequestMapping("/update/{id}")
