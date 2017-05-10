@@ -4,6 +4,7 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<parameter name="report_id" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.io.InputStream"/>
 	<field name="assigner" class="java.lang.String"/>
 	<field name="student_id" class="java.lang.Integer"/>
 	<field name="category_name" class="java.lang.String"/>
@@ -22,7 +23,7 @@
 		<band height="432" splitType="Stretch">
 			<image>
 				<reportElement x="39" y="-24" width="618" height="94" uuid="055a4aba-0f33-4d4c-804d-4ba4c1172168"/>
-				<imageExpression><![CDATA["D:\\MUM Courses\\PM\\ireports\\mumbanner.jpg"]]></imageExpression>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 			<textField>
 				<reportElement x="129" y="107" width="146" height="20" forecolor="#006600" uuid="ecd3a3e3-47d4-496d-a5b6-de5d86383d5c"/>
@@ -251,7 +252,7 @@
 				</chart>
 				<categoryDataset>
 					<categorySeries>
-						<seriesExpression><![CDATA[50]]></seriesExpression>
+						<seriesExpression><![CDATA[$F{sub_category_name}]]></seriesExpression>
 						<categoryExpression><![CDATA[$F{sub_category_name}]]></categoryExpression>
 						<valueExpression><![CDATA[$F{score}]]></valueExpression>
 						<labelExpression><![CDATA[$F{sub_category_name}]]></labelExpression>
