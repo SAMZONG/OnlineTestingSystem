@@ -26,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.File;
 
 /**
  * Created by tareman on 5/4/2017.
@@ -86,8 +87,9 @@ public class GradeReportController {
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH mm ");
             Date date = new Date();
             System.out.println(dateFormat.format(date));
-            String filename= "D://MUM Courses/PM/ireports/jasperoutput/Exam Paper "+ id+".pdf";
 
+            String relativePath = new File("src/main/resources/download/pdf/").getAbsolutePath();
+            String filename = relativePath+"/Exam Paper " + id + ".pdf";
 
             JasperExportManager.exportReportToPdfFile(jasperPrint, filename) ;
 
@@ -126,7 +128,8 @@ public class GradeReportController {
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH mm ");
             Date date = new Date();
 
-            String filename= "D://MUM Courses/PM/ireports/jasperoutput/Grade Report "+ id+".pdf";
+            String relativePath = new File("src/main/resources/download/pdf/").getAbsolutePath();
+            String filename = relativePath+"/Grade Report " + id + ".pdf";
 
             System.out.println("Current folder: " + (new File(".")).getCanonicalPath()+"/target/downloaded/Grade Report "+ id+".pdf");
             String tare= new File(".").getCanonicalPath()+"/target/downloaded/Grade Report "+ id+".pdf";
