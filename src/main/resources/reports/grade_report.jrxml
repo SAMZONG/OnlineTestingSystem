@@ -1,293 +1,277 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xmlns="http://jasperreports.sourceforge.net/jasperreports"
-              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
-              name="report8" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20"
-              rightMargin="20" topMargin="20" bottomMargin="20" uuid="5e7f4edf-aece-49f9-b5d0-c8033c12f7bd">
-    <property name="ireport.zoom" value="1.0"/>
-    <property name="ireport.x" value="0"/>
-    <property name="ireport.y" value="0"/>
-    <parameter name="report_id" class="java.lang.Integer"/>
-    <parameter name="logo" class="java.io.InputStream"/>
-    <field name="assigner" class="java.lang.String"/>
-    <field name="student_id" class="java.lang.Integer"/>
-    <field name="category_name" class="java.lang.String"/>
-    <field name="result" class="java.lang.Double"/>
-    <field name="email" class="java.lang.String"/>
-    <field name="percentile" class="java.lang.Double"/>
-    <field name="Grade" class="java.lang.String"/>
-    <field name="student_name" class="java.lang.String"/>
-    <field name="report_id" class="java.lang.Integer"/>
-    <field name="sub_category_name" class="java.lang.String"/>
-    <field name="score" class="java.lang.Double"/>
-    <background>
-        <band splitType="Stretch"/>
-    </background>
-    <title>
-        <band height="432" splitType="Stretch">
-            <image>
-                <reportElement x="39" y="-24" width="618" height="94" uuid="055a4aba-0f33-4d4c-804d-4ba4c1172168"/>
-                <imageExpression><![CDATA[$P{logo}]]></imageExpression>
-            </image>
-            <textField>
-                <reportElement x="129" y="107" width="146" height="20" forecolor="#006600"
-                               uuid="ecd3a3e3-47d4-496d-a5b6-de5d86383d5c"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="14" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{student_name}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="427" y="139" width="111" height="20" forecolor="#006600"
-                               uuid="a58367c1-8861-4a55-9e88-5cd6338a0b67"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="14" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{assigner}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="433" y="159" width="100" height="38" forecolor="#006600"
-                               uuid="c5063b1a-b08f-4c13-89d7-35fcc2bab993"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="24" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{Grade}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="129" y="169" width="152" height="20" forecolor="#006600"
-                               uuid="03048e67-f866-4b3f-8542-139942cdcfc8"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="14" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{category_name}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="10" y="207" width="438" height="20" uuid="10b0cce3-5e15-4a81-9860-dcd63b5fa827"/>
-                <textElement>
-                    <font fontName="Bookman Old Style"/>
-                </textElement>
-                <text>
-                    <![CDATA[This assessement was self-administered and not taken under supervised conditions]]></text>
-            </staticText>
-            <textField pattern="MM/dd/yyyy">
-                <reportElement x="427" y="107" width="106" height="20" forecolor="#006600"
-                               uuid="92578a56-00fa-4086-8f4a-00d2dfbfd72c"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="12" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="129" y="139" width="209" height="20" forecolor="#006600"
-                               uuid="7299e32b-98f9-4cd4-b959-ab02092e36da"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="14" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
-            </textField>
-            <line>
-                <reportElement x="0" y="227" width="555" height="1" uuid="2417714f-6311-4a95-a155-4c55ffcb87ea"/>
-            </line>
-            <line>
-                <reportElement x="-14" y="419" width="591" height="1" uuid="ef2f5f13-4d58-4fcb-b436-0332d6b9ec77"/>
-            </line>
-            <line>
-                <reportElement x="294" y="238" width="1" height="181" uuid="fc8b80c0-4906-46bf-a47f-032209be8489"/>
-            </line>
-            <textField>
-                <reportElement x="179" y="380" width="14" height="16" uuid="de8080a6-ba0d-4714-bea7-fabceed7e13b"/>
-                <textElement>
-                    <font size="9"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
-            </textField>
-            <meterChart>
-                <chart>
-                    <reportElement x="302" y="275" width="203" height="93" uuid="3f53dfff-ebdb-4bc8-bee4-9d41988a866c"/>
-                    <chartTitle/>
-                    <chartSubtitle/>
-                    <chartLegend/>
-                </chart>
-                <valueDataset>
-                    <valueExpression><![CDATA[$F{percentile}]]></valueExpression>
-                </valueDataset>
-                <meterPlot>
-                    <plot/>
-                    <valueDisplay/>
-                    <dataRange>
-                        <lowExpression><![CDATA[]]></lowExpression>
-                        <highExpression><![CDATA[]]></highExpression>
-                    </dataRange>
-                </meterPlot>
-            </meterChart>
-            <meterChart>
-                <chart>
-                    <reportElement positionType="Float" mode="Transparent" x="62" y="275" width="219" height="105"
-                                   uuid="66115533-8595-44c9-9c01-b03d0d3a19d9"/>
-                    <chartTitle color="#FF0033"/>
-                    <chartSubtitle/>
-                    <chartLegend/>
-                </chart>
-                <valueDataset>
-                    <valueExpression><![CDATA[$F{result}]]></valueExpression>
-                </valueDataset>
-                <meterPlot shape="pie" tickInterval="10.0" meterColor="#666600" needleColor="#0000CC"
-                           tickColor="#FFFFFF">
-                    <plot/>
-                    <valueDisplay/>
-                    <dataRange>
-                        <lowExpression><![CDATA[]]></lowExpression>
-                        <highExpression><![CDATA[]]></highExpression>
-                    </dataRange>
-                </meterPlot>
-            </meterChart>
-            <textField>
-                <reportElement x="436" y="380" width="13" height="16" uuid="052f2141-0f17-42ab-983e-7bb11225fc01"/>
-                <textFieldExpression><![CDATA[$F{percentile}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="5" y="380" width="276" height="30" uuid="8cb241b3-4911-4307-b857-cef6fb199b34"/>
-                <textElement>
-                    <font size="9"/>
-                </textElement>
-                <text>
-                    <![CDATA[Tarekegn has achevied an overall score of    across all sub skills in this subject.]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="443" y="250" width="62" height="38" forecolor="#3300FF"
-                               uuid="02c514be-e3d6-437f-b56d-abbd204f4b57"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="24" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{percentile}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="306" y="250" width="143" height="38" uuid="3f930e5f-8bd1-4427-8560-db2b0399d210"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="24" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Percentile:]]></text>
-            </staticText>
-            <textField>
-                <reportElement x="84" y="250" width="71" height="38" forecolor="#3300FF"
-                               uuid="0a263de6-8a32-44d3-8d10-414f940dbd7a"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="24" isBold="true"/>
-                </textElement>
-                <textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
-            </textField>
-            <staticText>
-                <reportElement x="5" y="250" width="79" height="38" uuid="46240bc6-a80a-45b6-8a7c-74a15cff471d"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="24" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Score:]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="306" y="380" width="254" height="30" uuid="6e60a524-a685-496e-8287-28d5735a6869"/>
-                <textElement>
-                    <font size="9"/>
-                </textElement>
-                <text><![CDATA[Tarekegn has scored higher than    % of all test takers in this subject.]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="365" y="139" width="62" height="20" uuid="0fbdee96-67d2-4787-98a9-ceb12f02e030"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="12"/>
-                </textElement>
-                <text><![CDATA[Assigner:]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="390" y="107" width="34" height="20" uuid="472d4f9b-95d4-461f-9d97-1227497328ad"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="12"/>
-                </textElement>
-                <text><![CDATA[Date:]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="380" y="169" width="44" height="20" uuid="e115958e-6566-409f-9a0e-48383ce5e975"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="12"/>
-                </textElement>
-                <text><![CDATA[Grade:]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="62" y="139" width="54" height="20" uuid="af53cdc7-79af-4195-a306-9201daf3bdef"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="12"/>
-                </textElement>
-                <text><![CDATA[Email:]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="59" y="169" width="57" height="20" uuid="c9dc2d1b-435c-4d0b-8eb4-3f32c5ada7cd"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="12"/>
-                </textElement>
-                <text><![CDATA[Subject :]]></text>
-            </staticText>
-            <staticText>
-                <reportElement x="-14" y="107" width="137" height="20" uuid="349cea72-f68e-4f40-84f3-0fe752194630"/>
-                <textElement>
-                    <font fontName="Bookman Old Style" size="12"/>
-                </textElement>
-                <text><![CDATA[Assessement Result for :]]></text>
-            </staticText>
-        </band>
-    </title>
-    <columnHeader>
-        <band height="32" splitType="Stretch">
-            <staticText>
-                <reportElement x="11" y="4" width="244" height="28" uuid="a80e8a58-e092-4ba6-bd7a-83489590146e"/>
-                <textElement>
-                    <font size="20" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Subject Analysis:]]></text>
-            </staticText>
-        </band>
-    </columnHeader>
-    <detail>
-        <band height="27" splitType="Stretch">
-            <textField>
-                <reportElement x="179" y="0" width="86" height="20" uuid="b985657b-6750-4066-a0df-a99c0a468e7c"/>
-                <textFieldExpression><![CDATA[$F{sub_category_name}]]></textFieldExpression>
-            </textField>
-            <textField>
-                <reportElement x="280" y="0" width="58" height="20" uuid="4b80eccf-1863-46c3-b662-88608784f3fe"/>
-                <textFieldExpression><![CDATA[$F{score}]]></textFieldExpression>
-            </textField>
-        </band>
-    </detail>
-    <columnFooter>
-        <band height="175" splitType="Stretch">
-            <stackedBar3DChart>
-                <chart>
-                    <reportElement x="39" y="0" width="466" height="169" uuid="6ed48d3c-e75f-411f-a763-fa4dd032f2eb"/>
-                    <chartTitle/>
-                    <chartSubtitle/>
-                    <chartLegend/>
-                </chart>
-                <categoryDataset>
-                    <categorySeries>
-                        <seriesExpression><![CDATA[$F{sub_category_name}]]></seriesExpression>
-                        <categoryExpression><![CDATA[$F{sub_category_name}]]></categoryExpression>
-                        <valueExpression><![CDATA[$F{score}]]></valueExpression>
-                        <labelExpression><![CDATA[$F{sub_category_name}]]></labelExpression>
-                    </categorySeries>
-                </categoryDataset>
-                <bar3DPlot>
-                    <plot/>
-                    <itemLabel/>
-                    <categoryAxisFormat>
-                        <axisFormat/>
-                    </categoryAxisFormat>
-                    <valueAxisFormat>
-                        <axisFormat/>
-                    </valueAxisFormat>
-                </bar3DPlot>
-            </stackedBar3DChart>
-        </band>
-    </columnFooter>
-    <pageFooter>
-        <band height="23" splitType="Stretch"/>
-    </pageFooter>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report8" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5e7f4edf-aece-49f9-b5d0-c8033c12f7bd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="216"/>
+	<parameter name="report_id" class="java.lang.Integer"/>
+	<parameter name="logo" class="java.io.InputStream"/>
+	<field name="assigner" class="java.lang.String"/>
+	<field name="student_id" class="java.lang.Integer"/>
+	<field name="category_name" class="java.lang.String"/>
+	<field name="result" class="java.lang.Double"/>
+	<field name="email" class="java.lang.String"/>
+	<field name="percentile" class="java.lang.Double"/>
+	<field name="Grade" class="java.lang.String"/>
+	<field name="student_name" class="java.lang.String"/>
+	<field name="report_id" class="java.lang.Integer"/>
+	<field name="sub_category_name" class="java.lang.String"/>
+	<field name="score" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="432" splitType="Stretch">
+			<image>
+				<reportElement x="39" y="-24" width="618" height="94" uuid="055a4aba-0f33-4d4c-804d-4ba4c1172168"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="129" y="107" width="146" height="20" forecolor="#006600" uuid="ecd3a3e3-47d4-496d-a5b6-de5d86383d5c"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{student_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="427" y="139" width="111" height="20" forecolor="#006600" uuid="a58367c1-8861-4a55-9e88-5cd6338a0b67"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{assigner}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="159" width="100" height="38" forecolor="#006600" uuid="c5063b1a-b08f-4c13-89d7-35fcc2bab993"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Grade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="169" width="152" height="20" forecolor="#006600" uuid="03048e67-f866-4b3f-8542-139942cdcfc8"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{category_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="207" width="438" height="20" uuid="10b0cce3-5e15-4a81-9860-dcd63b5fa827"/>
+				<textElement>
+					<font fontName="Bookman Old Style"/>
+				</textElement>
+				<text><![CDATA[This assessement was self-administered and not taken under supervised conditions]]></text>
+			</staticText>
+			<textField pattern="MM/dd/yyyy">
+				<reportElement x="427" y="107" width="106" height="20" forecolor="#006600" uuid="92578a56-00fa-4086-8f4a-00d2dfbfd72c"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="129" y="139" width="209" height="20" forecolor="#006600" uuid="7299e32b-98f9-4cd4-b959-ab02092e36da"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="227" width="555" height="1" uuid="2417714f-6311-4a95-a155-4c55ffcb87ea"/>
+			</line>
+			<line>
+				<reportElement x="-14" y="419" width="591" height="1" uuid="ef2f5f13-4d58-4fcb-b436-0332d6b9ec77"/>
+			</line>
+			<line>
+				<reportElement x="294" y="238" width="1" height="181" uuid="fc8b80c0-4906-46bf-a47f-032209be8489"/>
+			</line>
+			<textField>
+				<reportElement x="179" y="380" width="14" height="16" uuid="de8080a6-ba0d-4714-bea7-fabceed7e13b"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
+			</textField>
+			<meterChart>
+				<chart>
+					<reportElement x="302" y="275" width="203" height="93" uuid="3f53dfff-ebdb-4bc8-bee4-9d41988a866c"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<valueDataset>
+					<valueExpression><![CDATA[$F{percentile}]]></valueExpression>
+				</valueDataset>
+				<meterPlot>
+					<plot/>
+					<valueDisplay/>
+					<dataRange>
+						<lowExpression><![CDATA[]]></lowExpression>
+						<highExpression><![CDATA[]]></highExpression>
+					</dataRange>
+				</meterPlot>
+			</meterChart>
+			<meterChart>
+				<chart>
+					<reportElement positionType="Float" mode="Transparent" x="62" y="275" width="219" height="105" uuid="66115533-8595-44c9-9c01-b03d0d3a19d9"/>
+					<chartTitle color="#FF0033"/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<valueDataset>
+					<valueExpression><![CDATA[$F{result}]]></valueExpression>
+				</valueDataset>
+				<meterPlot shape="pie" tickInterval="10.0" meterColor="#666600" needleColor="#0000CC" tickColor="#FFFFFF">
+					<plot/>
+					<valueDisplay/>
+					<dataRange>
+						<lowExpression><![CDATA[]]></lowExpression>
+						<highExpression><![CDATA[]]></highExpression>
+					</dataRange>
+				</meterPlot>
+			</meterChart>
+			<textField>
+				<reportElement x="436" y="380" width="13" height="16" uuid="052f2141-0f17-42ab-983e-7bb11225fc01"/>
+				<textFieldExpression><![CDATA[$F{percentile}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="380" width="276" height="30" uuid="8cb241b3-4911-4307-b857-cef6fb199b34"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Tarekegn has achevied an overall score of    across all sub skills in this subject.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="443" y="250" width="62" height="38" forecolor="#3300FF" uuid="02c514be-e3d6-437f-b56d-abbd204f4b57"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{percentile}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="306" y="250" width="143" height="38" uuid="3f930e5f-8bd1-4427-8560-db2b0399d210"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Percentile:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="84" y="250" width="71" height="38" forecolor="#3300FF" uuid="0a263de6-8a32-44d3-8d10-414f940dbd7a"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{result}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="250" width="79" height="38" uuid="46240bc6-a80a-45b6-8a7c-74a15cff471d"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Score:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="306" y="380" width="254" height="30" uuid="6e60a524-a685-496e-8287-28d5735a6869"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Tarekegn has scored higher than    % of all test takers in this subject.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="139" width="62" height="20" uuid="0fbdee96-67d2-4787-98a9-ceb12f02e030"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[Assigner:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="107" width="34" height="20" uuid="472d4f9b-95d4-461f-9d97-1227497328ad"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="380" y="169" width="44" height="20" uuid="e115958e-6566-409f-9a0e-48383ce5e975"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[Grade:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="62" y="139" width="54" height="20" uuid="af53cdc7-79af-4195-a306-9201daf3bdef"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="169" width="57" height="20" uuid="c9dc2d1b-435c-4d0b-8eb4-3f32c5ada7cd"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[Subject :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-14" y="107" width="137" height="20" uuid="349cea72-f68e-4f40-84f3-0fe752194630"/>
+				<textElement>
+					<font fontName="Bookman Old Style" size="12"/>
+				</textElement>
+				<text><![CDATA[Assessement Result for :]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="11" y="4" width="244" height="28" uuid="a80e8a58-e092-4ba6-bd7a-83489590146e"/>
+				<textElement>
+					<font size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subject Analysis:]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="179" y="0" width="86" height="20" uuid="b985657b-6750-4066-a0df-a99c0a468e7c"/>
+				<textFieldExpression><![CDATA[$F{sub_category_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="0" width="58" height="20" uuid="4b80eccf-1863-46c3-b662-88608784f3fe"/>
+				<textFieldExpression><![CDATA[$F{score}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="175" splitType="Stretch">
+			<stackedBar3DChart>
+				<chart>
+					<reportElement x="39" y="0" width="466" height="169" uuid="6ed48d3c-e75f-411f-a763-fa4dd032f2eb"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{sub_category_name}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{sub_category_name}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{score}]]></valueExpression>
+						<labelExpression><![CDATA[$F{sub_category_name}]]></labelExpression>
+					</categorySeries>
+				</categoryDataset>
+				<bar3DPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</bar3DPlot>
+			</stackedBar3DChart>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="23" splitType="Stretch"/>
+	</pageFooter>
 </jasperReport>

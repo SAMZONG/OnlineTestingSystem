@@ -6,6 +6,35 @@
 
 
 <head>
+
+    <script src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript">
+
+        window.onload = function () {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                theme: "theme2",//theme1
+                title:{
+                    text: "Basic Column Chart - "
+                },
+                animationEnabled: true,   // change to true
+                data: [
+                    {
+                        // Change type to "bar", "area", "spline", "pie",etc.
+                        type: "column",
+                        dataPoints: [
+                            { label: "Spring",  y: 70  },
+                            { label: "Hibernate", y: 95  },
+                            { label: "JSP", y: 90  },
+                            { label: "Struts",  y: 87  },
+                            { label: "grape",  y: 78  }
+                        ]
+                    }
+                ]
+            });
+            chart.render();
+        }
+    </script>
+
     <title>Grade examReport</title>
 </head>
 
@@ -14,6 +43,8 @@
 
 
     <a href="/download/pdf/1" download="QuestionList.pdf">Download Your Report</a>
+
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
 
 </div>
 </body>
