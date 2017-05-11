@@ -46,22 +46,39 @@ public class UserController {
     @RequestMapping(value="/admin/add-student",  method = RequestMethod.POST)
     public ModelAndView createNewStudent(Student student, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
-        userService.findStudentById(student.getStudentId());
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User user = userService.findUserByEmail(auth.getName());
+          Student st=  userService.findStudentById(student.getStudentId());
 
-        modelAndView.addObject("userName",   user.getName() + " " + user.getLastName());
-        modelAndView.addObject("userRole",   "Admin");
+            modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+            modelAndView.addObject("userRole", "Admin");
 
-        if(userService.findStudentById(student.getStudentId()) != null){
-            modelAndView.addObject("successMessage", "This student is already in the system");
-            modelAndView.addObject("student",student);
-        }else{
-            userService.saveStudent(student);
-            modelAndView.addObject("student", new Student());
-            modelAndView.addObject("successMessage", "Student add successfully");
+            if (st != null) {
+                bindingResult
+                        .rejectValue("successMessage", "This student is already in the system");
+
+            } if(bindingResult.hasErrors()){
+
+                modelAndView.addObject("successMessage", "This student is already in the system");
+                modelAndView.addObject("student", student);
+                modelAndView.setViewName("add-student");
+            }
+                else {
+                userService.saveStudent(student);
+                modelAndView.addObject("student", new Student());
+                modelAndView.addObject("successMessage", "Student add successfully");
+                modelAndView.setViewName("add-student");
+            }
+
         }
-        modelAndView.setViewName("add-student");
+        catch(Exception e){
+            System.out.println("Error "+e);
+            modelAndView.addObject("successMessage", "Please provide the correct student information");
+            modelAndView.addObject("student", student);
+            modelAndView.setViewName("add-student");
+            return modelAndView;
+            }
         return modelAndView;
     }
 
@@ -79,45 +96,62 @@ public class UserController {
 
     @RequestMapping(value="/admin/add-user",  method = RequestMethod.GET)
     public ModelAndView addNewUser() {
-        ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
 
-        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
-        modelAndView.addObject("userRole", "Admin");
+            ModelAndView modelAndView = new ModelAndView();
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User user = userService.findUserByEmail(auth.getName());
 
-        modelAndView.addObject("newuser", new User());
-        modelAndView.setViewName("add-user");
+            modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+            modelAndView.addObject("userRole", "Admin");
+
+            modelAndView.addObject("newuser", new User());
+            modelAndView.setViewName("add-user");
+        }catch(Exception e){
+            System.out.println("Error Occured"+e);
+        }
         return modelAndView;
     }
 
     @RequestMapping(value = "/admin/add-user", method = RequestMethod.POST)
     public ModelAndView createNewUser(@Valid User newUser, BindingResult bindingResult) {
+
         ModelAndView modelAndView = new ModelAndView();
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = userService.findUserByEmail(auth.getName());
+        try {
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            User user = userService.findUserByEmail(auth.getName());
 
-        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
-        modelAndView.addObject("userRole", "Admin");
+            modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
+            modelAndView.addObject("userRole", "Admin");
 
-        User userExists = userService.findUserByEmail(newUser.getEmail());
-        if (userExists != null) {
-            bindingResult
-                    .rejectValue("email", "error.user",
-                            "There is already a user registered with the email provided");
-        }
-        if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("add-user");
-        } else if(this.role == null){
-            modelAndView.addObject("successMessage", "Please select a role.");
-            modelAndView.addObject("newuser", newUser);
-            modelAndView.setViewName("add-user");
-        } else{
-            userService.saveUser(newUser, role);
-            role = null;
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("newuser", new User());
-            modelAndView.setViewName("add-user");
+            User userExists = userService.findUserByEmail(newUser.getEmail());
+
+             if (userExists != null) {
+                 System.out.println("pass1 Adding user post" );
+                bindingResult
+                        .rejectValue("email", "error.user",
+                                "There is already a user registered with the email provided");
+            }
+            if (bindingResult.hasErrors()) {
+                modelAndView.addObject("successMessage", "There is already a user registered with the email provided");
+                modelAndView.addObject("newuser", newUser);
+                modelAndView.setViewName("add-user");
+
+            } else if (this.role == null) {
+                modelAndView.addObject("successMessage", "Please select a role.");
+                modelAndView.addObject("newuser", newUser);
+                modelAndView.setViewName("add-user");
+
+            } else {
+                userService.saveUser(newUser, role);
+                role = null;
+                modelAndView.addObject("successMessage", "User has been registered successfully");
+                modelAndView.addObject("newuser", new User());
+                modelAndView.setViewName("add-user");
+
+            }
+        }catch(Exception e){
+            System.out.println("Eror Occurred"+e);
         }
         return modelAndView;
     }
