@@ -53,7 +53,7 @@ public class Question {
     public  Question(){}
 
     public Question(String question_description, String answer_1, String answer_2, String answer_3, String answer_4, String answer_5, int correct_answer, int sub_category_id){
-        this.id = id;
+        this.id = getId();
         this.question_description = question_description;
         this.answer_1 = answer_1;
         this.answer_2 = answer_2;
