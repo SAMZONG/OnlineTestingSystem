@@ -24,12 +24,11 @@ import java.util.List;
 //@RequestMapping("/admin")
 public class AssignTestController {
     @Autowired
+    MailService mailService;
+    @Autowired
     private TestKeyService testKeyService;
     @Autowired
     private UserService userService;
-    @Autowired
-    MailService mailService;
-
 
     @RequestMapping(path = "/student/getAvailableStudent", method = RequestMethod.GET)
     public List<Student> getAvailableStudent() {
@@ -42,9 +41,9 @@ public class AssignTestController {
     }
 
     @RequestMapping(path = "/student/deleteStudent", method = RequestMethod.POST)
-    public Student deleteStudent(@RequestBody  Student student) {
+    public Student deleteStudent(@RequestBody Student student) {
         Student studentDB = userService.findStudentById(student.getStudentId());
-        if(studentDB != null){
+        if (studentDB != null) {
             userService.inactiveStudent(studentDB);
         }
         return student;
@@ -77,22 +76,8 @@ public class AssignTestController {
         return modelAndView;
     }
 
-//    @RequestMapping(value = "/admin/assign-test", method = RequestMethod.GET)
-//    public ModelAndView assignNewTest() {
-//        ModelAndView modelAndView = new ModelAndView();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userService.findUserByEmail(auth.getName());
-//
-//        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
-//        modelAndView.addObject("testkey", new TestKey());
-//        modelAndView.addObject("userRole", "Admin");
-//
-//        modelAndView.setViewName("assign-test");
-//        return modelAndView;
-//    }
-
     @RequestMapping(value = "/admin/assigntest", method = RequestMethod.POST)
-    public Student  createAccessCode(@RequestBody  Student student) {
+    public Student createAccessCode(@RequestBody Student student) {
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = userService.findUserByEmail(auth.getName());
@@ -111,41 +96,5 @@ public class AssignTestController {
         }
         return student;
     }
-
-//    @RequestMapping(value = "/admin/assign-test", method = RequestMethod.POST)
-//    public ModelAndView createNewTestKey(TestKey testKey) {
-//        ModelAndView modelAndView = new ModelAndView();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        User user = userService.findUserByEmail(auth.getName());
-//
-//        int sid = testKey.getStudentid();
-//
-//        Student student = userService.findStudentById(sid);
-//
-//        modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
-//        modelAndView.addObject("userRole", "Admin");
-//
-//        if (student == null) {
-//            modelAndView.addObject("successMessage", "There is no such student with the id provided");
-//            modelAndView.addObject("testkey", testKey);
-//        } else {
-//
-//            String testKeyValue = testKeyService.generateAndSaveTestKey(user.getId(), testKey.getStudentid());
-//
-//            try {
-//                //String emailMessage = "Hello " + student.getFirstName() + ", the link for your test is: "+ "http://localhost:8080/student/test \n" +
-//                //        " And the Test Key is: " + testKeyValue;
-//                //mailService.sendMail("mumpmproject@gmail.com", "awadodeh@gmail.com", "Test", emailMessage);
-//            } catch (Exception e) {
-//
-//            }
-//            modelAndView.addObject("testkey", new TestKey());
-//            modelAndView.addObject("successMessage", "Test key has been generated successfully");
-//        }
-//
-//
-//        modelAndView.setViewName("assign-test");
-//        return modelAndView;
-//    }
 
 }

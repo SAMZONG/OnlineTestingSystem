@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class GradeReport {
 
     @Id
-   // @GeneratedValue(strategy = GenerationType.AUTO)
+    // @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "row_number")
     private int id;
 
@@ -36,7 +36,7 @@ public class GradeReport {
     @Column(name = "grade")
     private String grade;
 
-    public GradeReport(){
+    public GradeReport() {
 
     }
 

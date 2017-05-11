@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" data-layout-decorate="~{fragments/layout}" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" data-layout-decorate="~{fragments/layout}"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Add User</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -42,22 +42,23 @@
                                                         <label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
                                                                class="validation-message"></label>
                                                         <input type="text" th:field="*{name}" placeholder="Name"
-                                                               class="form-control" />
+                                                               class="form-control"/>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <div class="col-sm-9">
-                                                        <label	th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"
-                                                                  class="validation-message"></label>
+                                                        <label th:if="${#fields.hasErrors('lastName')}"
+                                                               th:errors="*{lastName}"
+                                                               class="validation-message"></label>
                                                         <input type="text" th:field="*{lastName}"
-                                                               placeholder="Last Name" class="form-control" />
+                                                               placeholder="Last Name" class="form-control"/>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-9">
                                                         <input type="text" th:field="*{email}" placeholder="Email"
-                                                               class="form-control" /> <label
+                                                               class="form-control"/> <label
                                                             th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
                                                             class="validation-message"></label>
                                                     </div>
@@ -65,22 +66,27 @@
                                                 <div class="form-group">
                                                     <div class="col-sm-9">
                                                         <input type="password" th:field="*{password}"
-                                                               placeholder="Password" class="form-control" /> <label
-                                                            th:if="${#fields.hasErrors('password')}" th:errors="*{password}"
+                                                               placeholder="Password" class="form-control"/> <label
+                                                            th:if="${#fields.hasErrors('password')}"
+                                                            th:errors="*{password}"
                                                             class="validation-message"></label>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-sm-9">
                                                         <select class="form-control" id="roleTypes">
-                                                            <option disabled selected value> -- please select a role -- </option>
+                                                            <option disabled selected value> -- please select a role
+                                                                --
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <div class="col-sm-3">
-                                                        <button type="submit" class="btn btn-primary btn-block">Add User</button>
+                                                        <button type="submit" class="btn btn-primary btn-block">Add
+                                                            User
+                                                        </button>
                                                     </div>
                                                 </div>
                                                 <span th:utext="${successMessage}"></span>
@@ -96,8 +102,6 @@
         </div>
     </div>
 </div>
-
-
 
 
 <!--<div>-->

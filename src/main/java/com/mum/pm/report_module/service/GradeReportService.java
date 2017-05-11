@@ -9,8 +9,10 @@ import java.util.List;
  */
 public interface GradeReportService {
 
-        void save(GradeReport report);
-        GradeReport findById(int id);
-        List<GradeReport> getAllReports();
+    void save(GradeReport report);
+
+    GradeReport findById(int id);
+
+    List<GradeReport> getAllReports();
 
 }

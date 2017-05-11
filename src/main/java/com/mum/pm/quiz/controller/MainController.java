@@ -13,12 +13,13 @@ public class MainController {
     private final Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @GetMapping("/student/exam/{accessKey}")
-     public String getCategorySubCategory(@PathVariable String accessKey, Model model){
-        model.addAttribute("accessKey",accessKey);
+    public String getCategorySubCategory(@PathVariable String accessKey, Model model) {
+        model.addAttribute("accessKey", accessKey);
         return "exam";
     }
+
     @GetMapping("/student/done")
-    public String done(){
+    public String done() {
         return "done";
     }
 

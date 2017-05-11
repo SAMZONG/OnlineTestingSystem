@@ -10,5 +10,6 @@ import java.util.List;
 public interface ExamReportService {
 
     void save(ExamReports examReports);
+
     List<ExamReports> getExamReports();
 }

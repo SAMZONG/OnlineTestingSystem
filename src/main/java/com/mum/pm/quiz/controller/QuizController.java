@@ -29,11 +29,7 @@ public class QuizController {
 
     @Autowired
     StudentService studentService;
-
-    public QuestionsServices getQuestionsServices() {
-        return questionsServices;
-    }
-    String subcategory="";
+    String subcategory = "";
     ExamReports examReports;
     Set<SubReport> subReports;
     Set<ExamQuestionDetails> examDeatils;
@@ -41,15 +37,16 @@ public class QuizController {
     List<Category> categories;
     CategorySubCategory categorySubCategory;
     String accessKey;
-
+    @Autowired
+    ExamReportService examReportService;
+    @Autowired
+    UserService userService;
     @Autowired
     private TestKeyRepository testKeyRepository;
 
-    @Autowired
-    ExamReportService examReportService;
-
-    @Autowired
-    UserService userService;
+    public QuestionsServices getQuestionsServices() {
+        return questionsServices;
+    }
 
     @Autowired
     public void setQuestionsServices(QuestionsServices questionsServices) {
@@ -58,9 +55,9 @@ public class QuizController {
 
     @PostMapping("/student/getQuestions")
     public ResponseEntity<?> getSearchResultViaAjax(@Valid @RequestBody CategorySubCategory categorySubCategory, Errors errors) {
-        this.subcategory="";
+        this.subcategory = "";
         this.categorySubCategory = categorySubCategory;
-        accessKey=categorySubCategory.getAccessKey();
+        accessKey = categorySubCategory.getAccessKey();
         AjaxResponseBody result = new AjaxResponseBody();
         if (errors.hasErrors()) {
 
@@ -70,10 +67,10 @@ public class QuizController {
         List<QuestionSet> questions = questionsServices.findBySubCategory(categorySubCategory);
 
         for (int i = 0; i < categorySubCategory.getSubCategories().size(); i++) {
-            if(i==categorySubCategory.getSubCategories().size()-1){
+            if (i == categorySubCategory.getSubCategories().size() - 1) {
                 subcategory += categorySubCategory.getSubCategories().get(i).getSubCategoryName();
-            }else {
-                subcategory +=  categorySubCategory.getSubCategories().get(i).getSubCategoryName()+", " ;
+            } else {
+                subcategory += categorySubCategory.getSubCategories().get(i).getSubCategoryName() + ", ";
             }
         }
         result.setCategory(subcategory);
@@ -90,84 +87,83 @@ public class QuizController {
 
     @PostMapping("/student/saveResult")
     public void saveResult(@Valid @RequestBody AjaxResponseBody ajaxResponse) {
-       try {
-           TestKey testKey = testKeyRepository.findByTestkeyValue(accessKey);
+        try {
+            TestKey testKey = testKeyRepository.findByTestkeyValue(accessKey);
             System.out.println(testKey.getStudentid());
-           double scoreByCategory = 0;
-           double scoreBySubCategory = 0;
-           for (int i = 0; i < ajaxResponse.getSelectedAnswer().size(); i++) {
-               if (ajaxResponse.getSelectedAnswer().get(i)+1 == ajaxResponse.getResult().get(i).getCorrectAnswer()) {
-                   scoreByCategory++;
-               }
-           }
-           scoreByCategory=(int)Math.round((scoreByCategory/ajaxResponse.getResult().size()*100)*100)/(double)100;
-           examReports = new ExamReports(testKey.getStudentid(), testKey.getUserid(), scoreByCategory, this.categorySubCategory.getCategory().getCategoryName());
+            double scoreByCategory = 0;
+            double scoreBySubCategory = 0;
+            for (int i = 0; i < ajaxResponse.getSelectedAnswer().size(); i++) {
+                if (ajaxResponse.getSelectedAnswer().get(i) + 1 == ajaxResponse.getResult().get(i).getCorrectAnswer()) {
+                    scoreByCategory++;
+                }
+            }
+            scoreByCategory = (int) Math.round((scoreByCategory / ajaxResponse.getResult().size() * 100) * 100) / (double) 100;
+            examReports = new ExamReports(testKey.getStudentid(), testKey.getUserid(), scoreByCategory, this.categorySubCategory.getCategory().getCategoryName());
 
-           subReports = new HashSet<SubReport>();
-           SubReport subReport = new SubReport();
-           for (int i = 0; i < categorySubCategory.getSubCategories().size(); i++) {
-               scoreBySubCategory = 0;
-               for (int j = 0; j < ajaxResponse.getSelectedAnswer().size(); j++) {
-                   if (categorySubCategory.getSubCategories().get(i).getSubCategoryName().equals(ajaxResponse.getResult().get(j).getSubCategoryName())) {
-                       if (ajaxResponse.getSelectedAnswer().get(j)+1 == ajaxResponse.getResult().get(j).getCorrectAnswer()) {
-                           scoreBySubCategory++;
-                       }
-                   }
-               }
+            subReports = new HashSet<SubReport>();
+            SubReport subReport = new SubReport();
+            for (int i = 0; i < categorySubCategory.getSubCategories().size(); i++) {
+                scoreBySubCategory = 0;
+                for (int j = 0; j < ajaxResponse.getSelectedAnswer().size(); j++) {
+                    if (categorySubCategory.getSubCategories().get(i).getSubCategoryName().equals(ajaxResponse.getResult().get(j).getSubCategoryName())) {
+                        if (ajaxResponse.getSelectedAnswer().get(j) + 1 == ajaxResponse.getResult().get(j).getCorrectAnswer()) {
+                            scoreBySubCategory++;
+                        }
+                    }
+                }
 
-               scoreBySubCategory=(int)Math.round((scoreBySubCategory/categorySubCategory.getSubCategories().size()*100)*100)/(double)100;
-               subReport = new SubReport(categorySubCategory.getSubCategories().get(i).getSubCategoryName(), scoreBySubCategory);
+                scoreBySubCategory = (int) Math.round((scoreBySubCategory / categorySubCategory.getSubCategories().size() * 100) * 100) / (double) 100;
+                subReport = new SubReport(categorySubCategory.getSubCategories().get(i).getSubCategoryName(), scoreBySubCategory);
 
-               subReport.setExamReports(examReports);
-               subReports.add(subReport);
+                subReport.setExamReports(examReports);
+                subReports.add(subReport);
 
-           }
+            }
 
-           examReports.setSubReports(subReports);
-           examDeatils = new HashSet<ExamQuestionDetails>();
-           ExamQuestionDetails examQuestionDetail = new ExamQuestionDetails();
+            examReports.setSubReports(subReports);
+            examDeatils = new HashSet<ExamQuestionDetails>();
+            ExamQuestionDetails examQuestionDetail = new ExamQuestionDetails();
 
-           for (int i = 0; i < ajaxResponse.getResult().size(); i++) {
+            for (int i = 0; i < ajaxResponse.getResult().size(); i++) {
 
-               examQuestionDetail = new ExamQuestionDetails(ajaxResponse.getResult().get(i).getQuestionID(), ajaxResponse.getSelectedAnswer().get(i)+1, ajaxResponse.getResult().get(i).getSubCategoryName(), ajaxResponse.getResult().get(i).getCorrectAnswer());
-               examQuestionDetail.setExamReportsDetails(examReports);
-               examDeatils.add(examQuestionDetail);
-           }
-           examReports.setExamQuestionDetails(examDeatils);
+                examQuestionDetail = new ExamQuestionDetails(ajaxResponse.getResult().get(i).getQuestionID(), ajaxResponse.getSelectedAnswer().get(i) + 1, ajaxResponse.getResult().get(i).getSubCategoryName(), ajaxResponse.getResult().get(i).getCorrectAnswer());
+                examQuestionDetail.setExamReportsDetails(examReports);
+                examDeatils.add(examQuestionDetail);
+            }
+            examReports.setExamQuestionDetails(examDeatils);
 
-           try {
-               examReportService.save(examReports);
-           } catch (Exception e) {
-               e.getStackTrace();
-           }
-       }catch (Exception e){
-           System.out.println("Error Occurred "+e.getStackTrace());
-       }
+            try {
+                examReportService.save(examReports);
+            } catch (Exception e) {
+                e.getStackTrace();
+            }
+        } catch (Exception e) {
+            System.out.println("Error Occurred " + e.getStackTrace());
+        }
 
     }
 
-    @RequestMapping(value="/student/reports", method=RequestMethod.GET)
-    public List<Report> getAllReports(){
-        List<ExamReports> examReports=examReportService.getExamReports();
-        List<Report> reports=new ArrayList<Report>();
-            for (ExamReports e : examReports) {
-                try {
-                    int reportId = e.getReport_id();
-                    Student student = studentService.findByStudentId(e.getStudent_id());
-                    System.out.println(student);
-                    String studentName = student.getFirstName() + " " + student.getLastName();
-                    User user = userService.findUserById(e.getUser_id());
-                    String coachName = user.getName() + " " + user.getLastName();
-                    String category = e.getCategory_name();
-                    double score = e.getResult();
-                    Report report = new Report(reportId, studentName, coachName, category, score);
-                    reports.add(report);
-                }catch(Exception ex){
-                    System.out.println(ex.getMessage());
-                }
+    @RequestMapping(value = "/student/reports", method = RequestMethod.GET)
+    public List<Report> getAllReports() {
+        List<ExamReports> examReports = examReportService.getExamReports();
+        List<Report> reports = new ArrayList<Report>();
+        for (ExamReports e : examReports) {
+            try {
+                int reportId = e.getReport_id();
+                Student student = studentService.findByStudentId(e.getStudent_id());
+                System.out.println(student);
+                String studentName = student.getFirstName() + " " + student.getLastName();
+                User user = userService.findUserById(e.getUser_id());
+                String coachName = user.getName() + " " + user.getLastName();
+                String category = e.getCategory_name();
+                double score = e.getResult();
+                Report report = new Report(reportId, studentName, coachName, category, score);
+                reports.add(report);
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
+        }
         return reports;
-        //return examReports;
     }
 
 

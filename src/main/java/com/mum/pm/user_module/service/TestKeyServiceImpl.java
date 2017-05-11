@@ -6,7 +6,6 @@ import com.mum.pm.util.CalendarUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -27,23 +26,23 @@ public class TestKeyServiceImpl implements TestKeyService {
     public String generateAndSaveTestKey(int userid, int studentId) {
         String testKeyValue = UUID.randomUUID().toString().replaceAll("-", "");
         logger.debug("TestKey created as : " + testKeyValue);
-        try{
+        try {
             testKeyRepository.save(createTestKey(testKeyValue, userid, studentId));
-        }catch (Exception ex){
+        } catch (Exception ex) {
             logger.error(ex.getMessage());
-            throw(ex);
+            throw (ex);
         }
-        return  testKeyValue;
+        return testKeyValue;
     }
 
     @Override
     public TestKey findKey(String testKeyValue) {
         logger.debug("Trying to find testKeyValue : " + testKeyValue);
-        return  testKeyRepository.findByTestkeyValue(testKeyValue);
+        return testKeyRepository.findByTestkeyValue(testKeyValue);
     }
 
 
-    private TestKey createTestKey(String testKeyValue, int userid, int studentId){
+    private TestKey createTestKey(String testKeyValue, int userid, int studentId) {
 
         TestKey testKey = new TestKey();
         testKey.setTestkeyValue(testKeyValue);

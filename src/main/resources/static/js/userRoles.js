@@ -1,22 +1,22 @@
 /**
  * Created by Chuang on 5/6/2017.
  */
-$(function(){
+$(function () {
     $.ajax({
         type: 'get',
         dataType: 'json',
         url: '/admin/allRoleTypes',
         success: function (data) {
-            $.each(data, function(i, roleType) {
+            $.each(data, function (i, roleType) {
                 $('#roleTypes')
                     .append($("<option></option>")
-                        .attr("value",roleType.id)
+                        .attr("value", roleType.id)
                         .text(roleType.role));
             });
 
         },
-        error: function (xhr, ajaxOptions, thrownError){
-            alert("No RoleType Available"+ " Error:" +xhr.status);
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("No RoleType Available" + " Error:" + xhr.status);
         }
     });
 
@@ -24,12 +24,12 @@ $(function(){
         $.ajax({
             type: 'get',
             dataType: 'json',
-            url: '/admin/setUserType/'+$( "#roleTypes" ).val(),
+            url: '/admin/setUserType/' + $("#roleTypes").val(),
             success: function (data) {
 
             },
-            error: function (xhr, ajaxOptions, thrownError){
-                alert("No RoleType Available"+ " Error:" +xhr.status);
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("No RoleType Available" + " Error:" + xhr.status);
             }
         });
 

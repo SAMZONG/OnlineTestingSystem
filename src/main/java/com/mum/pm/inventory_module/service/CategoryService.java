@@ -11,11 +11,17 @@ import java.util.Set;
  */
 public interface CategoryService {
     public void saveCategory(Category category);
+
     public Category getCategoryById(int id);
+
     public Category getCategoryByName(String name);
+
     public void deleteCategory(int id);
+
     public List<Category> getAllCategories();
+
     public boolean isCategoryExist(Category category);
+
     public Set<SubCategory> getAllSubCategoriesOfACategory(int id);
 
     public Category setCategoryDisable(Category category);

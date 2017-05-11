@@ -3,12 +3,8 @@ package com.mum.pm.inventory_module.controller;
 import com.mum.pm.inventory_module.model.Category;
 import com.mum.pm.inventory_module.model.SubCategory;
 import com.mum.pm.inventory_module.service.CategoryService;
-import com.mum.pm.user_module.model.Student;
-import com.mum.pm.user_module.model.User;
 import com.mum.pm.user_module.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +29,7 @@ public class CategoryController {
 
     int categoryID = 0;
 
-    @RequestMapping(value="/admin/add-category",  method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/add-category", method = RequestMethod.GET)
     public ModelAndView addNewCategory(Model model) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -69,7 +65,7 @@ public class CategoryController {
 
      */
 
-    @RequestMapping(value="/admin/add-category",  method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/add-category", method = RequestMethod.POST)
     public String createNewCategory(Category category, BindingResult bindingResult, Model model) {
         ModelAndView modelAndView = new ModelAndView();
 
@@ -82,10 +78,10 @@ public class CategoryController {
         //modelAndView.addObject("userName",   user.getName() + " " + user.getLastName());
         //modelAndView.addObject("userRole",   "Admin");
 
-        if(categoryService.getCategoryByName(category.getCategoryName()) != null){
+        if (categoryService.getCategoryByName(category.getCategoryName()) != null) {
             modelAndView.addObject("successMessage", "This category is already in the system");
-            modelAndView.addObject("category",category);
-        }else{
+            modelAndView.addObject("category", category);
+        } else {
             categoryService.saveCategory(category);
             modelAndView.addObject("category", new Category());
             modelAndView.addObject("successMessage", "Category added successfully");
@@ -95,10 +91,10 @@ public class CategoryController {
     }
 
 
-    @RequestMapping(value="/admin/disable-category/{id}",  method = RequestMethod.PUT)
+    @RequestMapping(value = "/admin/disable-category/{id}", method = RequestMethod.PUT)
     public String disableCategory(@PathVariable int id, @ModelAttribute("category") Category category) {
 
-        Category cat= categoryService.getCategoryById(id);
+        Category cat = categoryService.getCategoryById(id);
         ModelAndView modelAndView = new ModelAndView();
 
 
@@ -108,10 +104,10 @@ public class CategoryController {
     }
 
 
-    @RequestMapping(value="/admin/disable-subCategory/{id}",  method = RequestMethod.PUT)
+    @RequestMapping(value = "/admin/disable-subCategory/{id}", method = RequestMethod.PUT)
     public String disableSubCategory(@PathVariable int id, @ModelAttribute("subCategory") SubCategory subCategory) {
 
-        SubCategory subCat= categoryService.getSubCategoryById(id);
+        SubCategory subCat = categoryService.getSubCategoryById(id);
         ModelAndView modelAndView = new ModelAndView();
 
 
@@ -138,7 +134,7 @@ public class CategoryController {
 
         List<SubCategory> subCategoryList = categoryService.getAllActiveSubCategories(categoryID);
 
-        System.out.print("categoryID is ================================="+categoryID);
+        System.out.print("categoryID is =================================" + categoryID);
 
 
         List<SubCategory> list = new ArrayList<>(subCategoryList);
@@ -154,7 +150,7 @@ public class CategoryController {
     }
 
 
-    @RequestMapping(value="/admin/sub-category",  method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/sub-category", method = RequestMethod.POST)
     public String createNewSubCategory(SubCategory subCategory, BindingResult bindingResult, Model model) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -175,12 +171,12 @@ public class CategoryController {
 
         Category category = categoryService.getCategoryById(categoryID);
 
-        System.out.println("WE ARE HERE ========================= "+subCategory.getSubCategoryName());
+        System.out.println("WE ARE HERE ========================= " + subCategory.getSubCategoryName());
 
-        if(categoryService.getSubCategoryByName(subCategory.getSubCategoryName()) != null){
+        if (categoryService.getSubCategoryByName(subCategory.getSubCategoryName()) != null) {
             modelAndView.addObject("successMessage", "This sub-category is already in the system");
             modelAndView.addObject("subCategory", subCategory);
-        }else{
+        } else {
             categoryService.saveSubCategory(category, subCategory);
             modelAndView.addObject("subCategory", new SubCategory());
             modelAndView.addObject("successMessage", "SubCategory added successfully");
@@ -192,7 +188,6 @@ public class CategoryController {
     }
 
 
-
     @RequestMapping(value = "/admin/select", method = RequestMethod.GET)
     public String allSubCategory(@ModelAttribute("categoryList") Category category, Model model,
                                  SubCategory subCategory, @RequestParam String option) {
@@ -201,7 +196,7 @@ public class CategoryController {
         categoryID = Integer.parseInt(option);
         Set<SubCategory> subCategoryList = categoryService.getAllSubCategoriesOfACategory(categoryID);
 
-        for (SubCategory s:subCategoryList){
+        for (SubCategory s : subCategoryList) {
             System.out.println(s.getSubCategoryName());
 
         }

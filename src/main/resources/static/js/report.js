@@ -1,7 +1,7 @@
 /**
  * Created by manzil on 5/9/2017.
  */
-$(document).ready( function () {
+$(document).ready(function () {
     var table = $('#reportTable').DataTable({
         "ajax": "/student/reports",
         "sAjaxDataProp": "",
@@ -24,17 +24,17 @@ $(document).ready( function () {
             }
         ],
     });
-    $('#reportTable tbody').on('click','.grade',function () {
-        var data=table.row($(this).parents('tr')).data();
+    $('#reportTable tbody').on('click', '.grade', function () {
+        var data = table.row($(this).parents('tr')).data();
 
-        window.open("http://localhost:8080/download/pdf/grade/"+data.reportId);
+        window.open("http://localhost:8080/download/pdf/grade/" + data.reportId);
 
 
     });
-    $('#reportTable tbody').on('click','.details',function () {
-        var data=table.row($(this).parents('tr')).data();
+    $('#reportTable tbody').on('click', '.details', function () {
+        var data = table.row($(this).parents('tr')).data();
 
-        window.open("http://localhost:8080/download/pdf/detail/"+data.reportId);
+        window.open("http://localhost:8080/download/pdf/detail/" + data.reportId);
 
 
     });

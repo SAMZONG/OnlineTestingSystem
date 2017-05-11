@@ -30,19 +30,19 @@ public class ResultReportController {
     GradeReportService reportService;
 
     @RequestMapping(value = "/grade-report", method = RequestMethod.POST)
-    public  void gradereportBuildPdf() {
+    public void gradereportBuildPdf() {
 
         ModelAndView modelAndView = new ModelAndView();
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             JasperReport jasperReport = JasperCompileManager.compileReport("D://MUM Courses/PM/ireports/report5.jrxml");
 
-            List<GradeReport> reports=reportService.getAllReports();
+            List<GradeReport> reports = reportService.getAllReports();
 
-           // reports.remove(1);
-           // reports.remove(2);
+            // reports.remove(1);
+            // reports.remove(2);
 
-            for(int i=0; i<reports.size();i++) {
+            for (int i = 0; i < reports.size(); i++) {
                 //if(!u)
                 System.out.println(reports.get(i).toString());
             }
@@ -55,10 +55,10 @@ public class ResultReportController {
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH mm ");
             Date date = new Date();
             System.out.println(dateFormat.format(date));
-            String filename= "D://MUM Courses/PM/ireports/jasperoutput/Result "+ dateFormat.format(date).toString()+".pdf";
+            String filename = "D://MUM Courses/PM/ireports/jasperoutput/Result " + dateFormat.format(date).toString() + ".pdf";
 
 
-            JasperExportManager.exportReportToPdfFile(jasperPrint, filename) ;
+            JasperExportManager.exportReportToPdfFile(jasperPrint, filename);
             System.out.println("Done");
         } catch (Exception e) {
             e.printStackTrace();

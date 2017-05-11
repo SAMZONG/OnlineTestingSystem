@@ -12,15 +12,15 @@ import org.springframework.context.annotation.PropertySource;
 @EnableAutoConfiguration(exclude = DataSourceAutoConfiguration.class)
 @PropertySource("classpath:application.properties")
 //@ImportResource() No resources for now
-public class OnlineTestingApplication extends SpringBootServletInitializer{
+public class OnlineTestingApplication extends SpringBootServletInitializer {
 
-	public static void main(String[] args) {
-		SpringApplication.run(OnlineTestingApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(OnlineTestingApplication.class, args);
+    }
 
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder application){
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 
-		return application.sources(OnlineTestingApplication.class);
-	}
+        return application.sources(OnlineTestingApplication.class);
+    }
 }

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/student")
 public class CategorySubCategoryController {
 
-    @RequestMapping(value="/category-subCategory/{accessKey}", method = RequestMethod.GET)
-    public String getCategorySubCategory(@PathVariable String accessKey, Model model){
-        model.addAttribute("accessKey",accessKey);
+    @RequestMapping(value = "/category-subCategory/{accessKey}", method = RequestMethod.GET)
+    public String getCategorySubCategory(@PathVariable String accessKey, Model model) {
+        model.addAttribute("accessKey", accessKey);
         return "category-subCategory";
     }
 }

@@ -1,13 +1,13 @@
-$(document).ready( function () {
+$(document).ready(function () {
     var table = $('#studentTable').DataTable({
         "ajax": "/student/getAvailableStudent",
-        "sAjaxDataProp":"",
-        "order": [[ 0, "asc" ]],
-        "aoColumns" : [
-            { "data": "studentId"},
-            { "data": "firstName" },
-            { "data": "lastName" },
-            { "data": "email" },
+        "sAjaxDataProp": "",
+        "order": [[0, "asc"]],
+        "aoColumns": [
+            {"data": "studentId"},
+            {"data": "firstName"},
+            {"data": "lastName"},
+            {"data": "email"},
             {
                 "target": -1,
                 "data": null,
@@ -21,8 +21,8 @@ $(document).ready( function () {
     //     alert( data["studentId"] +"'s name is: "+ data["email"] );
     // });
 
-    $('#studentTable tbody').on( 'click', 'button', function () {
-        var data = table.row( $(this).parents('tr') ).data();
+    $('#studentTable tbody').on('click', 'button', function () {
+        var data = table.row($(this).parents('tr')).data();
         var student = {
             // "active":"active",
             // "studentId": "599",
@@ -32,10 +32,10 @@ $(document).ready( function () {
 
 
             "studentId": data["studentId"],
-            "email":data["email"],
-            "firstName":data["firstName"],
-            "lastName":data["lastName"],
-            "active":data["active"]
+            "email": data["email"],
+            "firstName": data["firstName"],
+            "lastName": data["lastName"],
+            "active": data["active"]
         };
 
         $.ajax({
@@ -45,17 +45,16 @@ $(document).ready( function () {
             dataType: 'json',
             data: JSON.stringify(student),
 
-            success: function(){
-                table.row($(this).parents('tr') ).
-                remove().
-                draw();
+            success: function () {
+                table.row($(this).parents('tr')).remove().draw();
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-                alert("Status: " + textStatus); alert("Error: " + errorThrown);
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Status: " + textStatus);
+                alert("Error: " + errorThrown);
             }
         });
 
-         table.row($(this).parents('tr')).remove().draw();
+        table.row($(this).parents('tr')).remove().draw();
     });
 
 });

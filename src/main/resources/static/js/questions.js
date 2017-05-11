@@ -16,7 +16,7 @@ $(function () {
         success: function (data) {
             inventoryDDL.append($('<option></option>').val(-1).html('Select Category'));
             subInventoryDDl.append($('<option></option>').val(-1).html('Select SubCategory'));
-            subInventoryDDl.prop('disabled',true);
+            subInventoryDDl.prop('disabled', true);
             $.each(data, function (index, item) {
                 inventoryDDL.append(
                     $('<option></option>').val(item.categoryId).html(item.categoryName));
@@ -34,10 +34,9 @@ $(function () {
             subInventoryDDl.val(-1)
             subInventoryDDl.prop('disabled', true);
         }
-        else
-        {
+        else {
             $.ajax({
-                url: '/category/getSubCategories/'+$(this).val(),
+                url: '/category/getSubCategories/' + $(this).val(),
                 method: 'GET',
                 dataType: 'JSON',
                 contentType: "application/json; charset=utf-8;",
@@ -64,8 +63,7 @@ $(function () {
 
         if ($("#AnswerText").val() != "") {
 
-            if (count < 1)
-            {
+            if (count < 1) {
                 var strhtmlhead = '<tr class="head">';
                 strhtmlhead += '<th>Answer</th>';
                 strhtmlhead += '<th>Correct Answer</th>';
@@ -81,7 +79,7 @@ $(function () {
             strHtml += '<td class="answer-text">' + $("#AnswerText").val() + '</td>';
 
             strHtml += '<td class="correct-answer">';
-            strHtml += '<input type="radio" name="correctAnswerRadio" value=' + $("#AnswerText").val() +' ></td>'
+            strHtml += '<input type="radio" name="correctAnswerRadio" value=' + $("#AnswerText").val() + ' ></td>'
 
             strHtml += '<td class="answer-delete">';
             strHtml += '<input type="button " id="btnDeleteAnswer" class="btn btn-danger delete-answer" value="Delete Answer" />';
@@ -104,8 +102,7 @@ $(function () {
     });
 
 
-
-    $("#btnSave").click(function() {
+    $("#btnSave").click(function () {
         if ($("#QuestionText").val() != "" && $("#subInventorySelect").val() > 0) {
 
             var question = {};
@@ -119,7 +116,7 @@ $(function () {
             var radioButtons = $("#tblAnswers input:radio[name='correctAnswerRadio']");
             var selectedIndex = radioButtons.index(radioButtons.filter(':checked'));
 
-            if ($('.answer').length==0 || selectedIndex <0) {
+            if ($('.answer').length == 0 || selectedIndex < 0) {
 
                 alert("You need to have a correct answer for the questions");
                 return;
@@ -135,14 +132,14 @@ $(function () {
             //TODO: Make the Question Answers dynamic not only for 5
 
             var question = {
-                question_description:question.QuestionText,
-                answer_1:answers[0].AnswerText,
-                answer_2:answers[1].AnswerText,
-                answer_3:answers[2].AnswerText,
-                answer_4:answers[3].AnswerText,
-                answer_5:answers[4].AnswerText,
-                subCategoryId:question.subCategoryId,
-                correct_answer:selectedIndex+1
+                question_description: question.QuestionText,
+                answer_1: answers[0].AnswerText,
+                answer_2: answers[1].AnswerText,
+                answer_3: answers[2].AnswerText,
+                answer_4: answers[3].AnswerText,
+                answer_5: answers[4].AnswerText,
+                subCategoryId: question.subCategoryId,
+                correct_answer: selectedIndex + 1
 
             }
 

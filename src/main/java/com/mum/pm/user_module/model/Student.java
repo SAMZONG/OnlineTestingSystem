@@ -1,7 +1,6 @@
 package com.mum.pm.user_module.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -9,7 +8,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.validation.Valid;
 
 /**
  * Created by Chuang on 2017/4/26.
@@ -21,6 +19,12 @@ public class Student {
     private int studentId;
     @JsonProperty(value = "email")
     private String email;
+    @JsonProperty(value = "firstName")
+    private String firstName;
+    @JsonProperty(value = "lastName")
+    private String lastName;
+    @JsonProperty(value = "active")
+    private boolean active;
 
     @Override
     public String toString() {
@@ -32,13 +36,6 @@ public class Student {
                 ", active=" + active +
                 '}';
     }
-
-    @JsonProperty(value = "firstName")
-    private String firstName;
-    @JsonProperty(value = "lastName")
-    private String lastName;
-    @JsonProperty(value = "active")
-    private boolean active;
 
     @Id
     @Column(name = "student_id")

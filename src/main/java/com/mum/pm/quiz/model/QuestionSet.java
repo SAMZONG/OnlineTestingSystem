@@ -9,18 +9,29 @@ import java.util.List;
 public class QuestionSet {
 
 
-    @JsonProperty( "question" )
-    @XmlElement( required = true )
+    @JsonProperty("question")
+    @XmlElement(required = true)
     String question;
     int questionID;
-    String subCategoryName="";
-    @JsonProperty( "choices" )
-    @XmlElement( required = true )
-    List<String> choices  =new ArrayList<String>();
+    String subCategoryName = "";
+    @JsonProperty("choices")
+    @XmlElement(required = true)
+    List<String> choices = new ArrayList<String>();
 
-    @JsonProperty( "correctAnswer" )
-    @XmlElement( required = true )
+    @JsonProperty("correctAnswer")
+    @XmlElement(required = true)
     int correctAnswer;
+
+    public QuestionSet(String question, int questionID, String subCategoryName, List<String> choices, int correctAnswer) {
+        this.question = question;
+        this.questionID = questionID;
+        this.subCategoryName = subCategoryName;
+        this.choices = choices;
+        this.correctAnswer = correctAnswer;
+    }
+
+    public QuestionSet() {
+    }
 
     public String getSubCategoryName() {
         return subCategoryName;
@@ -36,19 +47,6 @@ public class QuestionSet {
 
     public void setQuestionID(int questionID) {
         this.questionID = questionID;
-    }
-
-    public QuestionSet(String question, int questionID, String subCategoryName,List<String> choices, int correctAnswer) {
-        this.question = question;
-        this.questionID = questionID;
-        this.subCategoryName=subCategoryName;
-        this.choices = choices;
-        this.correctAnswer = correctAnswer;
-    }
-
-
-
-    public QuestionSet() {
     }
 
     @Override

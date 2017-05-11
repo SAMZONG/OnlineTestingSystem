@@ -13,7 +13,7 @@ import java.util.List;
 @Repository("gradeReportRepository")
 public interface GradeReportRepository extends JpaRepository<GradeReport, Long> {
 
-  //  void save(GradeReport report);
+    //  void save(GradeReport report);
     GradeReport findById(int id);
 
     @Query("SELECT b FROM GradeReport b")

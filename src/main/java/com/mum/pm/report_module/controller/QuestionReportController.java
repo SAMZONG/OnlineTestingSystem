@@ -48,7 +48,7 @@ public class QuestionReportController {
             Map<String, Object> params = new HashMap<String, Object>();
             JasperReport jasperReport = JasperCompileManager.compileReport("D://MUM Courses/PM/ireports/report7.jrxml");
 
-            List<Question> questions= (List<Question>) questionService.getAllQuestions();
+            List<Question> questions = (List<Question>) questionService.getAllQuestions();
 
             System.out.println("Tare 1");
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(questions);
@@ -59,11 +59,11 @@ public class QuestionReportController {
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH mm ");
             Date date = new Date();
             System.out.println(dateFormat.format(date));
-            String filename= "D://MUM Courses/PM/ireports/jasperoutput/Question List "+ dateFormat.format(date).toString()+".pdf";
-            String filename2= "D://MUM Courses/PM/ireports/jasperoutput/Question List "+ dateFormat.format(date).toString()+".html";
+            String filename = "D://MUM Courses/PM/ireports/jasperoutput/Question List " + dateFormat.format(date).toString() + ".pdf";
+            String filename2 = "D://MUM Courses/PM/ireports/jasperoutput/Question List " + dateFormat.format(date).toString() + ".html";
 
-            JasperExportManager.exportReportToPdfFile(jasperPrint, filename) ;
-            JasperExportManager.exportReportToHtmlFile(jasperPrint,filename2);
+            JasperExportManager.exportReportToPdfFile(jasperPrint, filename);
+            JasperExportManager.exportReportToHtmlFile(jasperPrint, filename2);
             System.out.println(filename);
 
 
@@ -73,7 +73,7 @@ public class QuestionReportController {
         }
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-      //  modelAndView.addObject("user", new User());
+        //  modelAndView.addObject("user", new User());
         modelAndView.setViewName("question-report");
 
         return modelAndView;

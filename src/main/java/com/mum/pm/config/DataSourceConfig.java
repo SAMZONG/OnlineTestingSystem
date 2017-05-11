@@ -1,8 +1,6 @@
 package com.mum.pm.config;
 
 import org.apache.commons.dbcp.BasicDataSource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,7 +36,7 @@ public class DataSourceConfig {
     private String password;
 
     @Bean(destroyMethod = "close")
-    public DataSource poolingDataSource(){
+    public DataSource poolingDataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
 
         basicDataSource.setUrl(dataSourceURL);

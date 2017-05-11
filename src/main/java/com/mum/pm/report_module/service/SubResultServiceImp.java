@@ -19,7 +19,8 @@ public class SubResultServiceImp implements SubResultService {
 
 
     @Override
-    public void save(SubResult subResult) { subResultRepository.save(subResult);
+    public void save(SubResult subResult) {
+        subResultRepository.save(subResult);
     }
 
     @Override
@@ -33,7 +34,7 @@ public class SubResultServiceImp implements SubResultService {
     }
 
     @Override
-    public List<SubResult> getAllSubResultByReportId(int reportId){
+    public List<SubResult> getAllSubResultByReportId(int reportId) {
         return subResultRepository.getAllSubResults();
     }
 }

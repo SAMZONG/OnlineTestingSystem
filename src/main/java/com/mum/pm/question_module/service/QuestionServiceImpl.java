@@ -24,15 +24,12 @@ import java.util.List;
 public class QuestionServiceImpl implements QuestionService {
 
 
-    @Autowired
-    QuestionRepository questionRepository;
-
-    @Autowired
-    SubCategoryDAO subCategoryDAO;
-
     private static HSSFWorkbook wb = null;
     private static Sheet ws = null;
-
+    @Autowired
+    QuestionRepository questionRepository;
+    @Autowired
+    SubCategoryDAO subCategoryDAO;
 
     @Override
     public void save(Question question) {
@@ -57,8 +54,8 @@ public class QuestionServiceImpl implements QuestionService {
     @Override
     public void uploadQuestions(Path path) {
 
-        int check=0;
-        int count =0;
+        int check = 0;
+        int count = 0;
         String description = null;
         List<String> listString = null;
         List<Integer> listInteger = null;
@@ -99,14 +96,13 @@ public class QuestionServiceImpl implements QuestionService {
                 }
 
 
-                for(int i = 0; i < listInteger.size(); i++){
+                for (int i = 0; i < listInteger.size(); i++) {
                     //   id = listInteger.get(0);
                     correct_answer = listInteger.get(0);
                     // sub_category_id = listInteger.get(1);
                 }
 
-                for (int i = 0; i < listString.size(); i++)
-                {
+                for (int i = 0; i < listString.size(); i++) {
                     try {
                         question_description = listString.get(0);
                         answer_1 = listString.get(1);
@@ -114,36 +110,25 @@ public class QuestionServiceImpl implements QuestionService {
                         answer_3 = listString.get(3);
                         answer_4 = listString.get(4);
                         answer_5 = listString.get(5);
-                        categoryName=listString.get(6);
-                        subCategoryName=listString.get(7);
+                        categoryName = listString.get(6);
+                        subCategoryName = listString.get(7);
                         sub_category_id = subCategoryDAO.findBySubCategoryName(subCategoryName).getSubCategoryId();
 
-                    }catch(Exception e){
-                        check=1;
-                        System.out.println("Row numeber "+ count+ " has some columns field invalid.. Please check it....");
+                    } catch (Exception e) {
+                        check = 1;
+                        System.out.println("Row numeber " + count + " has some columns field invalid.. Please check it....");
 
                     }
                 }
-                if(check==0) {
+                if (check == 0) {
                     Question question = new Question(question_description, answer_1, answer_2, answer_3
                             , answer_4, answer_5, correct_answer, sub_category_id);
-                    System.out.println(question_description+" "+answer_1+" "+answer_2+" "+answer_3+" "
-                            +answer_4+" "+answer_5+" "+correct_answer+" "+sub_category_id);
+                    System.out.println(question_description + " " + answer_1 + " " + answer_2 + " " + answer_3 + " "
+                            + answer_4 + " " + answer_5 + " " + correct_answer + " " + sub_category_id);
                     questionRepository.save(question);
                 }
-                check=0;
+                check = 0;
             }
-
-
-
-
-               /*// System.out.println(question_description+" "+answer_1+" "+answer_2+" "+answer_3+" "
-                        +answer_4+" "+answer_5+" "+correct_answer+" "+sub_category_id);
-*/
-
-
-
-
 
         } catch (Exception e1) {
             e1.printStackTrace();

@@ -10,7 +10,10 @@ import java.util.List;
 public interface SubResultService {
 
     void save(SubResult subResult);
+
     SubResult findById(int id);
+
     List<SubResult> getAllSubResults();
+
     List<SubResult> getAllSubResultByReportId(int reportId);
 }

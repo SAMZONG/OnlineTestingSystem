@@ -1,9 +1,6 @@
 package com.mum.pm.question_module.controller;
 
 import com.mum.pm.question_module.service.QuestionService;
-import com.mum.pm.question_module.service.QuestionServiceImpl;
-import com.mum.pm.user_module.service.UserService;
-import org.apache.tomcat.jni.File;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +23,11 @@ import java.nio.file.Paths;
 @RequestMapping("/upload")
 public class UploadController {
 
+    public static final String UPLOADED_FOLDER = System.getProperty("user.dir");
     @Autowired
     private QuestionService questionService;
 
-    public static final String UPLOADED_FOLDER = System.getProperty("user.dir");
-
-    @RequestMapping(value={"/fileUpload"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/fileUpload"}, method = RequestMethod.GET)
     public ModelAndView uploadFile() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("uploadFile");

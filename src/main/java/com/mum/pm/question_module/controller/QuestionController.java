@@ -3,10 +3,6 @@ package com.mum.pm.question_module.controller;
 import com.mum.pm.question_module.model.Question;
 import com.mum.pm.question_module.service.QuestionService;
 import com.mum.pm.quiz.model.AjaxResponseBody;
-import com.mum.pm.quiz.model.CategorySubCategory;
-import com.mum.pm.quiz.model.QuestionSet;
-import com.mum.pm.user_module.controller.UserController;
-import com.mum.pm.user_module.model.Role;
 import com.mum.pm.user_module.model.User;
 import com.mum.pm.user_module.service.UserService;
 import org.slf4j.Logger;
@@ -15,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
@@ -43,12 +38,12 @@ public class QuestionController {
     @Autowired
     UserService userService;
 
-        @RequestMapping(value= "/questionsById/{id}", method = RequestMethod.GET)
-    public List<Question> getQuestionsById(@PathVariable int id){
+    @RequestMapping(value = "/questionsById/{id}", method = RequestMethod.GET)
+    public List<Question> getQuestionsById(@PathVariable int id) {
         return (List<Question>) questionService.getQuestionsBySubCategoryID(id);
     }
 
-    @RequestMapping(value="/question/add-question",  method = RequestMethod.GET)
+    @RequestMapping(value = "/question/add-question", method = RequestMethod.GET)
     public ModelAndView addNewQuestionForm() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -63,7 +58,7 @@ public class QuestionController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/question/add-question",  method = RequestMethod.POST)
+    @RequestMapping(value = "/question/add-question", method = RequestMethod.POST)
     public ModelAndView createNewStudent(Question question, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -104,7 +99,6 @@ public class QuestionController {
     }
 
 
-
     @RequestMapping(value = "/question/postQuestion", method = RequestMethod.POST)
     public Object createQuestion(@Valid @RequestBody Question question, Errors errors) {
 
@@ -115,22 +109,19 @@ public class QuestionController {
 
             return ResponseEntity.badRequest().body(result);
 
-        }else{
+        } else {
             try {
                 questionService.save(question);
                 result.setMsg("Question Saved Successfully!");
-//                return "redirect:/add-question";
 
-            }catch (Exception ex){
-                System.out.println("ex.getMessage() = " + ex.getMessage());
+            } catch (Exception ex) {
+                LOGGER.debug(ex.getMessage());
             }
         }
 
         return ResponseEntity.ok(result);
 
     }
-
-
 
 
 }

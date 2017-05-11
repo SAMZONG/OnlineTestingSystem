@@ -1,15 +1,11 @@
-
-<html lang="en" data-layout-decorate="~{fragments/layout}" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" data-layout-decorate="~{fragments/layout}"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Add New Category</title>
 
 </head>
 
 <body>
-
-
-
 
 
 <div class="right_col" role="main" data-layout-fragment="content">
@@ -40,10 +36,11 @@
                                           role="form">
                                         <div class="form-group">
                                             <div class="col-sm-9">
-                                                <label th:if="${#fields.hasErrors('categoryName')}" th:errors="*{categoryName}"
+                                                <label th:if="${#fields.hasErrors('categoryName')}"
+                                                       th:errors="*{categoryName}"
                                                        class="validation-message"></label>
                                                 <input type="text" th:field="*{categoryName}" placeholder="Name"
-                                                       class="form-control" />
+                                                       class="form-control"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -57,25 +54,26 @@
                                     </form>
 
 
+                                    <table style="width:70%; margin-left:9px" class="table-bordered">
+                                        <tr>
+                                            <th style="width:82%">Category Name</th>
+                                            <th style="width:18%">Action</th>
+                                        </tr>
+
+                                        <tr th:each="category: ${categoryList}">
+                                            <td th:text="${category.categoryName}"></td>
+                                            <form th:action="@{'/admin/disable-category/'+${category.categoryId}}"
+                                                  th:object="${category}" th:method="PUT" enctype="multipart/form-data">
+                                                <td>
+                                                    <button type="submit" class="btn btn-info">Disable</button>
+                                                </td>
+                                            </form>
+                                        </tr>
+
+                                    </table>
 
 
-<table style="width:70%; margin-left:9px" class="table-bordered">
-    <tr>
-        <th style="width:82%">Category Name</th>
-        <th style="width:18%">Action</th>
-    </tr>
-
-    <tr th:each="category: ${categoryList}">
-        <td th:text="${category.categoryName}"></td>
-        <form th:action="@{'/admin/disable-category/'+${category.categoryId}}" th:object="${category}" th:method="PUT" enctype="multipart/form-data">
-            <td><button type="submit" class="btn btn-info">Disable</button></td>
-        </form>
-    </tr>
-
-</table>
-
-
-
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -83,7 +81,6 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>

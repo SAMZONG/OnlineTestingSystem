@@ -1,37 +1,37 @@
-
-(function() {
+(function () {
 
     $('#container').hide();
-    var questions= new Object();
-    questions.question="";
-    questions.choices=new Array();
-    questions.correctAnswer="";
-    questions.selectedAnswer="";
-    var test={};
+    var questions = new Object();
+    questions.question = "";
+    questions.choices = new Array();
+    questions.correctAnswer = "";
+    questions.selectedAnswer = "";
+    var test = {};
 
     var search = {};
 
-    var timer=7200;
-    var min=0;
-    var sec=0;
+    var timer = 7200;
+    var min = 0;
+    var sec = 0;
 
-    function startTimer(){
-        min=parseInt(timer/60);
-        sec=parseInt(timer%60);
+    function startTimer() {
+        min = parseInt(timer / 60);
+        sec = parseInt(timer % 60);
 
-        if(timer<1){
-              store_result();
-              window.location.href="http://localhost:8080/student/test";
+        if (timer < 1) {
+            store_result();
+            window.location.href = "http://localhost:8080/student/test";
         }
 
-        document.getElementById("time").innerHTML = "<b>Time Left: </b>"+min.toString()+":"+sec.toString();
+        document.getElementById("time").innerHTML = "<b>Time Left: </b>" + min.toString() + ":" + sec.toString();
         timer--;
-        setTimeout(function(){ startTimer(); }, 1000);
+        setTimeout(function () {
+            startTimer();
+        }, 1000);
     }
 
 
     function fire_ajax_submit(jsonObject) {
-
 
 
         $.ajax({
@@ -45,14 +45,14 @@
             success: function (data) {
 
 
-                test=data;
+                test = data;
                 console.log("data is ", data.result[0].question);
                 var json = "<h4> Response</h4><pre>"
                     + JSON.stringify(data, null, 4) + "</pre>";
                 $('#feedback').html(json);
                 $('.subCategoryNames').append(data.subCategoryNames);
                 $('#notes').html("Guidelines: <br> - Exam time is 120 Min <br> - Do not copy from other site <br> - Do not close the browser until exam is completed");
-                 questions=data.result;
+                questions = data.result;
             },
             error: function (e) {
 
@@ -60,8 +60,9 @@
                     + e.responseText + "</pre>";
                 $('#feedback').html(json);
 
-                console.log("ERROR : ", e);/*
-                $("#btn-search").prop("disabled", false);*/
+                console.log("ERROR : ", e);
+                /*
+                 $("#btn-search").prop("disabled", false);*/
 
             }
         });
@@ -69,11 +70,6 @@
     }
 
 
-  
-  
-  
-  
-  
     var questionCounter = 0; //Tracks question number
     var selections = []; //Array containing user choices
     var quiz = $('#quiz'); //Quiz div object
@@ -85,7 +81,7 @@
         e.preventDefault();
 
         // Suspend click listener during fade animation
-        if(quiz.is(':animated')) {        
+        if (quiz.is(':animated')) {
             return false;
         }
         choose();
@@ -102,12 +98,12 @@
     $('#saveResult').on('click', function (e) {
         store_result();
     });
-    
+
     // Click handler for the 'prev' button
     $('#prev').on('click', function (e) {
         e.preventDefault();
 
-        if(quiz.is(':animated')) {
+        if (quiz.is(':animated')) {
             return false;
         }
         choose();
@@ -119,8 +115,8 @@
     $('#start').on('click', function (e) {
         startTimer();
         e.preventDefault();
-        
-        if(quiz.is(':animated')) {
+
+        if (quiz.is(':animated')) {
             return false;
         }
         questionCounter = 0;
@@ -169,7 +165,7 @@
             item = $('<li>');
             input = '<div class="radio"><label><input type="radio" name="answer" value=' + i + ' >';
             input += questions[index].choices[i].toString();
-            input+='</label></div>';
+            input += '</label></div>';
             item.append(input);
             radioList.append(item);
         }
@@ -183,27 +179,27 @@
 
     // Displays next requested element
     function displayNext() {
-        quiz.fadeOut(function() {
+        quiz.fadeOut(function () {
             $('#question').remove();
 
-            if(questionCounter < questions.length){
+            if (questionCounter < questions.length) {
                 var nextQuestion = createQuestionElement(questionCounter);
                 quiz.append(nextQuestion).fadeIn();
                 if (!(isNaN(selections[questionCounter]))) {
-                    $('input[value='+selections[questionCounter]+']').prop('checked', true);
+                    $('input[value=' + selections[questionCounter] + ']').prop('checked', true);
                 }
 
-                console.log("Counter "+questionCounter);
+                console.log("Counter " + questionCounter);
                 // Controls display of 'prev' button
 
-                if(questionCounter === 1){
+                if (questionCounter === 1) {
                     $('#prev').fadeIn();
-                } else if(questionCounter === 0){
+                } else if (questionCounter === 0) {
                     $('#saveResult').fadeOut();
                     $('#prev').fadeOut();
                     $('#next').fadeIn();
                 }
-            }else {
+            } else {
                 var scoreElem = displayScore();
                 quiz.append(scoreElem);
                 $('#next').hide();
@@ -211,14 +207,14 @@
                 $('#saveResult').hide();
 
                 /*
-                enable this to restart the quiz
-                $('#start').fadeIn();*/
-                if(questionCounter>0){
+                 enable this to restart the quiz
+                 $('#start').fadeIn();*/
+                if (questionCounter > 0) {
                     $('#saveResult').fadeIn();
                     $('#start').fadeOut();
                     $('#notes').fadeOut();
                     quiz.fadeIn();
-                }else {
+                } else {
                     $('#start').fadeIn();
                     $('#notes').fadeIn();
                 }
@@ -229,11 +225,11 @@
 
     // Computes score and returns a paragraph element to be displayed
     function displayScore() {
-        var score = $('<p>',{id: 'question'});
+        var score = $('<p>', {id: 'question'});
 
         var numCorrect = 0;
         for (var i = 0; i < selections.length; i++) {
-            if (selections[i]+1 === questions[i].correctAnswer) {
+            if (selections[i] + 1 === questions[i].correctAnswer) {
                 numCorrect++;
             }
         }
@@ -242,15 +238,16 @@
             questions.length + ' question !!! <br> Please click on submit exam button to submit your exam');
         return score;
     }
-/*Function to store the result*/
+
+    /*Function to store the result*/
     function store_result() {
 
-        console.log("Questions:" +questions);
-        test.selectedAnswer=selections;
-       /* for(var i=0;i<selections.length;i++){
+        console.log("Questions:" + questions);
+        test.selectedAnswer = selections;
+        /* for(var i=0;i<selections.length;i++){
 
-            test.result[i].correctAnswer=selections[i];
-        }*/
+         test.result[i].correctAnswer=selections[i];
+         }*/
         $.ajax({
             type: "POST",
             contentType: "application/json",
@@ -268,31 +265,27 @@
 
             }
         });
-        window.location.href="http://localhost:8080/student/done";
-    }
-/*manzil*/
-
-
-    function Category(categoryId,categoryName){
-        this.categoryId=categoryId;
-        this.categoryName=categoryName;
+        window.location.href = "http://localhost:8080/student/done";
     }
 
-    function SubCategory(subCategoryId,subCategoryName){
-        this.subCategoryId=subCategoryId;
-        this.subCategoryName=subCategoryName;
+    /*manzil*/
+
+
+    function Category(categoryId, categoryName) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
-    function CategorySubCategory(category,subCategories,accessKey){
-        this.category=category;
-        this.subCategories=subCategories;
-        this.accessKey=accessKey;
+    function SubCategory(subCategoryId, subCategoryName) {
+        this.subCategoryId = subCategoryId;
+        this.subCategoryName = subCategoryName;
     }
 
-
-
-
-
+    function CategorySubCategory(category, subCategories, accessKey) {
+        this.category = category;
+        this.subCategories = subCategories;
+        this.accessKey = accessKey;
+    }
 
 
     $.ajax({
@@ -300,16 +293,16 @@
         dataType: 'json',
         url: '/student/categories',
         success: function (data) {
-            $.each(data, function(i, category) {
+            $.each(data, function (i, category) {
                 $('#categories')
                     .append($("<option></option>")
-                        .attr("value",category.categoryId)
+                        .attr("value", category.categoryId)
                         .text(category.categoryName));
             });
 
         },
-        error: function (xhr, ajaxOptions, thrownError){
-            alert("No SubCategories Available"+ " Error:" +xhr.status);
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("No SubCategories Available" + " Error:" + xhr.status);
         }
     });
 
@@ -318,22 +311,22 @@
         dataType: 'json',
         url: '/student/subCategories/1',
         success: function (data) {
-            $.each(data, function(i, subCategory) {
+            $.each(data, function (i, subCategory) {
                 $('#subCategories')
                     .append(
                         $(document.createElement('input')).attr({
-                            id:    'myCheckbox'
-                            ,value: subCategory.subCategoryId
-                            ,type:  'checkbox'
-                            ,text: subCategory.subCategoryName
+                            id: 'myCheckbox'
+                            , value: subCategory.subCategoryId
+                            , type: 'checkbox'
+                            , text: subCategory.subCategoryName
                         })
                     ).append(subCategory.subCategoryName).append('<br>');
 
             });
 
         },
-        error: function (xhr, ajaxOptions, thrownError){
-            alert("No SubCategories Available"+ " Error:" +xhr.status);
+        error: function (xhr, ajaxOptions, thrownError) {
+            alert("No SubCategories Available" + " Error:" + xhr.status);
         }
     });
     $("#categories").change(function () {
@@ -342,52 +335,52 @@
         $.ajax({
             type: 'get',
             dataType: 'json',
-            url: '/student/subCategories/'+$( "#categories" ).val(),
+            url: '/student/subCategories/' + $("#categories").val(),
             success: function (data) {
-                $.each(data, function(i, subCategory) {
+                $.each(data, function (i, subCategory) {
                     $('#subCategories')
                         .append($(document.createElement('input')).attr
                             ({
-                                id:    'myCheckbox'
-                                ,value: subCategory.subCategoryId
-                                ,type:  'checkbox'
-                                ,text: subCategory.subCategoryName
+                                id: 'myCheckbox'
+                                , value: subCategory.subCategoryId
+                                , type: 'checkbox'
+                                , text: subCategory.subCategoryName
                             })
                         ).append(subCategory.subCategoryName).append('<br>');
 
                 });
 
             },
-            error: function (xhr, ajaxOptions, thrownError){
-                alert("No SubCategories Available"+ " Error:" +xhr.status);
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("No SubCategories Available" + " Error:" + xhr.status);
             }
         });
 
     });
 
-    $("#examButton").click(function(){
+    $("#examButton").click(function () {
 
-        var subCategories=[];
-        var count= $(":checkbox:checked").length;
-        if(count<3 || count>4){
+        var subCategories = [];
+        var count = $(":checkbox:checked").length;
+        if (count < 3 || count > 4) {
             alert("Choose either 3 or 4 SubCategories");
         }
-        else{
+        else {
 
-            id=1;
-            name="Java";
-            id=parseInt($( "#categories" ).val());
-            name=$( "#categories option:selected" ).text();
-            category=new Category(id,name);
-            search=name;
-            $(":checkbox:checked").each(function (){
-                sid=parseInt($(this).attr("value"));
-                sname=$(this).attr("text");
-                subCategory=new SubCategory(sid,sname);
+            id = 1;
+            name = "Java";
+            id = parseInt($("#categories").val());
+            name = $("#categories option:selected").text();
+            category = new Category(id, name);
+            search = name;
+            $(":checkbox:checked").each(function () {
+                sid = parseInt($(this).attr("value"));
+                sname = $(this).attr("text");
+                subCategory = new SubCategory(sid, sname);
                 subCategories.push(subCategory);
             })
-            var accessKey= $("#accessKey").text();
-            categorySubCategory=new CategorySubCategory(category,subCategories,accessKey);
+            var accessKey = $("#accessKey").text();
+            categorySubCategory = new CategorySubCategory(category, subCategories, accessKey);
 
             $('#techSelection').hide();
             $('#container').show();
@@ -396,7 +389,7 @@
 
     });
 
-    function passSelectedValues(json){
+    function passSelectedValues(json) {
 
         $.ajax({
             type: 'post',
@@ -410,7 +403,7 @@
                 console.log(data);
 
             },
-            error: function (data, xhr, ajaxOptions, thrownError){
+            error: function (data, xhr, ajaxOptions, thrownError) {
                 $.ajax({
                     type: 'post',
                     dataType: 'json',

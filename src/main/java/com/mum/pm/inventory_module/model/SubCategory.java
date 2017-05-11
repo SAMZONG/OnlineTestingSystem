@@ -15,10 +15,10 @@ public class SubCategory {
     private String subCategoryName;
 
     @ManyToOne
-    @JoinColumn(name ="category_id")
+    @JoinColumn(name = "category_id")
     private Category category;
 
-    @Column(name= "active")
+    @Column(name = "active")
     private int active;
 
     public int getActive() {

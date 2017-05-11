@@ -10,14 +10,21 @@ import java.util.Set;
  * Created by manzil on 4/25/2017.
  */
 @Entity
-@Table(name="Category")
+@Table(name = "Category")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int categoryId;
     private String categoryName;
-    @Column(name= "active")
+    @Column(name = "active")
     private int active;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "category", orphanRemoval = true)
+    private Set<SubCategory> subCategories;
+
+    public Category() {
+        subCategories = new HashSet<>();
+    }
 
     public int isActive() {
         return active;
@@ -27,20 +34,12 @@ public class Category {
         this.active = active;
     }
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "category", orphanRemoval = true)
-    private Set<SubCategory> subCategories;
-
     public Set<SubCategory> getSubCategories() {
         return subCategories;
     }
 
     public void setSubCategories(Set<SubCategory> subCategories) {
         this.subCategories = subCategories;
-    }
-
-    public Category() {
-        subCategories=new HashSet<>();
     }
 
     public int getCategoryId() {
@@ -59,12 +58,12 @@ public class Category {
         this.categoryName = categoryName;
     }
 
-    public void addSubCategory(SubCategory subCategory){
+    public void addSubCategory(SubCategory subCategory) {
         subCategories.add(subCategory);
         subCategory.setCategory(this);
     }
 
-    public void removeSubCategory(SubCategory subCategory){
+    public void removeSubCategory(SubCategory subCategory) {
         subCategory.setCategory(null);
         this.subCategories.remove(subCategory);
     }

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ReportController {
 
-    @RequestMapping(value="/admin/reports", method = RequestMethod.GET)
-    public String showReports(){
+    @RequestMapping(value = "/admin/reports", method = RequestMethod.GET)
+    public String showReports() {
         return "report";
     }
 }

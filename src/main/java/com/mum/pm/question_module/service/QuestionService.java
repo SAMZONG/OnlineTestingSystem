@@ -11,10 +11,13 @@ import java.util.List;
 public interface QuestionService {
 
     void uploadQuestions(Path path);
+
     void save(Question question);
+
     Question findById(int id);
+
     List<Question> getAllQuestions();
 
-    public Iterable<Question> getQuestionsBySubCategoryID(Integer subCategoryId);
+    Iterable<Question> getQuestionsBySubCategoryID(Integer subCategoryId);
 
 }

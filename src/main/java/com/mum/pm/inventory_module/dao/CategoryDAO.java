@@ -13,10 +13,10 @@ import java.util.List;
  * Created by manzil on 4/25/2017.
  */
 @Repository("categoryDAO")
-public interface CategoryDAO extends CrudRepository<Category,Integer>{
+public interface CategoryDAO extends CrudRepository<Category, Integer> {
     public Category findCategoryByCategoryName(String name);
 
     @Modifying
-    @Query( "select c from Category c where c.active in :number" )
+    @Query("select c from Category c where c.active in :number")
     List<Category> findByCategoryActive(@Param("number") int number);
 }

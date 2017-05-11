@@ -20,14 +20,6 @@ public class SubReport {
     @JoinColumn(name = "examReport_id")
     private ExamReports examReports;
 
-    public ExamReports getExamReports() {
-        return examReports;
-    }
-
-    public void setExamReports(ExamReports examReports) {
-        this.examReports = examReports;
-    }
-
     public SubReport() {
     }
 
@@ -35,6 +27,14 @@ public class SubReport {
 
         this.subcategory_name = subcategory_name;
         this.sub_score = sub_score;
+    }
+
+    public ExamReports getExamReports() {
+        return examReports;
+    }
+
+    public void setExamReports(ExamReports examReports) {
+        this.examReports = examReports;
     }
 
     public int getSub_report_Id() {

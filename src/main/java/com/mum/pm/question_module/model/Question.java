@@ -7,52 +7,35 @@ import javax.persistence.*;
  */
 
 
-
 @Entity
 @Table(name = "question_answer")
 public class Question {
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "question_answer_id")
     private int id;
-
     @Column(name = "question_description")
     private String question_description;
-
     @Column(name = "answer_1")
     private String answer_1;
-
     @Column(name = "answer_2")
     private String answer_2;
-
     @Column(name = "answer_3")
     private String answer_3;
-
     @Column(name = "answer_4")
     private String answer_4;
-
     @Column(name = "answer_5")
     private String answer_5;
-
     @Column(name = "correct_answer")
     private int correct_answer;
-
     @Column(name = "sub_category_id")
     private int subCategoryId;
 
+    public Question() {
+    }
 
-    public  Question(){}
-
-    public Question(String question_description, String answer_1, String answer_2, String answer_3, String answer_4, String answer_5, int correct_answer, int sub_category_id){
+    public Question(String question_description, String answer_1, String answer_2, String answer_3, String answer_4, String answer_5, int correct_answer, int sub_category_id) {
         this.id = getId();
         this.question_description = question_description;
         this.answer_1 = answer_1;
@@ -65,6 +48,13 @@ public class Question {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getQuestion_description() {
         return question_description;

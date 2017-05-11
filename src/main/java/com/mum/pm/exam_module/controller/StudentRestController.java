@@ -25,22 +25,22 @@ public class StudentRestController {
     @Autowired
     CategoryService categoryService;
 
-    @RequestMapping(value="/categories", method= RequestMethod.GET)
-    public ResponseEntity<List<Category>> getAllCategories(){
-        List<Category> categories=categoryService.getAllCategories();
-        if(categories.isEmpty()){
+    @RequestMapping(value = "/categories", method = RequestMethod.GET)
+    public ResponseEntity<List<Category>> getAllCategories() {
+        List<Category> categories = categoryService.getAllCategories();
+        if (categories.isEmpty()) {
             return new ResponseEntity<List<Category>>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<List<Category>>(categories,HttpStatus.OK);
+        return new ResponseEntity<List<Category>>(categories, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/subCategories/{id}", method= RequestMethod.GET)
-    public ResponseEntity<Set<SubCategory>> getSubCategory(@PathVariable("id") int id){
-        Set<SubCategory> subCategories= categoryService.getAllSubCategoriesOfACategory(id);
-        if(subCategories==null || subCategories.isEmpty()){
-            return new ResponseEntity<Set<SubCategory>> (HttpStatus.NOT_FOUND);
+    @RequestMapping(value = "/subCategories/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Set<SubCategory>> getSubCategory(@PathVariable("id") int id) {
+        Set<SubCategory> subCategories = categoryService.getAllSubCategoriesOfACategory(id);
+        if (subCategories == null || subCategories.isEmpty()) {
+            return new ResponseEntity<Set<SubCategory>>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Set<SubCategory>> (subCategories,HttpStatus.OK);
+        return new ResponseEntity<Set<SubCategory>>(subCategories, HttpStatus.OK);
     }
 }

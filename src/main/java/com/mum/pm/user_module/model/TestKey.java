@@ -1,10 +1,6 @@
 package com.mum.pm.user_module.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
-import javax.validation.Valid;
-import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -117,7 +113,7 @@ public class TestKey {
         result = 31 * result + (testkeyValue != null ? testkeyValue.hashCode() : 0);
         result = 31 * result + (createdatetime != null ? createdatetime.hashCode() : 0);
         result = 31 * result + (expiredatetime != null ? expiredatetime.hashCode() : 0);
-        result = 31 * result +  active ;
+        result = 31 * result + active;
         return result;
     }
 }

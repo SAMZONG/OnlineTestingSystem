@@ -1,120 +1,119 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<title>Quiz</title>
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Quiz</title>
 
-		<link rel="stylesheet" type="text/css" th:href="@{/css/quiz.css}" />
-		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans"/>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-		<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</head>
-	<body>
-
-
+    <link rel="stylesheet" type="text/css" th:href="@{/css/quiz.css}"/>
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open Sans"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
 
 
-	<nav class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
+<nav class="navbar navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
 
-			</div>
-		</div>
-	</nav>
+        </div>
+    </div>
+</nav>
 
-	<div id='container'>
-		<div id='title'>
-			<h3><p id="category-id" style="font-weight:bold;"> you are taking quiz for </p></h3>
-			<p id="time" align="right"></p>
-		</div>
-		<br/>
-		<div id='quiz'></div>
-		<div  class='button' >
+<div id='container'>
+    <div id='title'>
+        <h3><p id="category-id" style="font-weight:bold;"> you are taking quiz for </p></h3>
+        <p id="time" align="right"></p>
+    </div>
+    <br/>
+    <div id='quiz'></div>
+    <div class='button'>
 
-			<button class="btn btn-primary btn-lg" id='next'>Next
-			</button>
+        <button class="btn btn-primary btn-lg" id='next'>Next
+        </button>
 
-		</div>
-		<div class='button' >
-			<button id='prev' class="btn btn-primary btn-lg">Prev
-			</button>
-		</div>
+    </div>
+    <div class='button'>
+        <button id='prev' class="btn btn-primary btn-lg">Prev
+        </button>
+    </div>
 
-		<div class='button' >
-			<button class="btn btn-primary btn-lg" id='start'> Click to Start Quize
-			</button>
-		</div>
+    <div class='button'>
+        <button class="btn btn-primary btn-lg" id='start'> Click to Start Quize
+        </button>
+    </div>
 
-		<div class='button' >
-			<button class="btn btn-primary btn-lg" id='saveResult'> Submit
-			</button>
-		</div>
+    <div class='button'>
+        <button class="btn btn-primary btn-lg" id='saveResult'> Submit
+        </button>
+    </div>
 
-	</div>
+</div>
 
-	<div class="container" id="techSelection">
-
-
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3">
-
-				<form autocomplete="off"  class="form-horizontal" role="form">
-					<h2>Category and SubCategory Selection</h2>
-					<br/>
-					<h3>Select one Category</h3>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<select class="form-control" id="categories"></select>
-						</div>
-					</div>
+<div class="container" id="techSelection">
 
 
-					<h3>Select 3 to 4 SubCategories</h3>
-					<div class="form-group">
-						<div class="col-sm-9">
-							<div id="subCategories"></div>
-						</div>
-					</div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
 
-					<div class="form-group">
-						<div class="col-sm-9">
-							<input type="button" class="btn btn-primary btn-block" id="examButton" value="Go to Exam"></input>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-
-	<!--	<div class="starter-template">
-
-			&lt;!&ndash;<div id="feedback"></div>&ndash;&gt;
-
-			<form class="form-horizontal" id="search-form">
-				<div class="form-group form-group-lg">
-					<label class="col-sm-2 control-label">SubCategory</label>
-					<div class="col-sm-10">
-						<input type="text" class="form-control" id="bkgsubcategory"/>
-					</div>
-
-				</div>
-
-				<div class="form-group">
-					<div class="col-sm-offset-2 col-sm-10">
-						<button type="submit" id="bth-search"
-								class="btn btn-primary btn-lg">Get Questions
-						</button>
-					</div>
-				</div>
-
-			</form>
-
-		</div>-->
-
-	</div>
+            <form autocomplete="off" class="form-horizontal" role="form">
+                <h2>Category and SubCategory Selection</h2>
+                <br/>
+                <h3>Select one Category</h3>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <select class="form-control" id="categories"></select>
+                    </div>
+                </div>
 
 
-		<script type="text/javascript" src="js/quiz.js"></script>
+                <h3>Select 3 to 4 SubCategories</h3>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <div id="subCategories"></div>
+                    </div>
+                </div>
 
-	</body>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <input type="button" class="btn btn-primary btn-block" id="examButton"
+                               value="Go to Exam"></input>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--	<div class="starter-template">
+
+            &lt;!&ndash;<div id="feedback"></div>&ndash;&gt;
+
+            <form class="form-horizontal" id="search-form">
+                <div class="form-group form-group-lg">
+                    <label class="col-sm-2 control-label">SubCategory</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="bkgsubcategory"/>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" id="bth-search"
+                                class="btn btn-primary btn-lg">Get Questions
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>-->
+
+</div>
+
+
+<script type="text/javascript" src="js/quiz.js"></script>
+
+</body>
 </html>

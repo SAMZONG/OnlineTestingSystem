@@ -1,7 +1,7 @@
 package com.mum.pm.quiz.service;
 
-import com.mum.pm.quiz.repository.ExamReportRepository;
 import com.mum.pm.quiz.model.ExamReports;
+import com.mum.pm.quiz.repository.ExamReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

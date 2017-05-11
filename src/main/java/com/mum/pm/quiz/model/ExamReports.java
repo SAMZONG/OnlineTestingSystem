@@ -1,7 +1,6 @@
 package com.mum.pm.quiz.model;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -29,16 +28,22 @@ public class ExamReports {
     @Column(name = "category_name")
     private String category_name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReports", orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "examReports", orphanRemoval = true)
     @JsonIgnore
     private Set<SubReport> subReports;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "examReportsDetails", orphanRemoval = true)
+    private Set<ExamQuestionDetails> examQuestionDetails;
 
     public ExamReports() {
     }
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, fetch=FetchType.EAGER,mappedBy = "examReportsDetails", orphanRemoval = true)
-    private Set<ExamQuestionDetails> examQuestionDetails;
+    public ExamReports(int student_id, int user_id, double result, String category_name) {
+        this.student_id = student_id;
+        this.user_id = user_id;
+        this.result = result;
+        this.category_name = category_name;
+    }
 
     public Set<ExamQuestionDetails> getExamQuestionDetails() {
         return examQuestionDetails;
@@ -56,30 +61,24 @@ public class ExamReports {
         this.subReports = subReports;
     }
 
-    public void addSubReport(SubReport subReport){
+    public void addSubReport(SubReport subReport) {
         subReports.add(subReport);
         subReport.setExamReports(this);
     }
 
-    public void removeSubReport(SubReport subReport){
+    public void removeSubReport(SubReport subReport) {
         subReport.setExamReports(null);
         this.subReports.remove(subReport);
     }
-    public void addSubReportDetails(ExamQuestionDetails examQuestionDetail){
+
+    public void addSubReportDetails(ExamQuestionDetails examQuestionDetail) {
         examQuestionDetails.add(examQuestionDetail);
         examQuestionDetail.setExamReportsDetails(this);
     }
 
-    public void removeSubReportDetails(ExamQuestionDetails examQuestionDetails){
+    public void removeSubReportDetails(ExamQuestionDetails examQuestionDetails) {
         examQuestionDetails.setExamReportsDetails(null);
         this.examQuestionDetails.remove(examQuestionDetails);
-    }
-
-    public ExamReports(int student_id, int user_id, double result, String category_name) {
-        this.student_id = student_id;
-        this.user_id = user_id;
-        this.result = result;
-        this.category_name = category_name;
     }
 
     public int getReport_id() {

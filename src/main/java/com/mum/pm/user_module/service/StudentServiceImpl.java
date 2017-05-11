@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service("studentService")
-public class StudentServiceImpl implements StudentService{
+public class StudentServiceImpl implements StudentService {
 
 
     @Autowired
@@ -24,12 +24,12 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public boolean isAccessKey(String accessKey) {
         TestKey testKey = testKeyRepository.findByTestkeyValue(accessKey);
-       if( testKey!=null && testKey.getTestkeyValue().equals(accessKey) ){
-           if(testKey.getActive() == 1){
-               return true;
-           }
-       }
-       return false;
+        if (testKey != null && testKey.getTestkeyValue().equals(accessKey)) {
+            if (testKey.getActive() == 1) {
+                return true;
+            }
+        }
+        return false;
 
     }
 

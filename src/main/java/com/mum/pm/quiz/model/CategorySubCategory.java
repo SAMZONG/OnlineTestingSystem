@@ -15,12 +15,16 @@ public class CategorySubCategory {
     private List<SubCategory> subCategories;
     private String accessKey;
 
-    public CategorySubCategory(){
-        subCategories=new ArrayList<SubCategory>();
+    public CategorySubCategory() {
+        subCategories = new ArrayList<SubCategory>();
     }
 
     public Category getCategory() {
         return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getAccessKey() {
@@ -29,10 +33,6 @@ public class CategorySubCategory {
 
     public void setAccessKey(String accessKey) {
         this.accessKey = accessKey;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 
     @Override

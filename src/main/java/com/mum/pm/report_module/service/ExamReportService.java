@@ -10,6 +10,8 @@ import java.util.List;
 public interface ExamReportService {
 
     void save(ExamReport examReport);
+
     ExamReport findById(int id);
+
     List<ExamReport> getAllExamReports();
 }

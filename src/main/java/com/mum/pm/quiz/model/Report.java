@@ -6,6 +6,10 @@ package com.mum.pm.quiz.model;
 public class Report {
 
     private int reportId;
+    private String studentName;
+    private String coachName;
+    private String categoryName;
+    private double score;
 
     public Report(int reportId, String studentName, String coachName, String categoryName, double score) {
         this.reportId = reportId;
@@ -54,10 +58,5 @@ public class Report {
     public void setScore(int score) {
         this.score = score;
     }
-
-    private String studentName;
-    private String coachName;
-    private String categoryName;
-    private double score;
 
 }

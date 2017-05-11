@@ -1,4 +1,4 @@
-<div class="top_nav" data-th-fragment="top-navigation" xmlns:th="http://www.thymeleaf.org">
+<div xmlns:th="http://www.thymeleaf.org" class="top_nav" data-th-fragment="top-navigation">
     <div class="nav_menu">
         <nav>
             <div class="nav toggle">
@@ -7,7 +7,8 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
-                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                       aria-expanded="false">
                         <img src="/images/config.png" alt="">Config
                         <span class=" fa fa-angle-down"></span>
                     </a>
@@ -22,7 +23,8 @@
                         <li>
                             <form th:action="@{/logout}" method="get">
                                 <button class="btn btn-md btn-danger btn-block" name="registration"
-                                        type="Submit">Logout</button>
+                                        type="Submit">Logout
+                                </button>
                             </form>
                         </li>
                     </ul>

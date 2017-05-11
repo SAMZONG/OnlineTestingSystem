@@ -29,7 +29,7 @@ public class UserController {
 
     private Role role;
 
-    @RequestMapping(value="/admin/add-student",  method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/add-student", method = RequestMethod.GET)
     public ModelAndView addNewStudent() {
         ModelAndView modelAndView = new ModelAndView();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -43,13 +43,13 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(value="/admin/add-student",  method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/add-student", method = RequestMethod.POST)
     public ModelAndView createNewStudent(Student student, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = userService.findUserByEmail(auth.getName());
-          Student st=  userService.findStudentById(student.getStudentId());
+            Student st = userService.findStudentById(student.getStudentId());
 
             modelAndView.addObject("userName", user.getName() + " " + user.getLastName());
             modelAndView.addObject("userRole", "Admin");
@@ -58,46 +58,45 @@ public class UserController {
                 bindingResult
                         .rejectValue("successMessage", "This student is already in the system");
 
-            } if(bindingResult.hasErrors()){
+            }
+            if (bindingResult.hasErrors()) {
 
                 modelAndView.addObject("successMessage", "This student is already in the system");
                 modelAndView.addObject("student", student);
                 modelAndView.setViewName("add-student");
-            }
-                else {
+            } else {
                 userService.saveStudent(student);
                 modelAndView.addObject("student", new Student());
                 modelAndView.addObject("successMessage", "Student add successfully");
                 modelAndView.setViewName("add-student");
             }
 
-        }
-        catch(Exception e){
-            System.out.println("Error "+e);
+        } catch (Exception e) {
+            System.out.println("Error " + e);
             modelAndView.addObject("successMessage", "Please provide the correct student information");
             modelAndView.addObject("student", student);
             modelAndView.setViewName("add-student");
             return modelAndView;
-            }
+        }
         return modelAndView;
     }
 
 
     @RequestMapping(value = "/admin/allRoleTypes", method = RequestMethod.GET)
     public List<Role> populateTypes() {
-        return  userService.findAllRole();
+        return userService.findAllRole();
     }
 
     @RequestMapping(value = "/admin/setUserType/{id}", method = RequestMethod.GET)
-    public int setUserType(@PathVariable("id") int roleId){
+    public int setUserType(@PathVariable("id") int roleId) {
         role = userService.findRoleById(roleId);
         return roleId;
     }
 
-    @RequestMapping(value="/admin/add-user",  method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/add-user", method = RequestMethod.GET)
     public ModelAndView addNewUser() {
 
-            ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = new ModelAndView();
         try {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
             User user = userService.findUserByEmail(auth.getName());
@@ -107,8 +106,8 @@ public class UserController {
 
             modelAndView.addObject("newuser", new User());
             modelAndView.setViewName("add-user");
-        }catch(Exception e){
-            System.out.println("Error Occured"+e);
+        } catch (Exception e) {
+            System.out.println("Error Occured" + e);
         }
         return modelAndView;
     }
@@ -126,8 +125,8 @@ public class UserController {
 
             User userExists = userService.findUserByEmail(newUser.getEmail());
 
-             if (userExists != null) {
-                 System.out.println("pass1 Adding user post" );
+            if (userExists != null) {
+                System.out.println("pass1 Adding user post");
                 bindingResult
                         .rejectValue("email", "error.user",
                                 "There is already a user registered with the email provided");
@@ -150,8 +149,8 @@ public class UserController {
                 modelAndView.setViewName("add-user");
 
             }
-        }catch(Exception e){
-            System.out.println("Eror Occurred"+e);
+        } catch (Exception e) {
+            System.out.println("Eror Occurred" + e);
         }
         return modelAndView;
     }
@@ -184,10 +183,10 @@ public class UserController {
     @ResponseBody
     public User deleteUser(@RequestBody User user) {
 
-       LOGGER.debug("UserController.deleteUser");
+        LOGGER.debug("UserController.deleteUser");
 
         User user2 = userService.findUserById(user.getId());
-        if(user2 != null){
+        if (user2 != null) {
             userService.inactiveUser(user);
         }
         return user;
@@ -197,7 +196,7 @@ public class UserController {
     @ResponseBody
     public User findUser(@PathVariable int userId) {
 
-       LOGGER.debug("UserController.deleteUser");
+        LOGGER.debug("UserController.deleteUser");
 
         return userService.findUserById(userId);
 

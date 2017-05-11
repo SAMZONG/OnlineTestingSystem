@@ -14,14 +14,14 @@ import java.util.List;
 @Repository("subResultRepository")
 public interface SubResultRepository extends JpaRepository<SubResult, Long> {
 
-   // void save(SubResult subResult);
+    // void save(SubResult subResult);
 
     SubResult findById(int id);
 
     @Query("SELECT b FROM SubResult b")
     List<SubResult> getAllSubResults();
 
-   // @Query("SELECT b FROM SubResult b")
-   // List<SubResult> getAllSubResultByReportId(int reportId);
+    // @Query("SELECT b FROM SubResult b")
+    // List<SubResult> getAllSubResultByReportId(int reportId);
 
 }

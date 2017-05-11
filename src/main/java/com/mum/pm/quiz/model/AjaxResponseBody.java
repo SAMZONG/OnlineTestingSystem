@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AjaxResponseBody {
-    @JsonProperty( "msg" )
-    @XmlElement( required = true )
+    @JsonProperty("msg")
+    @XmlElement(required = true)
     String msg;
     List<QuestionSet> result;
-    List<Integer> selectedAnswer= new ArrayList<Integer>();
-    @JsonProperty( "subCategoryNames" )
-    String category="";
+    List<Integer> selectedAnswer = new ArrayList<Integer>();
+    @JsonProperty("subCategoryNames")
+    String category = "";
 
     public String getCategory() {
         return category;

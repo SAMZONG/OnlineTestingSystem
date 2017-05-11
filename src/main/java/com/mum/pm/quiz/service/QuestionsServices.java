@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,11 +15,13 @@ import java.util.List;
 @Service
 public class QuestionsServices {
 
-    private List<QuestionSet> questions;
     List<String> options;
     @Autowired
     QuestionRepository questionRepository;
     List<Question> questionsList;
+    private List<QuestionSet> questions;
+    @Value("${spring.test.maxquestion}")
+    private String maxquestion;
 
     public String getMaxquestion() {
         return maxquestion;
@@ -29,10 +30,6 @@ public class QuestionsServices {
     public void setMaxquestion(String maxquestion) {
         this.maxquestion = maxquestion;
     }
-
-    @Value("${spring.test.maxquestion}")
-    private String maxquestion;
-
 
     public List<QuestionSet> findBySubCategory(CategorySubCategory categorySubCategory) {
         System.out.println("Size " + categorySubCategory.getSubCategories().size());

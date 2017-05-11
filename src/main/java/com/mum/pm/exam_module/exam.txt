@@ -1,1 +1,0 @@
-Link to student category and subcategory selection:   http://localhost:8080/student/category-subCategory

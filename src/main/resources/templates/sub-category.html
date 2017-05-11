@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
-<html lang="en" data-layout-decorate="~{fragments/layout}" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" data-layout-decorate="~{fragments/layout}"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
@@ -31,14 +31,14 @@
                                 <div class="col-md-6 col-md-offset-3">
 
                                     <div class="col-sm-9">
-                                    <!--     <form style="display:inline-block" th:action="@{/admin/select}" th:object="${categoryList}" method="GET"> -->
-                                    <select class="form-control" id="optionList" name="optionsListId">
-                                        <option value="">Select Category</option>
-                                        <option th:each="cat : ${categoryList}"
-                                                th:value="${cat.categoryId}"
-                                                th:text="${cat.categoryName}"
-                                                th:selected="${selectedCategoryID==cat.categoryId}"></option>
-                                    </select>
+                                        <!--     <form style="display:inline-block" th:action="@{/admin/select}" th:object="${categoryList}" method="GET"> -->
+                                        <select class="form-control" id="optionList" name="optionsListId">
+                                            <option value="">Select Category</option>
+                                            <option th:each="cat : ${categoryList}"
+                                                    th:value="${cat.categoryId}"
+                                                    th:text="${cat.categoryName}"
+                                                    th:selected="${selectedCategoryID==cat.categoryId}"></option>
+                                        </select>
                                     </div>
 
                                     <!--       </form> -->
@@ -47,8 +47,12 @@
                                     <table style="width:70%; margin-left:9px" class="table-bordered">
                                         <tr th:each="subCat: ${subCategoryList}">
                                             <td style="width:82%" th:text="${subCat.subCategoryName}"></td>
-                                            <form th:action="@{'/admin/disable-subCategory/'+${subCat.subCategoryId}}" th:object="${subCategory}" th:method="PUT" enctype="multipart/form-data">
-                                                <td style="width:18%"><button type="submit" class="btn btn-info">Disable</button></td>
+                                            <form th:action="@{'/admin/disable-subCategory/'+${subCat.subCategoryId}}"
+                                                  th:object="${subCategory}" th:method="PUT"
+                                                  enctype="multipart/form-data">
+                                                <td style="width:18%">
+                                                    <button type="submit" class="btn btn-info">Disable</button>
+                                                </td>
                                             </form>
                                         </tr>
 
@@ -56,7 +60,7 @@
 
                                     <br/> <br/>
 
-                             <div th:if="${selectedCategoryID} !=0">
+                                    <div th:if="${selectedCategoryID} !=0">
                                         <form autocomplete="off" action="#" th:action="@{/admin/sub-category}"
                                               th:object="${subCategory}" method="post" class="form-horizontal"
                                               role="form">
@@ -76,8 +80,7 @@
                                             </div>
                                             <span th:utext="${successMessage}"></span>
                                         </form>
-                                  </div>
-
+                                    </div>
 
 
                                 </div>

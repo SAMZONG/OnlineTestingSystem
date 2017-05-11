@@ -64,16 +64,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Set<SubCategory> getAllSubCategoriesOfACategory(int id) {
-       return (Set<SubCategory>) subCategoryDAO.getSubCategoriesByCategory_CategoryId(id);
+        return (Set<SubCategory>) subCategoryDAO.getSubCategoriesByCategory_CategoryId(id);
     }
+
     @Override
-    public Category setCategoryDisable(Category category){
+    public Category setCategoryDisable(Category category) {
         category.setActive(0);
         return categoryDAO.save(category);
     }
 
     @Override
-    public SubCategory setSubCategoryDisable(SubCategory subCategory){
+    public SubCategory setSubCategoryDisable(SubCategory subCategory) {
         subCategory.setActive(0);
         return subCategoryDAO.save(subCategory);
     }

@@ -12,7 +12,7 @@
     </appender>
 
     <root>
-		<level value="info" />
-		<appender-ref ref="CONSOLE" />
-	</root>
+        <level value="info"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
 </configuration>

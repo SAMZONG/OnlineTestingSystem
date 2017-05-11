@@ -4,9 +4,8 @@ package com.mum.pm.report_module.controller;
 import com.mum.pm.user_module.model.User;
 import com.mum.pm.user_module.service.UserService;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporter.*;
 import net.sf.jasperreports.export.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -71,7 +70,7 @@ public class UserReportController {
 
         {
             System.out.println("tare 1");
-          //  InputStream jasperStream = this.getClass().getResourceAsStream("D://MUM Courses/PM/ireports/report1.jrxml");
+            //  InputStream jasperStream = this.getClass().getResourceAsStream("D://MUM Courses/PM/ireports/report1.jrxml");
             //   JasperDesign jasperDesign= JRXmlLoader.load(jasperStream);
             // Compile jrxml file.
             JasperReport jasperReport = JasperCompileManager.compileReport("D://MUM Courses/PM/ireports/userlist.jrxml");
@@ -85,10 +84,10 @@ public class UserReportController {
             // This is simple example, no database.
             // then using empty datasource.
 
-            List<User> users=userService.getAllUsers();
+            List<User> users = userService.getAllUsers();
 
 
-           // JRDataSource dataSource = new JRJpaDataSource(users);
+            // JRDataSource dataSource = new JRJpaDataSource(users);
 
             JRDataSource dataSource = new JREmptyDataSource();
 
@@ -110,8 +109,7 @@ public class UserReportController {
             DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH mm ");
             Date date = new Date();
             System.out.println(dateFormat.format(date));
-            String filename= "D://MUM Courses/PM/ireports/jasperoutput/User List "+ dateFormat.format(date).toString()+".pdf";
-
+            String filename = "D://MUM Courses/PM/ireports/jasperoutput/User List " + dateFormat.format(date).toString() + ".pdf";
 
 
             // ExporterOutput
@@ -125,8 +123,6 @@ public class UserReportController {
             exporter.exportReport();
 
             System.out.print("Done!");
-
-
 
 
         } catch (
@@ -146,18 +142,18 @@ public class UserReportController {
 
 
     @RequestMapping(value = "/pdfreport", method = RequestMethod.GET)
-    public  void testBuildPdf() {
+    public void testBuildPdf() {
 
         ModelAndView modelAndView = new ModelAndView();
         try {
             Map<String, Object> params = new HashMap<String, Object>();
             JasperReport jasperReport = JasperCompileManager.compileReport("D://MUM Courses/PM/ireports/report2.jrxml");
 
-            List<User> users=userService.getAllUsers();
+            List<User> users = userService.getAllUsers();
 
-            for(int i=0; i<users.size();i++) {
+            for (int i = 0; i < users.size(); i++) {
                 //if(!u)
-                   System.out.println(users.get(i).toString());
+                System.out.println(users.get(i).toString());
             }
             JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(users);
             // JRDataSource dataSource = new JRJpaDataSource(users);
@@ -175,5 +171,5 @@ public class UserReportController {
         modelAndView.setViewName("pdfreport");
     }
 
-    }
+}
 

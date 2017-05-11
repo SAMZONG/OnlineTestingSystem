@@ -24,8 +24,7 @@ public class GradeReportServiceImp implements GradeReportService {
     }
 
     @Override
-    public GradeReport findById(int id)
-    {
+    public GradeReport findById(int id) {
         return gradeReportRepository.findById(id);
     }
 

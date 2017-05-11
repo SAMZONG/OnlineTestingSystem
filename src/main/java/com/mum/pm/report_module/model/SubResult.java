@@ -24,7 +24,8 @@ public class SubResult {
     @Column(name = "score")
     private double score;
 
-    public SubResult(){}
+    public SubResult() {
+    }
 
     public SubResult(int result_id, String sub_category_name, double score) {
         this.result_id = result_id;
